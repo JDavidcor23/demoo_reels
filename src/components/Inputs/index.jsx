@@ -5,7 +5,7 @@ export const Inputs = ({ name, placeholder, type }) => {
     <input
       type={type}
       name={name}
-      className="block w-full text-orangeCustom border-orangeCustom shadow-sm focus:border-orangeCustom focus:ring-orangeCustom sm:text-sm mt-12 bg-transparent"
+      className="block w-full text-white font-text border-orangeCustom shadow-sm focus:border-orangeCustom focus:ring-orangeCustom sm:text-sm mt-12 bg-transparent"
       placeholder={placeholder}
     />
   );
