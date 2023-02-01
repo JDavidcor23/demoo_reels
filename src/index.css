@@ -1,0 +1,57 @@
+.font-headings {
+  font-family: "Nunito", sans-serif;
+  font-family: "Bakbak One", cursive;
+}
+.center-absolute-bottom-0 {
+  left: 50%;
+  transform: translateX(-50%);
+}
+.font-text {
+  font-family: "Nunito", sans-serif;
+  font-family: "Josefin Sans", sans-serif;
+  font-family: "Bakbak One", cursive;
+}
+p {
+  font-family: "Nunito", sans-serif;
+  font-family: "Josefin Sans", sans-serif;
+  font-family: "Bakbak One", cursive;
+}
+.gradient-bg-welcome {
+  background-image: linear-gradient(
+    to right,
+    #201e42,
+    #1f1e45,
+    #1d1f48,
+    #1a1f4c,
+    #17204f
+  );
+}
+.gradient-bg-character {
+  background: hsla(94, 42%, 87%, 1);
+
+  background: linear-gradient(
+    360deg,
+    hsla(94, 42%, 87%, 1) 0%,
+    hsla(0, 0%, 100%, 1) 100%
+  );
+
+  background: -moz-linear-gradient(
+    360deg,
+    hsla(94, 42%, 87%, 1) 0%,
+    hsla(0, 0%, 100%, 1) 100%
+  );
+
+  background: -webkit-linear-gradient(
+    360deg,
+    hsla(94, 42%, 87%, 1) 0%,
+    hsla(0, 0%, 100%, 1) 100%
+  );
+}
+
+.width-90 {
+  width: 90%;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
