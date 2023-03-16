@@ -1,49 +1,36 @@
 import React from "react";
-import { PencilIcon, ArrowUpTrayIcon } from "@heroicons/react/24/solid";
 import behance from "../../assets/Profile/behance.svg";
 import instagram from "../../assets/Profile/instagram.svg";
 import linkedin from "../../assets/Profile/linkedin.svg";
 
-export const ProfileInfo = () => {
+export const ProfileInfo = ({ children }) => {
   return (
-    <div className="p-3 ">
-      {" "}
-      <div className="flex flex-col justify-center items-center w-96 p-6 gradient-bg-welcome text-white rounded-sm shadow-2xl min-h-[790px]">
+    <div className="p-3">
+      <div className=" container-profileInfo p-6 gradient-bg-welcome text-white rounded-sm shadow-2xl max-w-[400px] ">
         <img
-          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+          src="https://res.cloudinary.com/dbtk64lp4/image/upload/v1678822603/jorgito23diaz6_siberian_husky_3d_pixar_style_render_3d_hd_b95a39ab-ae8b-4d09-8594-f42e35e81de5_-_Copy_tvfcfn.png"
           alt=""
-          className=" w-28 rounded-full"
+          className=" w-28 rounded-full object-cover"
         />
         <h2 className="font-headings text-3xl my-5">Jorge David Diaz</h2>
-        <button className="justify-center items-center bg-orangeCustom p-3 w-48 text-center text-white font-text flex">
-          <PencilIcon
-            title="edit"
-            titleId="edits"
-            className="block h-6 w-6 mr-3"
-            aria-hidden="true"
-          />
-          <span className=" w-[100px]">EDIT PROFILE</span>
-        </button>
-        <button className="justify-center items-center border-2 border-orangeCustom p-3 mt-3 w-48 text-center text-white font-text flex">
-          <ArrowUpTrayIcon
-            title="edit"
-            titleId="edits"
-            className="block h-6 w-6 mr-3"
-            aria-hidden="true"
-          />
-          <span className=" w-[100px]">UPLOAD</span>
-        </button>
+        {children}
         <h3 className="font-text text-xl mt-10">Profile description</h3>
-        <p className="  mt-10">
+        <p className="mt-10">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores modi
           rem error similique autem accusamus. Eligendi quia totam illo adipisci
           facilis mollitia voluptates cumque repellendus voluptatem, commodi ut!
           Ab, provident.
         </p>
         <div className="flex mt-9 w-full justify-between">
-          <img src={behance} alt="" />
-          <img src={instagram} alt="" />
-          <img src={linkedin} alt="" />
+          <a href="">
+            <img src={behance} alt="" />
+          </a>
+          <a href="" className="">
+            <img src={instagram} alt="" className="mt-[-3px] h-[112%] " />
+          </a>
+          <a href="" className="">
+            <img src={linkedin} alt="" className="" />
+          </a>
         </div>
       </div>
     </div>

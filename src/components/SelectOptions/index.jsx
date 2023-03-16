@@ -39,13 +39,13 @@ export const SelectOptions = () => {
             ))}
           </button>
         ) : (
-          <p className="text-white text-[2.16rem]">
+          <p className="text-white text-[2.16rem] text-center">
             Select the programs you have used for this project
           </p>
         )}
       </div>
       <div className="w-full">
-        <ul className="h-[100px]  flex flex-wrap w-full justify-between p-5 bg-orangeCustom">
+        <ul className="min-h-[100px]  flex flex-wrap w-full justify-center p-5 bg-orangeCustom">
           {options.map((option) => (
             <li
               key={option}
@@ -55,7 +55,7 @@ export const SelectOptions = () => {
                   : ""
               }`}
             >
-              <label className="flex items-center cursor-pointer">
+              <label className="flex justify-center items-center cursor-pointer">
                 <input
                   type="checkbox"
                   className="form-checkbox hidden"

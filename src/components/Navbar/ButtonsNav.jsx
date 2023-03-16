@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { routes } from "../../constants";
 
-export const Buttons = () => {
+export const ButtonsNav = () => {
   return (
     <div className="hidden sm:ml-6 sm:flex sm:items-center">
       <Link to={routes.LOGIN}>

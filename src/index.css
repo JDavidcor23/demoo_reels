@@ -60,6 +60,182 @@ p {
 .width-90 {
   width: 90%;
 }
+.container-profile {
+  display: flex;
+  flex-direction: column;
+}
+.container-profileInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: auto;
+  margin: 0 auto;
+}
+.sizeCards-account {
+  width: 90%;
+  height: 34rem;
+}
+.container-design-profile {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 0.75rem;
+}
+.container-info-cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.sizeCards-designers {
+  width: 90%;
+}
+@media (min-width: 750px) {
+  .sizeCards-designers {
+    width: 36rem;
+  }
+}
+@media (min-width: 500px) {
+  .container-info-cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+@media (min-width: 600px) {
+  .sizeCards-account {
+    width: 32rem;
+  }
+}
+@media (min-width: 1490px) {
+  .container-profile {
+    display: flex;
+    flex-direction: row;
+  }
+  .container-profileInfo {
+    width: 24rem;
+    min-height: 790px;
+  }
+  .container-design-profile {
+    width: 100%;
+  }
+}
+.animation-modal {
+  transform: translateX(2000px);
+  animation: 1s side-content-img ease-in-out forwards;
+}
+@keyframes side-content-img {
+  0% {
+    transform: translateX(2000px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+.color-change {
+  background-image: linear-gradient(to bottom, #e97d05 50%, #ffffff 50%);
+  background-size: 100% 200%;
+  background-position: 0 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  transition: background-position 0.5s ease-in-out;
+}
+.color-change:hover {
+  background-position: 0 0;
+}
+/* /---------------------------------------------/ */
+.wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eee;
+}
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 18;
+  stroke-miterlimit: 10;
+  stroke: #e97d05;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+.checkmark {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  margin: 10% auto;
+  box-shadow: inset 0px 0px 0px #e97d05;
+  animation: fill 0.4s ease-in-out 0.4s forwards,
+    scale 0.3s ease-in-out 0.9s both;
+}
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes scale {
+  0%,
+  100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #e97d05;
+  }
+}
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #e97d05;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #e97d05 transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
 @tailwind base;
 @tailwind components;

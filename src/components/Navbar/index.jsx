@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Buttons } from "./Buttons";
+import { ButtonsNav } from "./ButtonsNav";
 import { useState } from "react";
 import { ProfileMenu } from "./ProfileMenu";
 import { Disclosure } from "@headlessui/react";
@@ -53,7 +53,7 @@ export const Navbar = () => {
                       ))}
                     </div>
                   </div>
-                  {login ? <ProfileMenu /> : <Buttons />}
+                  {login ? <ProfileMenu /> : <ButtonsNav />}
                   <div className="-mr-2 flex items-center sm:hidden">
                     <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                       <span className="sr-only">Open main menu</span>

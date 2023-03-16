@@ -8,9 +8,9 @@ export const Designers = () => {
     <div className="gradient-bg-welcome">
       <Navbar />
       <div className="gradient-bg-character mt-2 py-14">
-        <div className="flex flex-wrap justify-center">
+        <div className="flex flex-wrap justify-center gap-8">
           {data.map((d) => (
-            <Cards key={d.id} {...d} />
+            <Cards key={`${d.id}${d.name}`} {...d} />
           ))}
         </div>
       </div>
