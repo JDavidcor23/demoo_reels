@@ -6,8 +6,8 @@ import { Buttons } from "../components/ProfileInfo/Buttons";
 import { useProfileInfo } from "../hooks";
 
 export const Profile = ({ isTheOwnerOfTheAccount = true }) => {
-  const { profileVariables, functionsProfile } = useProfileInfo();
-  const { edit, openModalUpload, openModalDelete } = profileVariables;
+  const { variablesProfile, functionsProfile } = useProfileInfo();
+  const { edit, openModalUpload, openModalDelete } = variablesProfile;
   const {
     changeEditFalse,
     changeEditTrue,

@@ -1,4 +1,4 @@
-export * from "./Cards";
+export * from "./CardsRender";
 export * from "./Navbar";
 export * from "./Design";
 export * from "./Header";

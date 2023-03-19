@@ -53,12 +53,12 @@ export const useProfileInfo = () => {
     changeFalseDelete,
   };
 
-  const profileVariables = {
+  const variablesProfile = {
     edit,
     openModalUpload,
     openModalDelete,
     textProfile,
     infoProfile,
   };
-  return { profileVariables, functionsProfile };
+  return { variablesProfile, functionsProfile };
 };

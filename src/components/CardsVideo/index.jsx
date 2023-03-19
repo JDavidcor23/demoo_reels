@@ -3,9 +3,9 @@ import { MinusCircleIcon, PencilIcon } from "@heroicons/react/24/solid";
 import { Icons } from "../Icons";
 import { DeleteDesign } from "../DeleteDesign";
 
-export const Cards = ({
+export const CardsVideo = ({
   id,
-  img,
+  video,
   isTheOwnerOfTheAccount,
   title,
   user,
@@ -62,13 +62,7 @@ export const Cards = ({
             </div>
           </div>
         )}
-        <img
-          src={img}
-          alt=""
-          className={`object-cover img-reel ${
-            isTheOwnerOfTheAccount ? " h-[70%]" : "h-[380px]"
-          } `}
-        />
+        {video}
         <div className="w-[90%] py-5 m-auto container-info-cards">
           <div>
             <p className="text-2xl text-amber-900 font-text font-light py-2">
