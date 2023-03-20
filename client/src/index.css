@@ -252,6 +252,41 @@ p {
     transform: rotate(360deg);
   }
 }
+.custom-file-input {
+  color: transparent;
+  margin-top: 15px;
+  width: 100%;
+  height: 44px;
+}
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before {
+  content: "SELECT ONE IMAGE";
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: -webkit-linear-gradient(top, #e97d05, #e97d05);
+  border: none;
+  padding: 5px 8px;
+  width: 100%;
+  height: 44px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+.custom-file-input:hover::before {
+  border-color: none;
+}
+.custom-file-input:active {
+  outline: 0;
+}
+.custom-file-input:active::before {
+  background: -webkit-linear-gradient(top, #e97d05, #e97d05);
+}
 
 @tailwind base;
 @tailwind components;

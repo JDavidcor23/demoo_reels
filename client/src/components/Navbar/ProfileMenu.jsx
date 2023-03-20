@@ -10,7 +10,7 @@ export const ProfileMenu = () => {
     <div className="hidden sm:ml-6 sm:flex sm:items-center">
       <button
         type="button"
-        className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        className="rounded-full bg-orangeCustom p-1 text-white hover:text-white focus:outline-none  focus:ring-orangeCustom "
       >
         <span className="sr-only">View notifications</span>
         <BellIcon className="h-6 w-6" aria-hidden="true" />
@@ -18,7 +18,7 @@ export const ProfileMenu = () => {
 
       <Menu as="div" className="relative ml-3">
         <div>
-          <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+          <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none">
             <span className="sr-only">Open user menu</span>
             <img
               className="h-8 w-8 rounded-full"
@@ -36,17 +36,20 @@ export const ProfileMenu = () => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-orangeCustom py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <Menu.Item>
               <Link
                 to={routes.PROFILE}
-                className={"block px-4 py-2 text-sm text-gray-700"}
+                className={"block px-4 py-2 text-sm font-text text-white"}
               >
                 Your Profile
               </Link>
             </Menu.Item>
             <Menu.Item>
-              <a href="#" className={"block px-4 py-2 text-sm text-gray-700"}>
+              <a
+                href="#"
+                className={"block px-4 py-2 text-sm font-text text-white"}
+              >
                 Sign out
               </a>
             </Menu.Item>

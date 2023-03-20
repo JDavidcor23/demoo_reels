@@ -7,8 +7,8 @@ export const ChatItem = ({ user, image, msg }) => {
       style={{ animationDelay: `0.8s` }}
       className={`chat__item ${user ? user : ""}`}
     >
-      <div className="chat__item__content">
-        <div className="chat__msg font-text">{msg}</div>
+      <div className="chat__item__content ">
+        <div className="chat__msg font-text ">{msg}</div>
         <div className="chat__meta">
           <span className="font-text">Seen 1.03PM</span>
         </div>
