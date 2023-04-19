@@ -63,7 +63,7 @@ export const CardsVideo = ({
             </div>
           </div>
         )}
-        <video width="100%" height="315" controls poster={poster}>
+        <video width="100%" height="300" controls poster={poster}>
           <source type="video/mp4" src={video} />
         </video>
         <div className="w-[90%] py-5 m-auto container-info-cards">

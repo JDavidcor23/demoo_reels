@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-export const SelectOptions = () => {
+export const SelectOptions = ({ handleChangeSelect }) => {
   const [selected, setSelected] = useState([]);
   const options = [
     "Blender",
@@ -17,13 +17,18 @@ export const SelectOptions = () => {
     if (selected.includes(option)) {
       setSelected(selected.filter((o) => o !== option));
     } else {
+      if (selected.length === 2) return;
       setSelected([...selected, option]);
+      handleChangeSelect(selected);
     }
   };
+  useEffect(() => {
+    handleChangeSelect(selected);
+  }, [selected]);
 
   return (
     <>
-      <div className="my-5">
+      <div className="my-5 flex justify-center items-center flex-wrap w-full">
         {selected.length ? (
           <button
             className="flex items-center w-full p-2 text-left rounded-lg focus:outline-none focus:shadow-outline"
@@ -32,7 +37,7 @@ export const SelectOptions = () => {
             {selected.map((option) => (
               <span
                 key={option}
-                className=" border-2 border-orangeCustom w-[14.6rem] mr-2 px-3 py-1 font-text text-white text-sm"
+                className=" text-center border-2 border-orangeCustom w-[14.6rem] mr-2 px-3 py-1 font-text text-white text-sm"
               >
                 {option}
               </span>

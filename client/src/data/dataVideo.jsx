@@ -6,13 +6,13 @@ export const dataVideo = [
     title: "3D Generalist Demo Reel",
     user: "JB FX",
     poster:
-      "https://res.cloudinary.com/dbtk64lp4/image/upload/v1679349356/3D_Generalist_Demo_Reel_rttqu4.png",
+      "https://res.cloudinary.com/dbtk64lp4/image/upload/v1679961964/Screenshot_2023-03-27_190011_2_jiqhsy.png",
     programs: ["Blender"],
   },
   {
     id: "2",
     poster:
-      "https://res.cloudinary.com/dbtk64lp4/image/upload/v1679349530/My_Blender_Simulations_in_HDR_g1ztii.png",
+      "https://res.cloudinary.com/dbtk64lp4/image/upload/v1679962194/Screenshot_2023-03-27_190904_tfdlnn.png",
     video:
       "https://res.cloudinary.com/dbtk64lp4/video/upload/v1679345026/My_Blender_Simulations_in_HDR_sc40rb.mp4",
     title: "My Blender Simulations in HDR",
@@ -22,7 +22,7 @@ export const dataVideo = [
   {
     id: "3",
     poster:
-      "https://res.cloudinary.com/dbtk64lp4/image/upload/v1679349614/My_Character_Animation_Demo_reel_swblbv.png",
+      "https://res.cloudinary.com/dbtk64lp4/image/upload/v1679962325/Screenshot_2023-03-27_191037_eq8yts.png",
     video:
       "https://res.cloudinary.com/dbtk64lp4/video/upload/v1679345102/My_Character_Animation_Demo_reel_kgqqke.mp4",
     title: "My Character Animation Demo reel",

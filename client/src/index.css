@@ -287,6 +287,46 @@ p {
 .custom-file-input:active::before {
   background: -webkit-linear-gradient(top, #e97d05, #e97d05);
 }
+/* /--------------------------/ */
+.custom-file-input-video {
+  color: transparent;
+  margin-top: 15px;
+  width: 100%;
+  height: 44px;
+}
+.custom-file-input-video::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input-video::before {
+  content: "SELECT ONE VIDEO";
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: -webkit-linear-gradient(top, #e97d05, #e97d05);
+  border: none;
+  padding: 5px 8px;
+  width: 100%;
+  height: 44px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+.custom-file-input-video:hover::before {
+  border-color: none;
+}
+.custom-file-input-video:active {
+  outline: 0;
+}
+.custom-file-input-video:active::before {
+  background: -webkit-linear-gradient(top, #e97d05, #e97d05);
+}
+.dragging {
+  border: 2px solid blue;
+  background-color: #eee;
+}
 
 @tailwind base;
 @tailwind components;
