@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { uploadFileCloudinary } from "../helper/uploadFile";
+import { useWebSocket } from "./useWebSocket";
 
 export const useForm = (initialState, changeFalseUpload) => {
   const [loader, setLoader] = useState(false);
+  const { addRender, addDemoReel, disconnect } = useWebSocket();
   const [loaderVideo, setLoaderVideo] = useState(false);
 
   const [values, setValues] = useState(initialState);
@@ -16,14 +18,24 @@ export const useForm = (initialState, changeFalseUpload) => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(values);
-    changeFalseUpload();
+    try {
+      if (values.type === "render") {
+        addRender(values);
+      } else {
+        addDemoReel(values);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      disconnect();
+      changeFalseUpload();
+    }
   };
   const getImage = async (event) => {
     try {
       setLoader(true);
       const url = await uploadFileCloudinary(event);
-      setValues({ ...values, url });
+      setValues({ ...values, img });
     } catch (error) {
       console.log(error);
     } finally {

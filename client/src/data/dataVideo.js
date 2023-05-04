@@ -1,6 +1,7 @@
 export const dataVideo = [
   {
     id: "1",
+    type: "demo_reel",
     video:
       "https://res.cloudinary.com/dbtk64lp4/video/upload/v1679344636/3D_Generalist_Demo_Reel_2020_Blender_sev2cw.mp4",
     title: "3D Generalist Demo Reel",
@@ -11,6 +12,7 @@ export const dataVideo = [
   },
   {
     id: "2",
+    type: "demo_reel",
     poster:
       "https://res.cloudinary.com/dbtk64lp4/image/upload/v1679962194/Screenshot_2023-03-27_190904_tfdlnn.png",
     video:
@@ -21,6 +23,7 @@ export const dataVideo = [
   },
   {
     id: "3",
+    type: "demo_reel",
     poster:
       "https://res.cloudinary.com/dbtk64lp4/image/upload/v1679962325/Screenshot_2023-03-27_191037_eq8yts.png",
     video:

@@ -2,7 +2,7 @@ export const routes = {
   HOME: "/",
   LOGIN: "/Login",
   CHAT: "/Chat",
-  PROFILE: "/Profile",
+  PROFILE: "Designers/Profile",
   DESIGNERS: "/Designers",
 };
 export const routesNames = {

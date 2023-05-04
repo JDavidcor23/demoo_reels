@@ -1,8 +1,7 @@
-import React from "react";
-import { data } from "../../data/data";
-import { dataVideo } from "../../data/dataVideo";
+import React, { useEffect, useState } from "react";
 import { useCards } from "../../hooks/useCards";
 import { Cards } from "../Cards/Cards";
+import { useWebSocket } from "../../hooks";
 
 export const Design = ({
   edit,
@@ -12,7 +11,19 @@ export const Design = ({
   changeFalseDelete,
 }) => {
   const { functionsCards, variablesCards } = useCards();
+  const { getDemoReel, getRender, disconnect, dataRender, dataVideo } =
+    useWebSocket();
 
+  useEffect(() => {
+    getDemoReel();
+    getRender();
+    return () => {
+      if (dataRender.length > 0 || dataVideo.length > 0) {
+        disconnect();
+      }
+    };
+  }, []);
+  console.log({ dataRender });
   return (
     <div className="container-design-profile">
       <ul className="flex gap-6 border-b-[5px] border-orangeCustom justify-center w-90 m-auto">
@@ -31,7 +42,8 @@ export const Design = ({
       </ul>
       <div className="flex flex-wrap justify-center gap-8 mt-8">
         {"render" === variablesCards.typeCards
-          ? data.map((d) => (
+          ? dataRender?.length > 0 &&
+            dataRender.map((d) => (
               <Cards
                 typeCards={variablesCards.typeCards}
                 key={`${d.id}${d.name}`}
@@ -43,7 +55,8 @@ export const Design = ({
                 changeFalseDelete={changeFalseDelete}
               />
             ))
-          : dataVideo.map((d) => (
+          : dataVideo?.length > 0 &&
+            dataVideo.map((d) => (
               <Cards
                 typeCards={variablesCards.typeCards}
                 key={`${d.id}${d.name}`}

@@ -2,14 +2,13 @@ import { Inputs } from "../Inputs";
 import { SelectOptions } from "../SelectOptions";
 import { useForm } from "../../hooks";
 import { useEffect, useState } from "react";
-import { Loader } from "../Loader";
 import { LoaderForm } from "./LoaderForm";
 
 const allInputs = [
   {
-    name: "Name",
+    name: "title",
     type: "text",
-    placeholder: "Name",
+    placeholder: "Title",
   },
 ];
 
@@ -28,7 +27,7 @@ export const AddProject = ({ changeFalseUpload }) => {
   } = useForm({}, changeFalseUpload);
 
   useEffect(() => {
-    setValues({ ...values, type: uploadProject });
+    setValues({ ...values, type: uploadProject, user: "jorge" });
   }, [uploadProject]);
 
   return (
@@ -68,7 +67,7 @@ export const AddProject = ({ changeFalseUpload }) => {
                       <img
                         className="new-split-white h-[250px] w-full object-cover "
                         src={
-                          values?.url ??
+                          values?.img ??
                           "https://res.cloudinary.com/dbtk64lp4/image/upload/v1680722646/preview_oe6wyc_wgace6.png"
                         }
                       />
@@ -122,7 +121,7 @@ export const AddProject = ({ changeFalseUpload }) => {
                     <img
                       className="new-split-white h-[250px] w-full object-cover "
                       src={
-                        values?.url ??
+                        values?.img ??
                         "https://res.cloudinary.com/dbtk64lp4/image/upload/v1680722646/preview_oe6wyc_wgace6.png"
                       }
                     />
