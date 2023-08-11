@@ -12,14 +12,8 @@ export const Design = ({
   changeTrueUpload,
 }) => {
   const { functionsCards, variablesCards } = useCards();
-  const {
-    getDemoReel,
-    addRender,
-    getRender,
-    disconnect,
-    dataRender,
-    dataVideo,
-  } = useWebSocket();
+  const { getDemoReel, getRender, disconnect, dataRender, dataVideo } =
+    useWebSocket();
 
   useEffect(() => {
     getDemoReel();
@@ -30,6 +24,7 @@ export const Design = ({
       }
     };
   }, []);
+
   return (
     <div className="container-design-profile">
       <ul className="flex gap-6 border-b-[5px] border-orangeCustom justify-center w-90 m-auto">

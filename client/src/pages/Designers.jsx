@@ -10,7 +10,7 @@ export const Designers = () => {
     useWebSocket();
 
   useEffect(() => {
-    // getDemoReel();
+    getDemoReel();
     getRender();
     return () => {
       if (dataRender.length > 0 || dataVideo.length > 0) {

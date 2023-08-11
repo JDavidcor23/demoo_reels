@@ -1,40 +1,51 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { io } from "socket.io-client";
+import { useDispatch, useSelector } from "react-redux";
+import { setDataRenderSlice } from "../store/slices/dataRender";
+import { setDataVideoSlice } from "../store/slices/dataVideo";
 
 export const useWebSocket = () => {
-  const [dataRender, setDataRender] = useState([]);
+  const dispatch = useDispatch();
+
+  const dataRender = useSelector((state) => state.dataRender.data);
+
+  const dataVideo = useSelector((state) => state.dataVideo.data);
+
   const [loaderSocket, setLoaderSocket] = useState(false);
-  const [dataVideo, setDataVideo] = useState([]);
 
   const socket = io("http://localhost:3000");
 
   const getRender = () => {
     socket.emit("getDBrenders");
     socket.on("getRenders", (data) => {
-      setDataRender(data);
+      dispatch(setDataRenderSlice([]));
+      dispatch(setDataRenderSlice(data));
     });
   };
 
   const getDemoReel = () => {
     socket.on("getDBemoReels");
     socket.on("getDemoReels", (data) => {
-      setDataVideo(data);
+      dispatch(setDataVideoSlice([]));
+      dispatch(setDataVideoSlice(data));
     });
   };
 
-  const addRender = (data) => {
-    try {
-      setLoaderSocket(true);
-      socket.emit("addRender", data);
-      socket.on("newRender", (data) => {
-        setDataRender([...dataRender, data]);
-      });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoaderSocket(false);
-    }
+  const addRender = async (data) => {
+    // try {
+    // setLoaderSocket(true);
+    socket.emit("addRender", data);
+    socket.on("newRender", (data) => {
+      alert("Render agregado", data.type);
+      // setDataRender([...dataRender, data]);
+    });
+    // } catch (error) {
+    //   console.log(error);
+    // } finally {
+    //   setLoaderSocket(false);
+    // }
   };
+  // Configurar el receptor para "newRender" fuera de socket.on("addRender", ...)
 
   const addDemoReel = (data) => {
     try {
@@ -53,19 +64,8 @@ export const useWebSocket = () => {
   const deleteDesignSocket = async (id, type) => {
     try {
       setLoaderSocket(true);
-
       const data = { id, type };
-
       socket.emit("deleteDesign", data);
-      socket.on("idDeleted", (data) => {
-        if (data.type === "render") {
-          setDataRender(dataRender.filter((item) => item.id !== data.id));
-        }
-
-        if (data.type === "demo_reel") {
-          setDataVideo(dataVideo.filter((item) => item.id !== data.id));
-        }
-      });
     } catch (error) {
       console.log(error);
     } finally {

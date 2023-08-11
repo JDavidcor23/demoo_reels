@@ -76,6 +76,7 @@ export const CardsRender = ({
                     style={{ margin: "0" }}
                   />
                 </div>
+
                 <div
                   className="relative w-[40px] h-[40px] left-[3px]"
                   onClick={changeTrueDelete}
@@ -92,6 +93,7 @@ export const CardsRender = ({
               </div>
             </div>
           )}
+
           <img
             src={img}
             alt=""
@@ -99,15 +101,18 @@ export const CardsRender = ({
               isTheOwnerOfTheAccount ? " h-[70%]" : "h-[380px]"
             } `}
           />
+
           <div className="w-[90%] py-5 m-auto container-info-cards">
             <div>
               <p className="text-2xl text-amber-900 font-text font-light py-2">
                 Title: {title}
               </p>
+
               <p className="text-2xl text-amber-900 font-text font-light py-2">
                 User: {user}
               </p>
             </div>
+
             <div className="flex justify-center items-center gap-3">
               {programs.map((program) => (
                 <Icons type={program} key={`${program}${id}`} />

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { uploadFileCloudinary } from "../helper/uploadFile";
 import { useWebSocket } from "./useWebSocket";
 import { stateOfEdit } from "../constants";
-import { useDispatch, useSelector } from "react-redux";
 import { setInformationToEdit } from "../store/slices/informationToEdit";
+import { setDataRenderSlice } from "../store/slices/dataRender";
+import { setDataVideoSlice } from "../store/slices/dataVideo";
 
 export const useForm = (initialState, changeFalseUpload) => {
   const dispatch = useDispatch();
@@ -17,6 +19,8 @@ export const useForm = (initialState, changeFalseUpload) => {
     addDemoReel,
     disconnect,
     loaderSocket,
+    dataRender,
+    dataVideo,
     updateDesignSocket,
     deleteDesignSocket,
   } = useWebSocket();
@@ -58,7 +62,7 @@ export const useForm = (initialState, changeFalseUpload) => {
     } finally {
       if (loaderSocket === false) {
         disconnect();
-        changeFalseUpload();
+        // changeFalseUpload();
       }
     }
   };
@@ -87,11 +91,29 @@ export const useForm = (initialState, changeFalseUpload) => {
     }
   };
 
-  const deleteDesign = (id, type, setLoaderDelete, changeFalseDelete) => {
+  const deleteDesign = async (id, type, setLoaderDelete, changeFalseDelete) => {
     try {
       setLoaderDelete(stateOfEdit.LOADING);
+
       deleteDesignSocket(id, type);
+
       setLoaderDelete(stateOfEdit.SUCCESS);
+
+      if (type === "render") {
+        setTimeout(() => {
+          dispatch(
+            setDataRenderSlice(dataRender.filter((item) => item._id !== id))
+          );
+        }, 2000);
+      }
+
+      if (type === "demo_reel") {
+        setTimeout(() => {
+          dispatch(
+            setDataVideoSlice(dataVideo.filter((item) => item.id !== id))
+          );
+        }, 2000);
+      }
     } catch (error) {
       console.log(error);
     } finally {

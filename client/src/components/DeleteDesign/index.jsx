@@ -20,6 +20,7 @@ export const DeleteDesign = ({
         className="w-screen h-screen fixed bg-black opacity-[0.1] z-[8000] top-[50%] left-[50%]"
         style={{ transform: "translate(-50%, -50%)" }}
       ></div>
+
       <div className=" fixed inset-0 z-[9999] overflow-y-auto animation-modal">
         <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
           <div className="relative transform overflow-hidden rounded-lg gradient-bg-welcome px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full max-w-[500px] sm:p-6">
