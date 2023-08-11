@@ -7,6 +7,8 @@ import {
   addRender,
   deleteRender,
   deleteVideo,
+  updateVideo,
+  updateRender,
 } from "./functions/index.js";
 import "./db.js";
 
