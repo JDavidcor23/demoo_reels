@@ -12,11 +12,19 @@ export const addRender = (data) => {
 };
 
 export const getDataRender = async () => {
-  return await DataRender.collection.find({}).toArray();
+  try {
+    return await DataRender.collection.find({}).toArray();
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 export const getDataVideo = async () => {
-  return await DataVideo.collection.find({}).toArray();
+  try {
+    return await DataVideo.collection.find({}).toArray();
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 export const deleteVideo = async (id) => {
@@ -28,25 +36,39 @@ export const deleteVideo = async (id) => {
 };
 
 export const deleteRender = async (id) => {
-  const data = await DataRender.findByIdAndDelete(id);
-  if (data) {
-    return data;
+  try {
+    const data = await DataRender.findByIdAndDelete(id);
+    if (data) {
+      return data;
+    }
+    return null;
+  } catch (error) {
+    throw new Error(error);
   }
-  return null;
 };
 
 export const updateVideo = async (id, data) => {
-  const newData = await DataVideo.findByIdAndUpdate(id, data);
-  if (newData) {
-    return newData;
+  try {
+    await DataVideo.findByIdAndUpdate(id, data);
+    const newData = await DataVideo.findById(id);
+    if (newData) {
+      return newData;
+    }
+    return null;
+  } catch (error) {
+    throw new Error(error);
   }
-  return null;
 };
 
 export const updateRender = async (id, data) => {
-  const newData = await DataRender.findByIdAndUpdate(id, data);
-  if (newData) {
-    return newData;
+  try {
+    await DataRender.findByIdAndUpdate(id, data);
+    const newData = await DataRender.findById(id);
+    if (newData) {
+      return newData;
+    }
+    return null;
+  } catch (error) {
+    throw new Error(error);
   }
-  return null;
 };

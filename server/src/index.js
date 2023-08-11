@@ -75,6 +75,26 @@ io.on("connection", async (socket) => {
       }
     }
   });
+
+  socket.on("updateDesign", async (data) => {
+    if (data.type === "render") {
+      try {
+        const newData = await updateRender(data.id, data);
+        socket.emit("updatedData", newData);
+      } catch (error) {
+        throw new Error(error);
+      }
+    }
+
+    if (data.type === "demo_reel") {
+      try {
+        const newData = await updateVideo(data.id, data);
+        socket.emit("updatedData", newData);
+      } catch (error) {
+        throw new Error(error);
+      }
+    }
+  });
 });
 
 server.listen(3000);

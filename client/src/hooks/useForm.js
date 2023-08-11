@@ -1,29 +1,23 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadFileCloudinary } from "../helper/uploadFile";
-import { useWebSocket } from "./useWebSocket";
-import { stateOfEdit } from "../constants";
 import { setInformationToEdit } from "../store/slices/informationToEdit";
 import { setDataRenderSlice } from "../store/slices/dataRender";
 import { setDataVideoSlice } from "../store/slices/dataVideo";
+import { useSocketIo } from "./useSocketIo";
 
 export const useForm = (initialState, changeFalseUpload) => {
   const dispatch = useDispatch();
 
   const informationToEdit = useSelector((state) => state.informationToEdit);
 
+  const dataVideo = useSelector((state) => state.dataVideo.data);
+
+  const dataRender = useSelector((state) => state.dataRender.data);
+
   const [loader, setLoader] = useState(false);
 
-  const {
-    addRender,
-    addDemoReel,
-    disconnect,
-    loaderSocket,
-    dataRender,
-    dataVideo,
-    updateDesignSocket,
-    deleteDesignSocket,
-  } = useWebSocket();
+  const { socket } = useSocketIo(import.meta.env.VITE_BACKEND);
 
   const [loaderVideo, setLoaderVideo] = useState(false);
 
@@ -32,6 +26,25 @@ export const useForm = (initialState, changeFalseUpload) => {
   const [values, setValues] = useState(
     informationToEdit.id ? informationToEdit : initialState
   );
+
+  const getRender = () => {
+    console.log("llego qui");
+    socket.emit("getDBrenders");
+    socket.on("getRenders", (data) => {
+      console.log("getRender", data);
+      dispatch(setDataRenderSlice([]));
+      dispatch(setDataRenderSlice(data));
+    });
+  };
+
+  const getDemoReel = () => {
+    socket.on("getDBemoReels");
+    socket.on("getDemoReels", (data) => {
+      console.log("getDemoReel", data);
+      dispatch(setDataVideoSlice([]));
+      dispatch(setDataVideoSlice(data));
+    });
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -43,6 +56,39 @@ export const useForm = (initialState, changeFalseUpload) => {
     setValues({ ...values, programs: array });
   };
 
+  const updateDesignSocket = (values) => {
+    try {
+      socket.emit("updateDesign", values);
+      socket.on("updatedData", (newData) => {
+        new Promise((resolve, reject) => {
+          if (values.type === "render") {
+            const index = dataRender.findIndex(
+              (data) => data._id === newData._id
+            );
+            const newDataRender = [...dataRender];
+            newDataRender.splice(index, 1, newData);
+            dispatch(setDataRenderSlice([]));
+            dispatch(setDataRenderSlice(newDataRender));
+          }
+
+          if (values.type === "demo_reel") {
+            const index = dataVideo.findIndex(
+              (data) => data._id === newData._id
+            );
+            dataVideo.splice(index, 1, newData);
+            dispatch(setDataVideoSlice([]));
+            dispatch(setDataVideoSlice(dataVideo));
+          }
+          resolve();
+        }).then(() => {
+          changeFalseUpload();
+        });
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -51,19 +97,17 @@ export const useForm = (initialState, changeFalseUpload) => {
         updateDesignSocket(values);
         dispatch(setInformationToEdit({}));
         return;
-      }
-      if (values.type === "render") {
-        addRender(values);
       } else {
-        addDemoReel(values);
+        if (values.type === "render") {
+          addRender(values);
+        }
+
+        if (values.type === "demo_reel") {
+          addDemoReel(values);
+        }
       }
     } catch (error) {
       console.log(error);
-    } finally {
-      if (loaderSocket === false) {
-        disconnect();
-        // changeFalseUpload();
-      }
     }
   };
 
@@ -91,39 +135,40 @@ export const useForm = (initialState, changeFalseUpload) => {
     }
   };
 
-  const deleteDesign = async (id, type, setLoaderDelete, changeFalseDelete) => {
+  const addRender = async (data) => {
     try {
-      setLoaderDelete(stateOfEdit.LOADING);
-
-      deleteDesignSocket(id, type);
-
-      setLoaderDelete(stateOfEdit.SUCCESS);
-
-      if (type === "render") {
-        setTimeout(() => {
-          dispatch(
-            setDataRenderSlice(dataRender.filter((item) => item._id !== id))
-          );
-        }, 2000);
-      }
-
-      if (type === "demo_reel") {
-        setTimeout(() => {
-          dispatch(
-            setDataVideoSlice(dataVideo.filter((item) => item.id !== id))
-          );
-        }, 2000);
-      }
+      socket.emit("addRender", data);
+      socket.on("newRender", (newData) => {
+        new Promise((resolve, reject) => {
+          dispatch(setDataRenderSlice([]));
+          dispatch(setDataRenderSlice([...dataRender, newData]));
+          resolve();
+        }).then(() => {
+          changeFalseUpload();
+        });
+      });
     } catch (error) {
       console.log(error);
     } finally {
-      if (loaderSocket === false) {
-        disconnect();
-      }
-      setTimeout(() => changeFalseDelete(), 1800);
+      // setLoaderSocket(false);
     }
   };
 
+  const addDemoReel = async (data) => {
+    try {
+      // setLoaderSocket(true);
+      socket.emit("addDemoReel", data);
+      socket.on("newDemoReel", (data) => {
+        dispatch(setDataVideoSlice([...dataVideo, data]));
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      // setLoaderSocket(false);
+    }
+  };
+
+  //Add the title of the render to the input
   useEffect(() => {
     if (informationToEdit.id) {
       setValueInput(informationToEdit.title);
@@ -136,12 +181,10 @@ export const useForm = (initialState, changeFalseUpload) => {
     getImage,
     setValues,
     loaderVideo,
-    loaderSocket,
     handleSubmit,
     handleChange,
     getImageVideo,
     valueInput,
-    deleteDesign,
     handleChangeSelect,
   };
 };

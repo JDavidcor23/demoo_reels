@@ -1,18 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { Loader } from "../Loader";
 import { Success } from "../Success";
-import { useForm } from "../../hooks";
+import { useDeleteDesign } from "../../hooks";
 import { stateOfEdit } from "../../constants";
 
-export const DeleteDesign = ({
-  changeTrueDelete,
-  changeFalseDelete,
-  id,
-  type,
-}) => {
-  const [loaderDelete, setLoaderDelete] = useState(stateOfEdit.NOTHING_ACTION);
-  const { deleteDesign } = useForm();
+export const DeleteDesign = ({ changeFalseDelete, id, type }) => {
+  const { deleteDesign, loaderDelete } = useDeleteDesign(changeFalseDelete);
 
   return (
     <>
@@ -59,9 +53,7 @@ export const DeleteDesign = ({
             <div className=" gap-4 flex items-center flex-wrap justify-center mt-5">
               <button
                 className="bg-orangeCustom p-2 w-40 text-center text-white font-text"
-                onClick={() =>
-                  deleteDesign(id, type, setLoaderDelete, changeFalseDelete)
-                }
+                onClick={() => deleteDesign(id, type, changeFalseDelete)}
               >
                 DELETE
               </button>
