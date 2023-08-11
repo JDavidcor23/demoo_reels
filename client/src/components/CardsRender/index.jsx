@@ -5,29 +5,49 @@ import { DeleteDesign } from "../DeleteDesign";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { routes } from "../../constants/routes";
+import { setInformationToEdit } from "../../store/slices/informationToEdit";
+import { useDispatch } from "react-redux";
 
 export const CardsRender = ({
-  _id,
   img,
+  id,
   isTheOwnerOfTheAccount,
   title,
+  changeTrueUpload,
   user,
   width = "w-[32rem]",
   height = "h-[33.75rem]",
   edit,
+  typeCards,
   programs,
   openModalDelete,
   changeTrueDelete,
   changeFalseDelete,
 }) => {
   const { pathname } = useLocation();
+
+  const dispatch = useDispatch();
+
+  const openModalEditAndSendInformation = () => {
+    dispatch(
+      setInformationToEdit({
+        id,
+        img,
+        title,
+        programs,
+        type: typeCards,
+      })
+    );
+    changeTrueUpload();
+  };
+
   return (
     <>
       {openModalDelete && (
         <DeleteDesign
           changeTrueDelete={changeTrueDelete}
           type={"render"}
-          id={_id}
+          id={id}
           changeFalseDelete={changeFalseDelete}
         />
       )}
@@ -43,7 +63,10 @@ export const CardsRender = ({
           {edit && (
             <div className="absolute w-full">
               <div className="flex justify-between cursor-pointer items-center w-full m-auto mt-[-20px]">
-                <div className="flex justify-center items-center w-[32px] h-[32px] bg-white rounded-full p-1">
+                <div
+                  className="flex justify-center items-center w-[32px] h-[32px] bg-white rounded-full p-1"
+                  onClick={openModalEditAndSendInformation}
+                >
                   <PencilIcon
                     title="edit"
                     titleId="edits"
@@ -87,7 +110,7 @@ export const CardsRender = ({
             </div>
             <div className="flex justify-center items-center gap-3">
               {programs.map((program) => (
-                <Icons type={program} key={`${program}${_id}`} />
+                <Icons type={program} key={`${program}${id}`} />
               ))}
             </div>
           </div>

@@ -7,7 +7,9 @@ import { useProfileInfo } from "../hooks";
 
 export const Profile = ({ isTheOwnerOfTheAccount = true }) => {
   const { variablesProfile, functionsProfile } = useProfileInfo();
+
   const { edit, openModalUpload, openModalDelete } = variablesProfile;
+
   const {
     changeEditFalse,
     changeEditTrue,
@@ -16,6 +18,7 @@ export const Profile = ({ isTheOwnerOfTheAccount = true }) => {
     changeTrueDelete,
     changeFalseDelete,
   } = functionsProfile;
+
   useEffect(() => {
     if (openModalUpload) {
       document.body.style.overflowY = "hidden";
@@ -27,6 +30,7 @@ export const Profile = ({ isTheOwnerOfTheAccount = true }) => {
   return (
     <div className="gradient-bg-welcome">
       <Navbar />
+
       <div className="container-profile">
         <ProfileInfo>
           {isTheOwnerOfTheAccount ? (
@@ -49,11 +53,13 @@ export const Profile = ({ isTheOwnerOfTheAccount = true }) => {
             </button>
           )}
         </ProfileInfo>
+
         <Design
           edit={edit}
           isTheOwnerOfTheAccount={isTheOwnerOfTheAccount}
           openModalDelete={openModalDelete}
           changeTrueDelete={changeTrueDelete}
+          changeTrueUpload={changeTrueUpload}
           changeFalseDelete={changeFalseDelete}
         />
         {openModalUpload && (

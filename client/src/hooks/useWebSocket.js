@@ -73,6 +73,17 @@ export const useWebSocket = () => {
     }
   };
 
+  const updateDesignSocket = async (data) => {
+    try {
+      setLoaderSocket(true);
+      socket.emit("updateDesign", data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoaderSocket(false);
+    }
+  };
+
   const disconnect = () => {
     socket.disconnect();
   };
@@ -86,6 +97,7 @@ export const useWebSocket = () => {
     getRender,
     addRender,
     addDemoReel,
+    updateDesignSocket,
     disconnect,
   };
 };

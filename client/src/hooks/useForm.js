@@ -1,23 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { uploadFileCloudinary } from "../helper/uploadFile";
 import { useWebSocket } from "./useWebSocket";
 import { stateOfEdit } from "../constants";
+import { useDispatch, useSelector } from "react-redux";
+import { setInformationToEdit } from "../store/slices/informationToEdit";
 
 export const useForm = (initialState, changeFalseUpload) => {
+  const dispatch = useDispatch();
+
+  const informationToEdit = useSelector((state) => state.informationToEdit);
+
   const [loader, setLoader] = useState(false);
+
   const {
     addRender,
     addDemoReel,
     disconnect,
     loaderSocket,
+    updateDesignSocket,
     deleteDesignSocket,
   } = useWebSocket();
+
   const [loaderVideo, setLoaderVideo] = useState(false);
 
-  const [values, setValues] = useState(initialState);
+  const [valueInput, setValueInput] = useState("");
+
+  const [values, setValues] = useState(
+    informationToEdit.id ? informationToEdit : initialState
+  );
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+    setValueInput(value);
     setValues({ ...values, [name]: value });
   };
 
@@ -27,7 +41,13 @@ export const useForm = (initialState, changeFalseUpload) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     try {
+      if (informationToEdit.id) {
+        updateDesignSocket(values);
+        dispatch(setInformationToEdit({}));
+        return;
+      }
       if (values.type === "render") {
         addRender(values);
       } else {
@@ -82,6 +102,12 @@ export const useForm = (initialState, changeFalseUpload) => {
     }
   };
 
+  useEffect(() => {
+    if (informationToEdit.id) {
+      setValueInput(informationToEdit.title);
+    }
+  }, [informationToEdit]);
+
   return {
     values,
     loader,
@@ -92,6 +118,7 @@ export const useForm = (initialState, changeFalseUpload) => {
     handleSubmit,
     handleChange,
     getImageVideo,
+    valueInput,
     deleteDesign,
     handleChangeSelect,
   };

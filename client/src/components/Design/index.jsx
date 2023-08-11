@@ -9,6 +9,7 @@ export const Design = ({
   openModalDelete,
   changeTrueDelete,
   changeFalseDelete,
+  changeTrueUpload,
 }) => {
   const { functionsCards, variablesCards } = useCards();
   const {
@@ -56,6 +57,7 @@ export const Design = ({
                   {...d}
                   id={d._id}
                   edit={edit}
+                  changeTrueUpload={changeTrueUpload}
                   isTheOwnerOfTheAccount={isTheOwnerOfTheAccount}
                   openModalDelete={openModalDelete}
                   changeTrueDelete={changeTrueDelete}
@@ -71,6 +73,7 @@ export const Design = ({
                 {...d}
                 id={d._id}
                 edit={edit}
+                changeTrueUpload={changeTrueUpload}
                 isTheOwnerOfTheAccount={isTheOwnerOfTheAccount}
                 openModalDelete={openModalDelete}
                 changeTrueDelete={changeTrueDelete}

@@ -7,6 +7,8 @@ import {
   addRender,
   deleteRender,
   deleteVideo,
+  updateRender,
+  updateVideo,
 } from "./functions/index.js";
 import "./db.js";
 
@@ -77,6 +79,26 @@ io.on("connection", async (socket) => {
           id: data.id,
           type: data.type,
         });
+      } catch (error) {
+        throw new Error(error);
+      }
+    }
+  });
+
+  socket.on("updateDesign", async (data) => {
+    if (data.type === "render") {
+      try {
+        const newData = await updateRender(data.id, data);
+        socket.emit("updatedData", newData);
+      } catch (error) {
+        throw new Error(error);
+      }
+    }
+
+    if (data.type === "demo_reel") {
+      try {
+        const newData = await updateVideo(data.id, data);
+        socket.emit("updatedData", newData);
       } catch (error) {
         throw new Error(error);
       }

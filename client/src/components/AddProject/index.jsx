@@ -15,6 +15,7 @@ const allInputs = [
 
 export const AddProject = ({ changeFalseUpload }) => {
   const [uploadProject, setUploadProject] = useState("render");
+
   const {
     values,
     loader,
@@ -26,6 +27,7 @@ export const AddProject = ({ changeFalseUpload }) => {
     handleChange,
     getImageVideo,
     handleChangeSelect,
+    valueInput,
   } = useForm({}, changeFalseUpload);
 
   useEffect(() => {
@@ -97,6 +99,7 @@ export const AddProject = ({ changeFalseUpload }) => {
                   )}
                 </div>
               </div>
+
               {uploadProject === "render" ? (
                 <input
                   className="custom-file-input font-text"
@@ -137,14 +140,17 @@ export const AddProject = ({ changeFalseUpload }) => {
                   />
                 </>
               )}
+
               {allInputs.map((input) => (
                 <Inputs
+                  valueInput={valueInput}
                   key={input.name}
                   {...input}
                   marginTop="mt-5"
                   handleChange={handleChange}
                 />
               ))}
+
               <div className="w-full">
                 {loaderSocket ? (
                   <LoaderButton />

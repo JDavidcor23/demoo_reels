@@ -1,7 +1,13 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 export const useSelectOptions = ({ handleChangeSelect }) => {
-  const [selected, setSelected] = useState([]);
+  const informationToEdit = useSelector((state) => state?.informationToEdit);
+
+  const [selected, setSelected] = useState(
+    informationToEdit.id ? [...informationToEdit?.programs] : []
+  );
+
   const options = [
     "Blender",
     "Autodesk Maya",

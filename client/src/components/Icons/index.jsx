@@ -13,11 +13,11 @@ export const Icons = ({ type }) => {
       img: Blender,
       width: "100px",
     },
-    Unity: {
+    "Unity 3d": {
       img: Unity,
       width: "90px",
     },
-    Maya: {
+    "Autodesk Maya": {
       img: Maya,
       width: "50px",
     },
@@ -25,11 +25,11 @@ export const Icons = ({ type }) => {
       img: ZBrush,
       width: "100px",
     },
-    Cinema: {
+    "Cinema 4D": {
       img: Cinema,
       width: "50px",
     },
-    Unreal: {
+    "Unreal Engine": {
       img: Unreal,
       width: "50px",
     },
