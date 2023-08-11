@@ -2,30 +2,18 @@ import React, { useState } from "react";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { Loader } from "../Loader";
 import { Success } from "../Success";
+import { useForm } from "../../hooks";
+import { stateOfEdit } from "../../constants";
 
-export const DeleteDesign = ({ changeTrueDelete, changeFalseDelete }) => {
-  const [loader, setLoader] = useState(
-    <p className="font-text text-white text-xl mt-3 text-center">
-      Are you sure you want delete this project
-    </p>
-  );
-  const loadLoader = () => {
-    setLoader(
-      <div className="flex justify-center mt-4">
-        <Loader />
-      </div>
-    );
-    setTimeout(() => {
-      setLoader(
-        <div className="flex justify-center mt-4">
-          <Success />
-        </div>
-      );
-      setTimeout(() => {
-        changeFalseDelete();
-      }, 1500);
-    }, 2000);
-  };
+export const DeleteDesign = ({
+  changeTrueDelete,
+  changeFalseDelete,
+  id,
+  type,
+}) => {
+  const [loaderDelete, setLoaderDelete] = useState(stateOfEdit.NOTHING_ACTION);
+  const { deleteDesign } = useForm();
+
   return (
     <>
       <div
@@ -43,18 +31,40 @@ export const DeleteDesign = ({ changeTrueDelete, changeFalseDelete }) => {
                 className="block h-7 w-7 mr-3"
                 aria-hidden="true"
               />
+
               <h3 className="font-headings text-4xl text-white">
                 Delete project
               </h3>
             </div>
-            {loader}
+
+            {stateOfEdit.NOTHING_ACTION === loaderDelete && (
+              <p className="font-text text-white text-xl mt-3 text-center">
+                Are you sure you want delete this project
+              </p>
+            )}
+
+            {stateOfEdit.LOADING === loaderDelete && (
+              <div className="flex justify-center mt-4">
+                <Loader />
+              </div>
+            )}
+
+            {stateOfEdit.SUCCESS === loaderDelete && (
+              <div className="flex justify-center mt-4">
+                <Success />
+              </div>
+            )}
+
             <div className=" gap-4 flex items-center flex-wrap justify-center mt-5">
               <button
                 className="bg-orangeCustom p-2 w-40 text-center text-white font-text"
-                onClick={loadLoader}
+                onClick={() =>
+                  deleteDesign(id, type, setLoaderDelete, changeFalseDelete)
+                }
               >
                 DELETE
               </button>
+
               <button
                 className=" font-text border-orangeCustom border-2  p-2 w-40 text-center text-white"
                 onClick={changeFalseDelete}

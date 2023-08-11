@@ -1,13 +1,5 @@
 export const dataRender = [
   {
-    id: "1",
-    type: "render",
-    img: "https://res.cloudinary.com/dbtk64lp4/image/upload/v1674241170/demo/jorgito23diaz4_little_girl_smilling_pixar_style_3d_render_disne_147151ed-8be2-42e6-9abd-8bc8522f5fe7_andto4.png",
-    title: "Little girl",
-    user: "jorge",
-    programs: ["Blender", "Photoshop"],
-  },
-  {
     id: "2",
     type: "render",
     img: "https://res.cloudinary.com/dbtk64lp4/image/upload/v1674241161/demo/jorgito23diaz2_fat_old_man_goes_full_cowling_100_realistic_ligh_df44e5dd-34c6-4f3e-bd27-17575400c550_ofvj3f.png",

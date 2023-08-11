@@ -10,7 +10,7 @@ export const Designers = () => {
     useWebSocket();
 
   useEffect(() => {
-    getDemoReel();
+    // getDemoReel();
     getRender();
     return () => {
       if (dataRender.length > 0 || dataVideo.length > 0) {
@@ -43,16 +43,18 @@ export const Designers = () => {
               dataRender.map((d) => (
                 <Cards
                   typeCards={variablesCards.typeCards}
-                  key={`${d.id}${d.name}`}
+                  key={`${d._id}${d.title}`}
                   {...d}
+                  id={d._id}
                 />
               ))
             : dataVideo?.length > 0 &&
               dataVideo.map((d) => (
                 <Cards
                   typeCards={variablesCards.typeCards}
-                  key={`${d.id}${d.name}`}
+                  key={`${d._id}${d.title}`}
                   {...d}
+                  id={d._id}
                 />
               ))}
         </div>

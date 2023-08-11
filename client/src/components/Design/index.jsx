@@ -11,8 +11,14 @@ export const Design = ({
   changeFalseDelete,
 }) => {
   const { functionsCards, variablesCards } = useCards();
-  const { getDemoReel, getRender, disconnect, dataRender, dataVideo } =
-    useWebSocket();
+  const {
+    getDemoReel,
+    addRender,
+    getRender,
+    disconnect,
+    dataRender,
+    dataVideo,
+  } = useWebSocket();
 
   useEffect(() => {
     getDemoReel();
@@ -23,7 +29,6 @@ export const Design = ({
       }
     };
   }, []);
-  console.log({ dataRender });
   return (
     <div className="container-design-profile">
       <ul className="flex gap-6 border-b-[5px] border-orangeCustom justify-center w-90 m-auto">
@@ -44,23 +49,27 @@ export const Design = ({
         {"render" === variablesCards.typeCards
           ? dataRender?.length > 0 &&
             dataRender.map((d) => (
-              <Cards
-                typeCards={variablesCards.typeCards}
-                key={`${d.id}${d.name}`}
-                {...d}
-                edit={edit}
-                isTheOwnerOfTheAccount={isTheOwnerOfTheAccount}
-                openModalDelete={openModalDelete}
-                changeTrueDelete={changeTrueDelete}
-                changeFalseDelete={changeFalseDelete}
-              />
+              <>
+                <Cards
+                  typeCards={variablesCards.typeCards}
+                  key={`${d._id}${d.title}`}
+                  {...d}
+                  id={d._id}
+                  edit={edit}
+                  isTheOwnerOfTheAccount={isTheOwnerOfTheAccount}
+                  openModalDelete={openModalDelete}
+                  changeTrueDelete={changeTrueDelete}
+                  changeFalseDelete={changeFalseDelete}
+                />
+              </>
             ))
           : dataVideo?.length > 0 &&
             dataVideo.map((d) => (
               <Cards
                 typeCards={variablesCards.typeCards}
-                key={`${d.id}${d.name}`}
+                key={`${d._id}${d.title}`}
                 {...d}
+                id={d._id}
                 edit={edit}
                 isTheOwnerOfTheAccount={isTheOwnerOfTheAccount}
                 openModalDelete={openModalDelete}

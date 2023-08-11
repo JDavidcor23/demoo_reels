@@ -27,7 +27,7 @@ export const Characters = () => {
           <img src={military} alt="" className=" h-72" />
           <div className=" mt-5 w-56 h-44 bg-white rounded-full flex justify-center items-center">
             <h2 className="text-2xl text-amber-900 font-text font-light">
-              Videogames
+              Video games
             </h2>
           </div>
         </div>

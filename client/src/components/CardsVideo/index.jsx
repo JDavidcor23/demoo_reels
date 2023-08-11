@@ -3,6 +3,7 @@ import { MinusCircleIcon, PencilIcon } from "@heroicons/react/24/solid";
 import { Icons } from "../Icons";
 import { DeleteDesign } from "../DeleteDesign";
 import { Link, useLocation } from "react-router-dom";
+import { routes } from "../../constants/routes";
 
 export const CardsVideo = ({
   id,
@@ -20,18 +21,19 @@ export const CardsVideo = ({
   changeFalseDelete,
 }) => {
   const { pathname } = useLocation();
-
   return (
     <>
       {openModalDelete && (
         <DeleteDesign
           changeTrueDelete={changeTrueDelete}
+          type={"video"}
+          id={id}
           changeFalseDelete={changeFalseDelete}
         />
       )}
-      <Link to={`${pathname !== "/Profile" ? "Profile" : ""}`}>
+      <Link to={`${pathname !== routes.PROFILE ? routes.PROFILE : ""}`}>
         <div
-          className={`relative card-reels bg-white flex flex-col shadow-2xl rounded-md cursor-pointer
+          className={`relative card-reels bg-white flex flex-col shadow-2xl rounded-md cursor-pointer m-auto
       ${
         isTheOwnerOfTheAccount
           ? " sizeCards-account"

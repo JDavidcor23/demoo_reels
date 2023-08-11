@@ -43,5 +43,5 @@ export const Icons = ({ type }) => {
     },
   };
   const defaultIcon = typeIcon.Blender;
-  return <img src={typeIcon[type].img} alt="" width={typeIcon[type].width} />;
+  return <img src={typeIcon[type]?.img} alt="" width={typeIcon[type]?.width} />;
 };

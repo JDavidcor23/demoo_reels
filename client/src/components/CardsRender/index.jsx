@@ -4,9 +4,10 @@ import { Icons } from "../Icons";
 import { DeleteDesign } from "../DeleteDesign";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { routes } from "../../constants/routes";
 
 export const CardsRender = ({
-  id,
+  _id,
   img,
   isTheOwnerOfTheAccount,
   title,
@@ -20,18 +21,19 @@ export const CardsRender = ({
   changeFalseDelete,
 }) => {
   const { pathname } = useLocation();
-
   return (
     <>
       {openModalDelete && (
         <DeleteDesign
           changeTrueDelete={changeTrueDelete}
+          type={"render"}
+          id={_id}
           changeFalseDelete={changeFalseDelete}
         />
       )}
-      <Link to={`${pathname !== "/Profile" ? "Profile" : ""}`}>
+      <Link to={`${pathname !== routes.PROFILE ? routes.PROFILE : ""}`}>
         <div
-          className={`relative card-reels bg-white flex flex-col shadow-2xl rounded-md cursor-pointer
+          className={`relative card-reels bg-white flex flex-col shadow-2xl rounded-md cursor-pointer m-auto
       ${
         isTheOwnerOfTheAccount
           ? " sizeCards-account"
@@ -85,7 +87,7 @@ export const CardsRender = ({
             </div>
             <div className="flex justify-center items-center gap-3">
               {programs.map((program) => (
-                <Icons type={program} key={`${program}${id}`} />
+                <Icons type={program} key={`${program}${_id}`} />
               ))}
             </div>
           </div>

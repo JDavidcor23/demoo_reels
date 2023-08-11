@@ -1,27 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useSelectOptions } from "../../hooks";
 
 export const SelectOptions = ({ handleChangeSelect }) => {
-  const [selected, setSelected] = useState([]);
-  const options = [
-    "Blender",
-    "Autodesk Maya",
-    "Unity 3d",
-    "Unreal Engine",
-    "Cinema 4D",
-    "ZBrush",
-    "Illustrator",
-    "Photoshop",
-  ];
+  const { selected, options, toggleOption } = useSelectOptions({
+    handleChangeSelect,
+  });
 
-  const toggleOption = (option) => {
-    if (selected.includes(option)) {
-      setSelected(selected.filter((o) => o !== option));
-    } else {
-      if (selected.length === 2) return;
-      setSelected([...selected, option]);
-      handleChangeSelect(selected);
-    }
-  };
   useEffect(() => {
     handleChangeSelect(selected);
   }, [selected]);

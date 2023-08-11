@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import { uploadFileCloudinary } from "../helper/uploadFile";
 import { useWebSocket } from "./useWebSocket";
+import { stateOfEdit } from "../constants";
 
 export const useForm = (initialState, changeFalseUpload) => {
   const [loader, setLoader] = useState(false);
-  const { addRender, addDemoReel, disconnect } = useWebSocket();
+  const {
+    addRender,
+    addDemoReel,
+    disconnect,
+    loaderSocket,
+    deleteDesignSocket,
+  } = useWebSocket();
   const [loaderVideo, setLoaderVideo] = useState(false);
 
   const [values, setValues] = useState(initialState);
@@ -13,9 +20,11 @@ export const useForm = (initialState, changeFalseUpload) => {
     const { name, value } = event.target;
     setValues({ ...values, [name]: value });
   };
+
   const handleChangeSelect = (array) => {
     setValues({ ...values, programs: array });
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     try {
@@ -27,14 +36,17 @@ export const useForm = (initialState, changeFalseUpload) => {
     } catch (error) {
       console.log(error);
     } finally {
-      disconnect();
-      changeFalseUpload();
+      if (loaderSocket === false) {
+        disconnect();
+        changeFalseUpload();
+      }
     }
   };
+
   const getImage = async (event) => {
     try {
       setLoader(true);
-      const url = await uploadFileCloudinary(event);
+      const img = await uploadFileCloudinary(event);
       setValues({ ...values, img });
     } catch (error) {
       console.log(error);
@@ -42,6 +54,7 @@ export const useForm = (initialState, changeFalseUpload) => {
       setLoader(false);
     }
   };
+
   const getImageVideo = async (event) => {
     try {
       setLoaderVideo(true);
@@ -54,15 +67,32 @@ export const useForm = (initialState, changeFalseUpload) => {
     }
   };
 
+  const deleteDesign = (id, type, setLoaderDelete, changeFalseDelete) => {
+    try {
+      setLoaderDelete(stateOfEdit.LOADING);
+      deleteDesignSocket(id, type);
+      setLoaderDelete(stateOfEdit.SUCCESS);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      if (loaderSocket === false) {
+        disconnect();
+      }
+      setTimeout(() => changeFalseDelete(), 1800);
+    }
+  };
+
   return {
     values,
     loader,
     getImage,
     setValues,
     loaderVideo,
+    loaderSocket,
     handleSubmit,
     handleChange,
     getImageVideo,
+    deleteDesign,
     handleChangeSelect,
   };
 };

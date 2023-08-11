@@ -3,6 +3,7 @@ import { SelectOptions } from "../SelectOptions";
 import { useForm } from "../../hooks";
 import { useEffect, useState } from "react";
 import { LoaderForm } from "./LoaderForm";
+import { LoaderButton } from "./LoaderButton";
 
 const allInputs = [
   {
@@ -20,6 +21,7 @@ export const AddProject = ({ changeFalseUpload }) => {
     getImage,
     setValues,
     loaderVideo,
+    loaderSocket,
     handleSubmit,
     handleChange,
     getImageVideo,
@@ -144,12 +146,16 @@ export const AddProject = ({ changeFalseUpload }) => {
                 />
               ))}
               <div className="w-full">
-                <button
-                  type="submit"
-                  className="w-full flex flex-col content-center justify-center items-center text-center text-[white] p-2.5 bg-orangeCustom mt-4 font-text"
-                >
-                  PUBLISH
-                </button>
+                {loaderSocket ? (
+                  <LoaderButton />
+                ) : (
+                  <button
+                    type="submit"
+                    className="w-full flex flex-col content-center justify-center items-center text-center text-[white] p-2.5 bg-orangeCustom mt-4 font-text"
+                  >
+                    PUBLISH
+                  </button>
+                )}
                 <button
                   type="button"
                   className="w-full flex flex-col content-center justify-center items-center text-center text-[white] p-2.5 border-2 border-orangeCustom mt-4 font-text"
