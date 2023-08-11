@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useCards } from "../../hooks/useCards";
 import { Cards } from "../Cards/Cards";
-import { useWebSocket } from "../../hooks";
+import { useSocketIo, useWebSocket } from "../../hooks";
+import { setDataRenderSlice } from "../../store/slices/dataRender";
+import { useDispatch } from "react-redux";
 
 export const Design = ({
   edit,
@@ -12,24 +14,38 @@ export const Design = ({
   changeTrueUpload,
 }) => {
   const { functionsCards, variablesCards } = useCards();
-  const {
-    getDemoReel,
-    addRender,
-    getRender,
-    disconnect,
-    dataRender,
-    dataVideo,
-  } = useWebSocket();
+
+  const dispatch = useDispatch();
+
+  const { socket, dataVideo, dataRender } = useSocketIo(
+    import.meta.env.VITE_BACKEND
+  );
+
+  const getRender = () => {
+    if (socket) {
+      socket.emit("getDBrenders");
+      socket.on("getRenders", (data) => {
+        dispatch(setDataRenderSlice([]));
+        dispatch(setDataRenderSlice(data));
+      });
+    }
+  };
+
+  const getDemoReel = () => {
+    if (socket) {
+      socket.on("getDBemoReels");
+      socket.on("getDemoReels", (data) => {
+        dispatch(setDataVideoSlice([]));
+        dispatch(setDataVideoSlice(data));
+      });
+    }
+  };
 
   useEffect(() => {
-    getDemoReel();
     getRender();
-    return () => {
-      if (dataRender.length > 0 || dataVideo.length > 0) {
-        disconnect();
-      }
-    };
-  }, []);
+    getDemoReel();
+  }, [socket]);
+
   return (
     <div className="container-design-profile">
       <ul className="flex gap-6 border-b-[5px] border-orangeCustom justify-center w-90 m-auto">

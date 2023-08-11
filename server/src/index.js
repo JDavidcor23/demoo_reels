@@ -63,10 +63,6 @@ io.on("connection", async (socket) => {
     if (data.type === "render") {
       try {
         await deleteRender(data.id);
-        socket.emit("idDeleted", {
-          id: data.id,
-          type: data.type,
-        });
       } catch (error) {
         throw new Error(error);
       }
@@ -75,10 +71,6 @@ io.on("connection", async (socket) => {
     if (data.type === "demo_reel") {
       try {
         await deleteVideo(data.id);
-        socket.emit("idDeleted", {
-          id: data.id,
-          type: data.type,
-        });
       } catch (error) {
         throw new Error(error);
       }
