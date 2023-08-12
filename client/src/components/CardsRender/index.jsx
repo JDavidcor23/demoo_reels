@@ -48,6 +48,7 @@ export const CardsRender = ({
           changeTrueDelete={changeTrueDelete}
           type={"render"}
           id={id}
+          title={title}
           changeFalseDelete={changeFalseDelete}
         />
       )}

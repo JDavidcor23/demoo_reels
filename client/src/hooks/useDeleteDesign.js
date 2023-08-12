@@ -11,7 +11,8 @@ export const useDeleteDesign = () => {
 
   const { socket } = useSocketIo(import.meta.env.VITE_BACKEND);
 
-  const deleteDesign = (id, type, changeFalseDelete) => {
+  const deleteDesign = (id, type, changeFalseDelete, title) => {
+    console.log(title);
     try {
       setLoaderDelete(stateOfEdit.LOADING);
       const data = { id, type };

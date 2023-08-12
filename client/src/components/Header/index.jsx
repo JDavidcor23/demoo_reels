@@ -18,7 +18,7 @@ export const Header = () => {
         />
         <div>
           <h1 className="font-headings text-orangeCustom text-7xl mb-5 text-center mobile:text-start">
-            Demoo reels
+            Demoo reels (prueba)
           </h1>
           <p className="text-white text-2xl max-w-[500px] text-center mobile:text-start font-text">
             Welcome to our platform for designers, animators and 3D modelers!

@@ -5,7 +5,7 @@ import { Success } from "../Success";
 import { useDeleteDesign } from "../../hooks";
 import { stateOfEdit } from "../../constants";
 
-export const DeleteDesign = ({ changeFalseDelete, id, type }) => {
+export const DeleteDesign = ({ changeFalseDelete, id, type, title }) => {
   const { deleteDesign, loaderDelete } = useDeleteDesign(changeFalseDelete);
 
   return (
@@ -53,7 +53,7 @@ export const DeleteDesign = ({ changeFalseDelete, id, type }) => {
             <div className=" gap-4 flex items-center flex-wrap justify-center mt-5">
               <button
                 className="bg-orangeCustom p-2 w-40 text-center text-white font-text"
-                onClick={() => deleteDesign(id, type, changeFalseDelete)}
+                onClick={() => deleteDesign(id, type, changeFalseDelete, title)}
               >
                 DELETE
               </button>
