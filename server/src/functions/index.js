@@ -1,17 +1,17 @@
-import DataVideo from "../model/dataVideo.model.js";
-import DataRender from "../model/dataRender.model.js";
+const DataVideo = require("../model/dataVideo.model.js");
+const DataRender = require("../model/dataRender.model.js");
 
-export const addDemoReel = (data) => {
+const addDemoReel = (data) => {
   const newDataVideo = new DataVideo(data);
   return newDataVideo.save();
 };
 
-export const addRender = (data) => {
+const addRender = (data) => {
   const newDataRender = new DataRender(data);
   return newDataRender.save();
 };
 
-export const getDataRender = async () => {
+const getDataRender = async () => {
   try {
     return await DataRender.collection.find({}).toArray();
   } catch (error) {
@@ -19,7 +19,7 @@ export const getDataRender = async () => {
   }
 };
 
-export const getDataVideo = async () => {
+const getDataVideo = async () => {
   try {
     return await DataVideo.collection.find({}).toArray();
   } catch (error) {
@@ -27,7 +27,7 @@ export const getDataVideo = async () => {
   }
 };
 
-export const deleteVideo = async (id) => {
+const deleteVideo = async (id) => {
   const data = await DataVideo.findByIdAndDelete(id);
   if (data) {
     return data;
@@ -35,7 +35,7 @@ export const deleteVideo = async (id) => {
   return null;
 };
 
-export const deleteRender = async (id) => {
+const deleteRender = async (id) => {
   try {
     const data = await DataRender.findByIdAndDelete(id);
     if (data) {
@@ -47,7 +47,7 @@ export const deleteRender = async (id) => {
   }
 };
 
-export const updateVideo = async (id, data) => {
+const updateVideo = async (id, data) => {
   try {
     await DataVideo.findByIdAndUpdate(id, data);
     const newData = await DataVideo.findById(id);
@@ -60,7 +60,7 @@ export const updateVideo = async (id, data) => {
   }
 };
 
-export const updateRender = async (id, data) => {
+const updateRender = async (id, data) => {
   try {
     await DataRender.findByIdAndUpdate(id, data);
     const newData = await DataRender.findById(id);
@@ -71,4 +71,15 @@ export const updateRender = async (id, data) => {
   } catch (error) {
     throw new Error(error);
   }
+};
+
+module.exports = {
+  addDemoReel,
+  addRender,
+  getDataRender,
+  getDataVideo,
+  deleteVideo,
+  deleteRender,
+  updateVideo,
+  updateRender,
 };

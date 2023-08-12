@@ -1,6 +1,6 @@
-import http from "http";
-import express from "express";
-import {
+const http = require("http");
+const express = require("express");
+const {
   getDataRender,
   getDataVideo,
   addDemoReel,
@@ -9,8 +9,8 @@ import {
   deleteVideo,
   updateVideo,
   updateRender,
-} from "./functions/index.js";
-import "./db.js";
+} = require("./functions/index.js");
+require("./db.js");
 
 const app = express();
 const server = http.createServer(app);

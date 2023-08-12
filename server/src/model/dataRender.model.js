@@ -1,5 +1,7 @@
-import mongoose, { Schema } from "mongoose";
-import uniqueValidator from "mongoose-unique-validator";
+const mongoose = require("mongoose");
+const uniqueValidator = require("mongoose-unique-validator");
+
+const { Schema } = mongoose;
 
 const schema = new Schema({
   type: {
@@ -28,4 +30,4 @@ const schema = new Schema({
 
 schema.plugin(uniqueValidator);
 
-export default mongoose.model("DataRender", schema);
+module.exports = mongoose.model("DataRender", schema);
