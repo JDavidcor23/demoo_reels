@@ -28,7 +28,7 @@ export const CardsVideo = ({
 
   return (
     <>
-      {openModalDelete && <DeleteDesign type={"video"} id={id} />}
+      {/* {openModalDelete && <DeleteDesign type={"video"} id={id} />} */}
       <Link to={`${pathname !== routes.PROFILE ? routes.PROFILE : ""}`}>
         <div
           className={`relative card-reels bg-white flex flex-col shadow-2xl rounded-md cursor-pointer m-auto

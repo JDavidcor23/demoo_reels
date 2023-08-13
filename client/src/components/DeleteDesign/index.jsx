@@ -13,14 +13,14 @@ export const DeleteDesign = () => {
   const { deleteDesign, loaderDelete } = useDeleteDesign();
 
   const closeModalDelete = () => {
-    dispatch(setInformationToEdit({}));
+    dispatch(setInformationToEdit({ id: "" }));
     dispatch(setOpenModalDelete(false));
   };
 
   return (
     <>
       <div
-        className="w-screen h-screen fixed bg-black opacity-[0.1] z-[8000] top-[50%] left-[50%]"
+        className="w-screen h-screen fixed bg-black opacity-[0.5] z-[8000] top-[50%] left-[50%]"
         style={{ transform: "translate(-50%, -50%)" }}
       ></div>
 

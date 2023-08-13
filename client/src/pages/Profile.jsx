@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 export const Profile = ({ isTheOwnerOfTheAccount = true }) => {
   const openModalUpload = useSelector((state) => state.openModalUpload.state);
 
+  const informationToEdit = useSelector((state) => state.informationToEdit);
+
   useEffect(() => {
     if (openModalUpload) {
       document.body.style.overflowY = "hidden";
@@ -38,7 +40,7 @@ export const Profile = ({ isTheOwnerOfTheAccount = true }) => {
         </ProfileInfo>
 
         <Design isTheOwnerOfTheAccount={isTheOwnerOfTheAccount} />
-        {openModalUpload && <AddProject />}
+        {openModalUpload && informationToEdit.id === "" ? <AddProject /> : ""}
       </div>
     </div>
   );

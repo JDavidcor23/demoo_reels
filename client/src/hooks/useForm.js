@@ -25,7 +25,7 @@ export const useForm = (initialState) => {
   const [valueInput, setValueInput] = useState("");
 
   const [values, setValues] = useState(
-    informationToEdit?.id ? informationToEdit : initialState
+    informationToEdit?.id.length > 0 ? informationToEdit : initialState
   );
   const getRender = () => {
     socket.emit("getDBrenders");
@@ -94,7 +94,7 @@ export const useForm = (initialState) => {
     try {
       if (informationToEdit.id) {
         updateDesignSocket(values);
-        dispatch(setInformationToEdit({}));
+        dispatch(setInformationToEdit({ id: "" }));
         return;
       } else {
         if (values.type === "render") {
@@ -169,7 +169,7 @@ export const useForm = (initialState) => {
 
   //Add the title of the render to the input
   useEffect(() => {
-    if (informationToEdit?.id) {
+    if (informationToEdit?.id.length > 0) {
       setValueInput(informationToEdit.title);
     }
   }, [informationToEdit]);

@@ -1,5 +1,5 @@
 export const stateOfEdit = {
   NOTHING_ACTION: "NOTHING_ACTION",
-  DELETE: "DELETE",
+  LOADING: "LOADING",
   SUCCESS: "SUCCESS",
 };

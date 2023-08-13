@@ -8,6 +8,7 @@ import { routes } from "../../constants/routes";
 import { setInformationToEdit } from "../../store/slices/informationToEdit";
 import { setOpenModalDelete } from "../../store/slices/openModalDelete";
 import { setOpenModalUpload } from "../../store/slices/openModalUpload";
+import { AddProject } from "../AddProject";
 
 export const CardsRender = ({
   img,
@@ -46,8 +47,14 @@ export const CardsRender = ({
 
   const openModalDelete = useSelector((state) => state.openModalDelete.state);
 
+  const openModalUpload = useSelector((state) => state.openModalUpload.state);
+
+  const informationToEdit = useSelector((state) => state.informationToEdit);
+
   return (
     <>
+      {openModalDelete && informationToEdit.id === id ? <DeleteDesign /> : ""}
+      {openModalUpload && informationToEdit.id === id ? <AddProject /> : ""}
       <Link
         to={routes.PROFILE}
         className="h-[560px] w-[45%] bg-white max-w-[515px] min-w-[380px] rounded-[10px] relative"
@@ -106,9 +113,6 @@ export const CardsRender = ({
             </div>
           </div>
         </div>
-        {openModalDelete && (
-          <DeleteDesign type={"render"} id={id} title={title} />
-        )}
       </Link>
     </>
   );

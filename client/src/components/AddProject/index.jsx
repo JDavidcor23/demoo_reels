@@ -40,7 +40,7 @@ export const AddProject = () => {
   const dispatch = useDispatch();
 
   const closeModal = () => {
-    dispatch(setInformationToEdit({}));
+    dispatch(setInformationToEdit({ id: "" }));
     dispatch(setOpenModalUpload(false));
   };
 

@@ -4,6 +4,7 @@ import { setDataRenderSlice } from "../store/slices/dataRender";
 import { useSocketIo } from "./useSocketIo";
 import { useDispatch, useSelector } from "react-redux";
 import { setOpenModalDelete } from "../store/slices/openModalDelete";
+import { setInformationToEdit } from "../store/slices/informationToEdit";
 
 export const useDeleteDesign = () => {
   const [loaderDelete, setLoaderDelete] = useState(stateOfEdit.NOTHING_ACTION);
@@ -11,8 +12,6 @@ export const useDeleteDesign = () => {
   const dispatch = useDispatch();
 
   const { id, type } = useSelector((state) => state.informationToEdit);
-
-  const openModalDelete = useSelector((state) => state.openModalDelete.state);
 
   const { socket } = useSocketIo(import.meta.env.VITE_BACKEND);
 
@@ -36,6 +35,7 @@ export const useDeleteDesign = () => {
             resolve();
           }).then(() => {
             dispatch(setOpenModalDelete(false));
+            dispatch(setInformationToEdit({ id: "" }));
           });
         });
       }, 1800);
