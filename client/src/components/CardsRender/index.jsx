@@ -15,8 +15,6 @@ export const CardsRender = ({
   title,
   changeTrueUpload,
   user,
-  width = "w-[32rem]",
-  height = "h-[33.75rem]",
   edit,
   typeCards,
   programs,
@@ -52,15 +50,11 @@ export const CardsRender = ({
           changeFalseDelete={changeFalseDelete}
         />
       )}
-      <Link to={`${pathname !== routes.PROFILE ? routes.PROFILE : ""}`}>
-        <div
-          className={`relative card-reels bg-white flex flex-col shadow-2xl rounded-md cursor-pointer m-auto
-      ${
-        isTheOwnerOfTheAccount
-          ? " sizeCards-account"
-          : "sizeCards-designers h-[34rem]"
-      }`}
-        >
+      <Link
+        to={`${pathname !== routes.PROFILE ? routes.PROFILE : ""}`}
+        className="h-[560px] w-[45%] bg-white max-w-[515px] min-w-[300px] rounded-[10px]"
+      >
+        <div className="w-full h-full">
           {edit && (
             <div className="absolute w-full">
               <div className="flex justify-between cursor-pointer items-center w-full m-auto mt-[-20px]">
@@ -95,13 +89,7 @@ export const CardsRender = ({
             </div>
           )}
 
-          <img
-            src={img}
-            alt=""
-            className={`object-cover img-reel ${
-              isTheOwnerOfTheAccount ? " h-[70%]" : "h-[380px]"
-            } `}
-          />
+          <img src={img} alt="" className="w-full h-[68%] object-cover" />
 
           <div className="w-[90%] py-5 m-auto container-info-cards">
             <div>

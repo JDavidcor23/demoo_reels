@@ -1,6 +1,8 @@
 import React from "react";
 import { Disclosure } from "@headlessui/react";
 import { BellIcon } from "@heroicons/react/24/outline";
+import { routes } from "../../constants";
+import { Link } from "react-router-dom";
 
 export const DisclosurePanelProfile = () => {
   return (
@@ -14,10 +16,8 @@ export const DisclosurePanelProfile = () => {
           />
         </div>
         <div className="ml-3">
-          <div className="text-base font-medium text-gray-800">Tom Cook</div>
-          <div className="text-sm font-medium text-gray-500">
-            tom@example.com
-          </div>
+          <div className="text-base font-medium text-white">Tom Cook</div>
+          <div className="text-sm font-medium text-white">tom@example.com</div>
         </div>
         <button
           type="button"
@@ -28,13 +28,15 @@ export const DisclosurePanelProfile = () => {
         </button>
       </div>
       <div className="mt-3 space-y-1">
-        <Disclosure.Button
-          as="a"
-          href="#"
-          className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
-        >
-          Your Profile
-        </Disclosure.Button>
+        <Link to={routes.PROFILE}>
+          <Disclosure.Button
+            as="a"
+            href="#"
+            className="block px-4 py-2 text-base font-medium text-white hover:bg-gray-100 hover:text-gray-800"
+          >
+            Your Profile
+          </Disclosure.Button>
+        </Link>
         <Disclosure.Button
           as="a"
           href="#"

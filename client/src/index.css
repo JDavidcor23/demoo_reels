@@ -113,14 +113,14 @@ p {
     width: 32rem;
   }
 }
-@media (min-width: 1490px) {
-  .container-profile {
-    display: flex;
-    flex-direction: row;
-  }
+@media (min-width: 1045px) {
   .container-profileInfo {
     width: 24rem;
     min-height: 790px;
+  }
+  .container-profile {
+    display: flex;
+    flex-direction: row;
   }
   .container-design-profile {
     width: 100%;
