@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { MinusCircleIcon, PencilIcon } from "@heroicons/react/24/solid";
 import { Icons } from "../Icons";
 import { DeleteDesign } from "../DeleteDesign";
 import { Link, useLocation } from "react-router-dom";
 import { routes } from "../../constants/routes";
+import { useDispatch, useSelector } from "react-redux";
+import { setOpenModalDelete } from "../../store/slices/openModalDelete";
 
 export const CardsVideo = ({
   id,
@@ -14,23 +16,19 @@ export const CardsVideo = ({
   poster,
   width = "w-[32rem]",
   height = "h-[33.75rem]",
-  edit,
   programs,
-  openModalDelete,
-  changeTrueDelete,
-  changeFalseDelete,
 }) => {
+  const dispatch = useDispatch();
+
   const { pathname } = useLocation();
+
+  const editSlice = useSelector((state) => state.editSlice.state);
+
+  const openModalDelete = useSelector((state) => state.openModalDelete.state);
+
   return (
     <>
-      {openModalDelete && (
-        <DeleteDesign
-          changeTrueDelete={changeTrueDelete}
-          type={"video"}
-          id={id}
-          changeFalseDelete={changeFalseDelete}
-        />
-      )}
+      {openModalDelete && <DeleteDesign type={"video"} id={id} />}
       <Link to={`${pathname !== routes.PROFILE ? routes.PROFILE : ""}`}>
         <div
           className={`relative card-reels bg-white flex flex-col shadow-2xl rounded-md cursor-pointer m-auto
@@ -40,7 +38,7 @@ export const CardsVideo = ({
           : "sizeCards-designers h-[34rem]"
       }`}
         >
-          {edit && (
+          {editSlice && (
             <div className="absolute w-full">
               <div className="flex justify-between cursor-pointer items-center w-full m-auto mt-[-20px]">
                 <div className="flex justify-center items-center w-[32px] h-[32px] bg-white rounded-full p-1">
@@ -55,7 +53,7 @@ export const CardsVideo = ({
                 </div>
                 <div
                   className="relative w-[40px] h-[40px] left-[3px]"
-                  onClick={changeTrueDelete}
+                  onClick={() => dispatch(setOpenModalDelete(true))}
                 >
                   <MinusCircleIcon
                     title="minus"

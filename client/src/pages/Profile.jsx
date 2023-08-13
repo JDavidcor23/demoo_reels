@@ -3,21 +3,10 @@ import { ChatBubbleLeftIcon } from "@heroicons/react/24/solid";
 
 import { ProfileInfo, Navbar, Design, AddProject } from "../components";
 import { Buttons } from "../components/ProfileInfo/Buttons";
-import { useProfileInfo } from "../hooks";
+import { useSelector } from "react-redux";
 
 export const Profile = ({ isTheOwnerOfTheAccount = true }) => {
-  const { variablesProfile, functionsProfile } = useProfileInfo();
-
-  const { edit, openModalUpload, openModalDelete } = variablesProfile;
-
-  const {
-    changeEditFalse,
-    changeEditTrue,
-    changeTrueUpload,
-    changeFalseUpload,
-    changeTrueDelete,
-    changeFalseDelete,
-  } = functionsProfile;
+  const openModalUpload = useSelector((state) => state.openModalUpload.state);
 
   useEffect(() => {
     if (openModalUpload) {
@@ -34,13 +23,7 @@ export const Profile = ({ isTheOwnerOfTheAccount = true }) => {
       <div className="container-profile">
         <ProfileInfo>
           {isTheOwnerOfTheAccount ? (
-            <Buttons
-              edit={edit}
-              changeEditFalse={changeEditFalse}
-              changeEditTrue={changeEditTrue}
-              changeTrueUpload={changeTrueUpload}
-              changeFalseUpload={changeFalseUpload}
-            />
+            <Buttons />
           ) : (
             <button className="justify-center items-center bg-orangeCustom p-3 w-48 text-center text-white font-text flex text-sm">
               <ChatBubbleLeftIcon
@@ -54,20 +37,8 @@ export const Profile = ({ isTheOwnerOfTheAccount = true }) => {
           )}
         </ProfileInfo>
 
-        <Design
-          edit={edit}
-          isTheOwnerOfTheAccount={isTheOwnerOfTheAccount}
-          openModalDelete={openModalDelete}
-          changeTrueDelete={changeTrueDelete}
-          changeTrueUpload={changeTrueUpload}
-          changeFalseDelete={changeFalseDelete}
-        />
-        {openModalUpload && (
-          <AddProject
-            openModal={openModalUpload}
-            changeFalseUpload={changeFalseUpload}
-          />
-        )}
+        <Design isTheOwnerOfTheAccount={isTheOwnerOfTheAccount} />
+        {openModalUpload && <AddProject />}
       </div>
     </div>
   );

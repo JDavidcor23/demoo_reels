@@ -4,6 +4,9 @@ import { useForm } from "../../hooks";
 import { useEffect, useState } from "react";
 import { LoaderForm } from "./LoaderForm";
 import { LoaderButton } from "./LoaderButton";
+import { useDispatch } from "react-redux";
+import { setOpenModalUpload } from "../../store/slices/openModalUpload";
+import { setInformationToEdit } from "../../store/slices/informationToEdit";
 
 const allInputs = [
   {
@@ -13,7 +16,7 @@ const allInputs = [
   },
 ];
 
-export const AddProject = ({ changeFalseUpload }) => {
+export const AddProject = () => {
   const [uploadProject, setUploadProject] = useState("render");
 
   const {
@@ -28,11 +31,18 @@ export const AddProject = ({ changeFalseUpload }) => {
     getImageVideo,
     handleChangeSelect,
     valueInput,
-  } = useForm({}, changeFalseUpload);
+  } = useForm({});
 
   useEffect(() => {
     setValues({ ...values, type: uploadProject, user: "jorge" });
   }, [uploadProject]);
+
+  const dispatch = useDispatch();
+
+  const closeModal = () => {
+    dispatch(setInformationToEdit({}));
+    dispatch(setOpenModalUpload(false));
+  };
 
   return (
     <>
@@ -165,7 +175,7 @@ export const AddProject = ({ changeFalseUpload }) => {
                 <button
                   type="button"
                   className="w-full flex flex-col content-center justify-center items-center text-center text-[white] p-2.5 border-2 border-orangeCustom mt-4 font-text"
-                  onClick={changeFalseUpload}
+                  onClick={closeModal}
                 >
                   CANCEL
                 </button>

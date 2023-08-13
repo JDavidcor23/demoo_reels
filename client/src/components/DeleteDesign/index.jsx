@@ -4,9 +4,18 @@ import { Loader } from "../Loader";
 import { Success } from "../Success";
 import { useDeleteDesign } from "../../hooks";
 import { stateOfEdit } from "../../constants";
+import { useDispatch } from "react-redux";
+import { setOpenModalDelete } from "../../store/slices/openModalDelete";
+import { setInformationToEdit } from "../../store/slices/informationToEdit";
 
-export const DeleteDesign = ({ changeFalseDelete, id, type, title }) => {
-  const { deleteDesign, loaderDelete } = useDeleteDesign(changeFalseDelete);
+export const DeleteDesign = () => {
+  const dispatch = useDispatch();
+  const { deleteDesign, loaderDelete } = useDeleteDesign();
+
+  const closeModalDelete = () => {
+    dispatch(setInformationToEdit({}));
+    dispatch(setOpenModalDelete(false));
+  };
 
   return (
     <>
@@ -53,14 +62,14 @@ export const DeleteDesign = ({ changeFalseDelete, id, type, title }) => {
             <div className=" gap-4 flex items-center flex-wrap justify-center mt-5">
               <button
                 className="bg-orangeCustom p-2 w-40 text-center text-white font-text"
-                onClick={() => deleteDesign(id, type, changeFalseDelete, title)}
+                onClick={deleteDesign}
               >
                 DELETE
               </button>
 
               <button
                 className=" font-text border-orangeCustom border-2  p-2 w-40 text-center text-white"
-                onClick={changeFalseDelete}
+                onClick={closeModalDelete}
               >
                 CANCEL
               </button>

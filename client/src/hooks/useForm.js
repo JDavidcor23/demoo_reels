@@ -5,8 +5,9 @@ import { setInformationToEdit } from "../store/slices/informationToEdit";
 import { setDataRenderSlice } from "../store/slices/dataRender";
 import { setDataVideoSlice } from "../store/slices/dataVideo";
 import { useSocketIo } from "./useSocketIo";
+import { setOpenModalUpload } from "../store/slices/openModalUpload";
 
-export const useForm = (initialState, changeFalseUpload) => {
+export const useForm = (initialState) => {
   const dispatch = useDispatch();
 
   const informationToEdit = useSelector((state) => state.informationToEdit);
@@ -24,11 +25,9 @@ export const useForm = (initialState, changeFalseUpload) => {
   const [valueInput, setValueInput] = useState("");
 
   const [values, setValues] = useState(
-    informationToEdit.id ? informationToEdit : initialState
+    informationToEdit?.id ? informationToEdit : initialState
   );
-
   const getRender = () => {
-    console.log("llego qui");
     socket.emit("getDBrenders");
     socket.on("getRenders", (data) => {
       console.log("getRender", data);
@@ -81,7 +80,7 @@ export const useForm = (initialState, changeFalseUpload) => {
           }
           resolve();
         }).then(() => {
-          changeFalseUpload();
+          dispatch(setOpenModalUpload(false));
         });
       });
     } catch (error) {
@@ -144,7 +143,7 @@ export const useForm = (initialState, changeFalseUpload) => {
           dispatch(setDataRenderSlice([...dataRender, newData]));
           resolve();
         }).then(() => {
-          changeFalseUpload();
+          dispatch(setOpenModalUpload(false));
         });
       });
     } catch (error) {
@@ -170,7 +169,7 @@ export const useForm = (initialState, changeFalseUpload) => {
 
   //Add the title of the render to the input
   useEffect(() => {
-    if (informationToEdit.id) {
+    if (informationToEdit?.id) {
       setValueInput(informationToEdit.title);
     }
   }, [informationToEdit]);

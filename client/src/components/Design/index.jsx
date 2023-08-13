@@ -1,18 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useCards } from "../../hooks/useCards";
 import { Cards } from "../Cards/Cards";
-import { useSocketIo, useWebSocket } from "../../hooks";
+import { useSocketIo } from "../../hooks";
 import { setDataRenderSlice } from "../../store/slices/dataRender";
 import { useDispatch } from "react-redux";
 
-export const Design = ({
-  edit,
-  isTheOwnerOfTheAccount,
-  openModalDelete,
-  changeTrueDelete,
-  changeFalseDelete,
-  changeTrueUpload,
-}) => {
+export const Design = ({ isTheOwnerOfTheAccount }) => {
   const { functionsCards, variablesCards } = useCards();
 
   const dispatch = useDispatch();
@@ -65,35 +58,25 @@ export const Design = ({
       <div className="flex flex-wrap justify-center gap-8 mt-8">
         {"render" === variablesCards.typeCards
           ? dataRender?.length > 0 &&
-            dataRender.map((d) => (
+            dataRender.map((data) => (
               <>
                 <Cards
                   typeCards={variablesCards.typeCards}
-                  key={`${d._id}${d.title}`}
-                  {...d}
-                  id={d._id}
-                  edit={edit}
-                  changeTrueUpload={changeTrueUpload}
+                  key={`${data._id}${data.title}`}
+                  {...data}
+                  id={data._id}
                   isTheOwnerOfTheAccount={isTheOwnerOfTheAccount}
-                  openModalDelete={openModalDelete}
-                  changeTrueDelete={changeTrueDelete}
-                  changeFalseDelete={changeFalseDelete}
                 />
               </>
             ))
           : dataVideo?.length > 0 &&
-            dataVideo.map((d) => (
+            dataVideo.map((data) => (
               <Cards
                 typeCards={variablesCards.typeCards}
-                key={`${d._id}${d.title}`}
-                {...d}
-                id={d._id}
-                edit={edit}
-                changeTrueUpload={changeTrueUpload}
+                key={`${data._id}${data.title}`}
+                {...data}
+                id={data._id}
                 isTheOwnerOfTheAccount={isTheOwnerOfTheAccount}
-                openModalDelete={openModalDelete}
-                changeTrueDelete={changeTrueDelete}
-                changeFalseDelete={changeFalseDelete}
               />
             ))}
       </div>
