@@ -4,7 +4,7 @@ import { useForm } from "../../hooks";
 import { useEffect, useState } from "react";
 import { LoaderForm } from "./LoaderForm";
 import { LoaderButton } from "./LoaderButton";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setOpenModalUpload } from "../../store/slices/openModalUpload";
 import { setInformationToEdit } from "../../store/slices/informationToEdit";
 
@@ -18,6 +18,8 @@ const allInputs = [
 
 export const AddProject = () => {
   const [uploadProject, setUploadProject] = useState("render");
+
+  const informationToEdit = useSelector((state) => state.informationToEdit);
 
   const {
     values,
@@ -125,6 +127,7 @@ export const AddProject = () => {
                   onChange={(e) => getImageVideo(e.target.files[0])}
                 />
               )}
+
               {uploadProject === "demo_reel" && (
                 <>
                   <div className="relative h-auto mt-5">

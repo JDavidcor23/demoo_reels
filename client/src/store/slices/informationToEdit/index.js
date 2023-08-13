@@ -7,6 +7,7 @@ export const informationToEditSlice = createSlice({
     img: "",
     programs: [],
     title: "",
+    video: "",
     type: "",
   },
   reducers: {
@@ -16,6 +17,7 @@ export const informationToEditSlice = createSlice({
       state.programs = action.payload.programs;
       state.title = action.payload.title;
       state.type = action.payload.type;
+      state.video = action.payload.video;
     },
   },
 });

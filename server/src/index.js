@@ -32,7 +32,7 @@ io.on("connection", async (socket) => {
     }
   });
 
-  socket.emit("getDBemoReels", async () => {
+  socket.on("getDBemoReels", async () => {
     try {
       const data = await getDataVideo();
       socket.emit("getDemoReels", data);
@@ -44,7 +44,6 @@ io.on("connection", async (socket) => {
   socket.on("addRender", async (data) => {
     try {
       const newData = await addRender(data);
-      console.log(newData);
       socket.emit("newRender", newData);
     } catch (error) {
       throw new Error(error);

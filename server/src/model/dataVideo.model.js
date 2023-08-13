@@ -22,7 +22,7 @@ const schema = new Schema({
     type: String,
     required: true,
   },
-  poster: {
+  img: {
     type: String,
     required: true,
   },

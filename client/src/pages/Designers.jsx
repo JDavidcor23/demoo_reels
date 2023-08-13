@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Navbar } from "../components/Navbar";
 import { useCards } from "../hooks/useCards";
 import { Cards } from "../components/Cards/Cards";
-import { useWebSocket } from "../hooks";
+import { useGetCardsInformation, useSocketIo } from "../hooks";
 
 export const Designers = () => {
   const { functionsCards, variablesCards } = useCards();
-  const { getDemoReel, getRender, disconnect, dataRender, dataVideo } =
-    useWebSocket();
+
+  const { socket, dataVideo, dataRender } = useSocketIo(
+    import.meta.env.VITE_BACKEND
+  );
+
+  const { functionsCardsInformation } = useGetCardsInformation();
+
+  const { getDemoReel, getRender } = functionsCardsInformation;
 
   useEffect(() => {
-    getDemoReel();
-    getRender();
-    return () => {
-      if (dataRender.length > 0 || dataVideo.length > 0) {
-        disconnect();
-      }
-    };
-  }, []);
+    // getDemoReel(socket);
+    getRender(socket);
+  }, [socket]);
 
   return (
     <div className="gradient-bg-welcome">

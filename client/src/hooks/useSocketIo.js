@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
-import { setDataRenderSlice } from "../store/slices/dataRender";
 
 export const useSocketIo = (url) => {
   const [socket, setSocket] = useState(null);

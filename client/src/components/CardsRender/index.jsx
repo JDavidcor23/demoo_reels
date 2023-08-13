@@ -57,7 +57,7 @@ export const CardsRender = ({
       {openModalUpload && informationToEdit.id === id ? <AddProject /> : ""}
       <Link
         to={routes.PROFILE}
-        className="h-[560px] w-[45%] bg-white max-w-[515px] min-w-[380px] rounded-[10px] relative"
+        className="h-[560px] w-[45%] bg-white max-w-[515px] min-w-[340px] rounded-[10px] relative"
       >
         {editSlice && (
           <div className="absolute w-full">
@@ -106,7 +106,7 @@ export const CardsRender = ({
               </p>
             </div>
 
-            <div className="flex justify-center items-center gap-3">
+            <div className="flex flex-wrap justify-center items-center gap-3">
               {programs.map((program) => (
                 <Icons type={program} key={`${program}${id}`} />
               ))}
