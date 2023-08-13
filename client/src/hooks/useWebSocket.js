@@ -13,7 +13,7 @@ export const useWebSocket = () => {
 
   const [loaderSocket, setLoaderSocket] = useState(false);
 
-  const socket = io("http://localhost:3000");
+  const socket = io(import.meta.env.VITE_BACKEND);
 
   const getRender = () => {
     socket.emit("getDBrenders");

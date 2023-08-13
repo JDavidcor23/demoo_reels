@@ -51,7 +51,8 @@ export const CardsRender = ({
         />
       )}
       <Link
-        to={`${pathname !== routes.PROFILE ? routes.PROFILE : ""}`}
+        // to={`${pathname !== routes.PROFILE ? routes.PROFILE : ""}`}
+        to={routes.PROFILE}
         className="h-[560px] w-[45%] bg-white max-w-[515px] min-w-[300px] rounded-[10px]"
       >
         <div className="w-full h-full">
