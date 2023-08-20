@@ -30,16 +30,14 @@ export const useForm = (initialState) => {
   const getRender = () => {
     socket.emit("getDBrenders");
     socket.on("getRenders", (data) => {
-      console.log("getRender", data);
       dispatch(setDataRenderSlice([]));
       dispatch(setDataRenderSlice(data));
     });
   };
 
   const getDemoReel = () => {
-    socket.on("getDBemoReels");
+    socket.on("getDBdemoReels");
     socket.on("getDemoReels", (data) => {
-      console.log("getDemoReel", data);
       dispatch(setDataVideoSlice([]));
       dispatch(setDataVideoSlice(data));
     });
@@ -59,6 +57,7 @@ export const useForm = (initialState) => {
     try {
       socket.emit("updateDesign", values);
       socket.on("updatedData", (newData) => {
+        console.log(newData);
         new Promise((resolve, reject) => {
           if (values.type === "render") {
             const index = dataRender.findIndex(
@@ -114,6 +113,7 @@ export const useForm = (initialState) => {
     try {
       setLoader(true);
       const img = await uploadFileCloudinary(event);
+      console.log(img);
       setValues({ ...values, img });
     } catch (error) {
       console.log(error);
@@ -122,7 +122,7 @@ export const useForm = (initialState) => {
     }
   };
 
-  const getImageVideo = async (event) => {
+  const getVideo = async (event) => {
     try {
       setLoaderVideo(true);
       const video = await uploadFileCloudinary(event);
@@ -182,7 +182,7 @@ export const useForm = (initialState) => {
     loaderVideo,
     handleSubmit,
     handleChange,
-    getImageVideo,
+    getVideo,
     valueInput,
     handleChangeSelect,
   };

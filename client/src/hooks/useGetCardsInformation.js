@@ -16,7 +16,7 @@ export const useGetCardsInformation = () => {
 
   const getDemoReel = (socket) => {
     if (socket) {
-      socket.emit("getDBemoReels");
+      socket.emit("getDBdemoReels");
       socket.on("getDemoReels", (data) => {
         dispatch(setDataVideoSlice([]));
         dispatch(setDataVideoSlice(data));

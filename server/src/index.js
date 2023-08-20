@@ -32,7 +32,7 @@ io.on("connection", async (socket) => {
     }
   });
 
-  socket.on("getDBemoReels", async () => {
+  socket.on("getDBdemoReels", async () => {
     try {
       const data = await getDataVideo();
       socket.emit("getDemoReels", data);

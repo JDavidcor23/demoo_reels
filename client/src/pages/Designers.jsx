@@ -16,7 +16,7 @@ export const Designers = () => {
   const { getDemoReel, getRender } = functionsCardsInformation;
 
   useEffect(() => {
-    // getDemoReel(socket);
+    getDemoReel(socket);
     getRender(socket);
   }, [socket]);
 

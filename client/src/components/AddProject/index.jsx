@@ -30,7 +30,7 @@ export const AddProject = () => {
     loaderSocket,
     handleSubmit,
     handleChange,
-    getImageVideo,
+    getVideo,
     handleChangeSelect,
     valueInput,
   } = useForm({});
@@ -124,7 +124,7 @@ export const AddProject = () => {
                   className="custom-file-input-video font-text"
                   type="file"
                   accept=".mp4"
-                  onChange={(e) => getImageVideo(e.target.files[0])}
+                  onChange={(e) => getVideo(e.target.files[0])}
                 />
               )}
 

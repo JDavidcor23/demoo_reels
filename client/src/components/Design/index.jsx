@@ -26,7 +26,7 @@ export const Design = ({ isTheOwnerOfTheAccount }) => {
 
   const getDemoReel = () => {
     if (socket) {
-      socket.on("getDBemoReels");
+      socket.on("getDBdemoReels");
       socket.on("getDemoReels", (data) => {
         dispatch(setDataVideoSlice([]));
         dispatch(setDataVideoSlice(data));
