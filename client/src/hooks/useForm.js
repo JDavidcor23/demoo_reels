@@ -157,8 +157,14 @@ export const useForm = (initialState) => {
     try {
       // setLoaderSocket(true);
       socket.emit("addDemoReel", data);
-      socket.on("newDemoReel", (data) => {
-        dispatch(setDataVideoSlice([...dataVideo, data]));
+      socket.on("newDemoReel", (newData) => {
+        new Promise((resolve, reject) => {
+          dispatch(setDataVideoSlice([]));
+          dispatch(setDataVideoSlice([...dataVideo, newData]));
+          resolve();
+        }).then(() => {
+          dispatch(setOpenModalUpload(false));
+        });
       });
     } catch (error) {
       console.log(error);
