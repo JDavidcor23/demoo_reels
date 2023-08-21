@@ -27,21 +27,6 @@ export const useForm = (initialState) => {
   const [values, setValues] = useState(
     informationToEdit?.id.length > 0 ? informationToEdit : initialState
   );
-  const getRender = () => {
-    socket.emit("getDBrenders");
-    socket.on("getRenders", (data) => {
-      dispatch(setDataRenderSlice([]));
-      dispatch(setDataRenderSlice(data));
-    });
-  };
-
-  const getDemoReel = () => {
-    socket.on("getDBdemoReels");
-    socket.on("getDemoReels", (data) => {
-      dispatch(setDataVideoSlice([]));
-      dispatch(setDataVideoSlice(data));
-    });
-  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -53,37 +38,28 @@ export const useForm = (initialState) => {
     setValues({ ...values, programs: array });
   };
 
-  const updateDesignSocket = (values) => {
+  const updateDesignSocket = async (values) => {
     try {
       socket.emit("updateDesign", values);
-      socket.on("updatedData", (newData) => {
-        console.log(newData);
-        new Promise((resolve, reject) => {
-          if (values.type === "render") {
-            const index = dataRender.findIndex(
-              (data) => data._id === newData._id
-            );
-            const newDataRender = [...dataRender];
-            newDataRender.splice(index, 1, newData);
-            dispatch(setDataRenderSlice([]));
-            dispatch(setDataRenderSlice(newDataRender));
-          }
-
-          if (values.type === "demo_reel") {
-            const index = dataVideo.findIndex(
-              (data) => data._id === newData._id
-            );
-            dataVideo.splice(index, 1, newData);
-            dispatch(setDataVideoSlice([]));
-            dispatch(setDataVideoSlice(dataVideo));
-          }
-          resolve();
-        }).then(() => {
-          dispatch(setOpenModalUpload(false));
-        });
-      });
+      if ("render" === values.type) {
+        const index = dataRender.findIndex((item) => item._id === values.id);
+        let newData = [...dataRender];
+        newData.splice(index, 1, { ...values, _id: values.id });
+        dispatch(setDataRenderSlice([]));
+        dispatch(setDataRenderSlice([...newData]));
+      }
+      if ("demo_reel" === values.type) {
+        const index = dataVideo.findIndex((item) => item._id === values.id);
+        let newData = [...dataVideo];
+        newData.splice(index, 1, { ...values, _id: values.id });
+        dispatch(setDataVideoSlice([]));
+        dispatch(setDataVideoSlice([...newData]));
+      }
     } catch (error) {
       console.log(error);
+    } finally {
+      dispatch(setOpenModalUpload(false));
+      dispatch(setInformationToEdit({ id: "" }));
     }
   };
 
@@ -93,8 +69,6 @@ export const useForm = (initialState) => {
     try {
       if (informationToEdit.id) {
         updateDesignSocket(values);
-        dispatch(setInformationToEdit({ id: "" }));
-        return;
       } else {
         if (values.type === "render") {
           addRender(values);

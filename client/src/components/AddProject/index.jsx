@@ -7,6 +7,8 @@ import { LoaderButton } from "./LoaderButton";
 import { useDispatch, useSelector } from "react-redux";
 import { setOpenModalUpload } from "../../store/slices/openModalUpload";
 import { setInformationToEdit } from "../../store/slices/informationToEdit";
+import { AddRender, InputsRender } from "./AddRender";
+import { AddVideo, InputsVideo } from "./AddVideo";
 
 const allInputs = [
   {
@@ -17,9 +19,10 @@ const allInputs = [
 ];
 
 export const AddProject = () => {
-  const [uploadProject, setUploadProject] = useState("render");
-
   const informationToEdit = useSelector((state) => state.informationToEdit);
+  const [uploadProject, setUploadProject] = useState(
+    informationToEdit?.type ?? "render"
+  );
 
   const {
     values,
@@ -48,7 +51,7 @@ export const AddProject = () => {
 
   return (
     <>
-      <div className="w-screen h-screen fixed bg-black top-0 opacity-50 z-[8000] "></div>
+      <div className="w-[200%] h-screen fixed bg-black top-0 opacity-50 z-[8000] "></div>
       <div className=" fixed inset-0 z-[9999] overflow-y-auto animation-modal">
         <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
           <form
@@ -72,86 +75,28 @@ export const AddProject = () => {
                     Render
                   </li>
                 </ul>
-                <div className="w-full h-auto relative mt-5">
-                  {uploadProject === "render" ? (
-                    <div className="relative h-auto">
-                      {loader && (
-                        <>
-                          <LoaderForm />
-                        </>
-                      )}
-                      <img
-                        className="new-split-white h-[250px] w-full object-cover "
-                        src={
-                          values?.img ??
-                          "https://res.cloudinary.com/dbtk64lp4/image/upload/v1680722646/preview_oe6wyc_wgace6.png"
-                        }
-                      />
-                    </div>
-                  ) : values.video ? (
-                    <video
-                      className="new-split-white h-[250px] w-full object-cover "
-                      src={values?.video}
-                      controls
-                    />
-                  ) : (
-                    <div className="relative h-auto">
-                      {loaderVideo && (
-                        <>
-                          <LoaderForm />
-                        </>
-                      )}
-                      <img
-                        className="new-split-white h-[250px] w-full object-cover "
-                        src={
-                          "https://res.cloudinary.com/dbtk64lp4/image/upload/v1680722646/preview_oe6wyc_wgace6.png"
-                        }
-                      />
-                    </div>
-                  )}
-                </div>
+                {(uploadProject === "render" ||
+                  informationToEdit?.type === "render") && (
+                  <AddRender loader={loader} values={values} />
+                )}
+                {(uploadProject === "demo_reel" ||
+                  informationToEdit?.type === "demo_reel") && (
+                  <AddVideo values={values} loaderVideo={loaderVideo} />
+                )}
               </div>
-
-              {uploadProject === "render" ? (
-                <input
-                  className="custom-file-input font-text"
-                  type="file"
-                  accept=".jpg, .png"
-                  onChange={(e) => getImage(e.target.files[0])}
-                />
-              ) : (
-                <input
-                  className="custom-file-input-video font-text"
-                  type="file"
-                  accept=".mp4"
-                  onChange={(e) => getVideo(e.target.files[0])}
-                />
+              {(uploadProject === "render" ||
+                informationToEdit?.type === "render") && (
+                <InputsRender getImage={getImage} />
               )}
-
-              {uploadProject === "demo_reel" && (
-                <>
-                  <div className="relative h-auto mt-5">
-                    {loader && (
-                      <>
-                        <LoaderForm />
-                      </>
-                    )}
-                    <img
-                      className="new-split-white h-[250px] w-full object-cover "
-                      src={
-                        values?.img ??
-                        "https://res.cloudinary.com/dbtk64lp4/image/upload/v1680722646/preview_oe6wyc_wgace6.png"
-                      }
-                    />
-                  </div>
-                  <input
-                    className="custom-file-input font-text"
-                    type="file"
-                    name="image"
-                    accept=".jpg, .png"
-                    onChange={(e) => getImage(e.target.files[0])}
-                  />
-                </>
+              {(uploadProject === "demo_reel" ||
+                informationToEdit?.type === "demo_reel") && (
+                <InputsVideo
+                  values={values}
+                  loaderVideo={loaderVideo}
+                  getImage={getImage}
+                  loader={loader}
+                  getVideo={getVideo}
+                />
               )}
 
               {allInputs.map((input) => (

@@ -2,7 +2,7 @@ import React from "react";
 import { LoaderForm } from "./LoaderForm";
 import { Inputs } from "../Inputs";
 
-export const AddRender = ({ getImage, loader, valueInput, values }) => {
+export const AddRender = ({ loader, values }) => {
   return (
     <>
       <div className="w-full h-auto relative mt-5">
@@ -25,7 +25,7 @@ export const AddRender = ({ getImage, loader, valueInput, values }) => {
   );
 };
 
-export const InputsRender = ({ valueInput, handleChange, values }) => {
+export const InputsRender = ({ getImage }) => {
   return (
     <>
       <input

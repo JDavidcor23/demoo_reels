@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useCards } from "../../hooks/useCards";
 import { Cards } from "../Cards/Cards";
-import { useSocketIo } from "../../hooks";
+import { useGetCardsInformation, useSocketIo } from "../../hooks";
 import { setDataRenderSlice } from "../../store/slices/dataRender";
 import { useDispatch } from "react-redux";
 
@@ -14,29 +14,13 @@ export const Design = ({ isTheOwnerOfTheAccount }) => {
     import.meta.env.VITE_BACKEND
   );
 
-  const getRender = () => {
-    if (socket) {
-      socket.emit("getDBrenders");
-      socket.on("getRenders", (data) => {
-        dispatch(setDataRenderSlice([]));
-        dispatch(setDataRenderSlice(data));
-      });
-    }
-  };
+  const { functionsCardsInformation } = useGetCardsInformation();
 
-  const getDemoReel = () => {
-    if (socket) {
-      socket.on("getDBdemoReels");
-      socket.on("getDemoReels", (data) => {
-        dispatch(setDataVideoSlice([]));
-        dispatch(setDataVideoSlice(data));
-      });
-    }
-  };
+  const { getDemoReel, getRender } = functionsCardsInformation;
 
   useEffect(() => {
-    getRender();
-    getDemoReel();
+    getDemoReel(socket);
+    getRender(socket);
   }, [socket]);
 
   return (

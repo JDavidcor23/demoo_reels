@@ -1,7 +1,7 @@
 import React from "react";
 import { LoaderForm } from "./LoaderForm";
 
-export const AddVideo = ({ values, loaderVideo, getImage, loader }) => {
+export const AddVideo = ({ values, loaderVideo }) => {
   return (
     <>
       <div className="w-full h-auto relative mt-5">
