@@ -11,9 +11,9 @@ export const Design = ({ isTheOwnerOfTheAccount }) => {
     import.meta.env.VITE_BACKEND
   );
 
-  const { functionsCardsInformation } = useGetCardsInformation();
+  const { functionsCardsInformation, loaderSocket } = useGetCardsInformation();
 
-  const { getDemoReel, getRender, loaderSocket } = functionsCardsInformation;
+  const { getDemoReel, getRender } = functionsCardsInformation;
 
   useEffect(() => {
     getDemoReel(socket);
@@ -46,6 +46,7 @@ export const Design = ({ isTheOwnerOfTheAccount }) => {
       </ul>
       <div className="flex flex-wrap justify-center gap-8 mt-8">
         {loaderSocket && <Loader />}
+
         {"render" === variablesCards.typeCards
           ? dataRender?.length > 0 &&
             dataRender.map((data) => (

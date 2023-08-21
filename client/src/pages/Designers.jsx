@@ -12,9 +12,9 @@ export const Designers = () => {
     import.meta.env.VITE_BACKEND
   );
 
-  const { functionsCardsInformation } = useGetCardsInformation();
+  const { functionsCardsInformation, loaderSocket } = useGetCardsInformation();
 
-  const { getDemoReel, getRender, loaderSocket } = functionsCardsInformation;
+  const { getDemoReel, getRender } = functionsCardsInformation;
 
   useEffect(() => {
     getDemoReel(socket);
