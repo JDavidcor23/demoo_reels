@@ -3,6 +3,7 @@ import { Navbar } from "../components/Navbar";
 import { useCards } from "../hooks/useCards";
 import { Cards } from "../components/Cards/Cards";
 import { useGetCardsInformation, useSocketIo } from "../hooks";
+import { Loader } from "../components/Loader";
 
 export const Designers = () => {
   const { functionsCards, variablesCards } = useCards();
@@ -13,7 +14,7 @@ export const Designers = () => {
 
   const { functionsCardsInformation } = useGetCardsInformation();
 
-  const { getDemoReel, getRender } = functionsCardsInformation;
+  const { getDemoReel, getRender, loaderSocket } = functionsCardsInformation;
 
   useEffect(() => {
     getDemoReel(socket);
@@ -47,6 +48,8 @@ export const Designers = () => {
           </li>
         </ul>
         <div className="flex flex-wrap justify-center gap-8 mt-5">
+          {loaderSocket && <Loader />}
+
           {"render" === variablesCards.typeCards
             ? dataRender?.length > 0 &&
               dataRender.map((d) => (

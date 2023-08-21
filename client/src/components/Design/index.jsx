@@ -2,13 +2,10 @@ import React, { useEffect } from "react";
 import { useCards } from "../../hooks/useCards";
 import { Cards } from "../Cards/Cards";
 import { useGetCardsInformation, useSocketIo } from "../../hooks";
-import { setDataRenderSlice } from "../../store/slices/dataRender";
-import { useDispatch } from "react-redux";
+import { Loader } from "../Loader";
 
 export const Design = ({ isTheOwnerOfTheAccount }) => {
   const { functionsCards, variablesCards } = useCards();
-
-  const dispatch = useDispatch();
 
   const { socket, dataVideo, dataRender } = useSocketIo(
     import.meta.env.VITE_BACKEND
@@ -16,7 +13,7 @@ export const Design = ({ isTheOwnerOfTheAccount }) => {
 
   const { functionsCardsInformation } = useGetCardsInformation();
 
-  const { getDemoReel, getRender } = functionsCardsInformation;
+  const { getDemoReel, getRender, loaderSocket } = functionsCardsInformation;
 
   useEffect(() => {
     getDemoReel(socket);
@@ -48,6 +45,7 @@ export const Design = ({ isTheOwnerOfTheAccount }) => {
         </li>
       </ul>
       <div className="flex flex-wrap justify-center gap-8 mt-8">
+        {loaderSocket && <Loader />}
         {"render" === variablesCards.typeCards
           ? dataRender?.length > 0 &&
             dataRender.map((data) => (

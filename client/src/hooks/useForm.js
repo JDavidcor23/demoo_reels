@@ -6,6 +6,7 @@ import { setDataRenderSlice } from "../store/slices/dataRender";
 import { setDataVideoSlice } from "../store/slices/dataVideo";
 import { useSocketIo } from "./useSocketIo";
 import { setOpenModalUpload } from "../store/slices/openModalUpload";
+import { setLoaderSocket } from "../store/slices/loaderSocket";
 
 export const useForm = (initialState) => {
   const dispatch = useDispatch();
@@ -15,6 +16,8 @@ export const useForm = (initialState) => {
   const dataVideo = useSelector((state) => state.dataVideo.data);
 
   const dataRender = useSelector((state) => state.dataRender.data);
+
+  const loaderSocket = useSelector((state) => state.loaderSocket.state);
 
   const [loader, setLoader] = useState(false);
 
@@ -40,6 +43,7 @@ export const useForm = (initialState) => {
 
   const updateDesignSocket = async (values) => {
     try {
+      dispatch(setLoaderSocket(true));
       socket.emit("updateDesign", values);
       if ("render" === values.type) {
         const index = dataRender.findIndex((item) => item._id === values.id);
@@ -59,6 +63,7 @@ export const useForm = (initialState) => {
       console.log(error);
     } finally {
       dispatch(setOpenModalUpload(false));
+      dispatch(setLoaderSocket(false));
       dispatch(setInformationToEdit({ id: "" }));
     }
   };
@@ -110,6 +115,7 @@ export const useForm = (initialState) => {
 
   const addRender = async (data) => {
     try {
+      dispatch(setLoaderSocket(true));
       socket.emit("addRender", data);
       socket.on("newRender", (newData) => {
         new Promise((resolve, reject) => {
@@ -117,19 +123,20 @@ export const useForm = (initialState) => {
           dispatch(setDataRenderSlice([...dataRender, newData]));
           resolve();
         }).then(() => {
-          dispatch(setOpenModalUpload(false));
+          setTimeout(() => {
+            dispatch(setOpenModalUpload(false));
+            dispatch(setLoaderSocket(false));
+          }, 1000);
         });
       });
     } catch (error) {
       console.log(error);
-    } finally {
-      // setLoaderSocket(false);
     }
   };
 
   const addDemoReel = async (data) => {
     try {
-      // setLoaderSocket(true);
+      dispatch(setLoaderSocket(true));
       socket.emit("addDemoReel", data);
       socket.on("newDemoReel", (newData) => {
         new Promise((resolve, reject) => {
@@ -137,13 +144,14 @@ export const useForm = (initialState) => {
           dispatch(setDataVideoSlice([...dataVideo, newData]));
           resolve();
         }).then(() => {
-          dispatch(setOpenModalUpload(false));
+          setTimeout(() => {
+            dispatch(setLoaderSocket(false));
+            dispatch(setOpenModalUpload(false));
+          }, 1000);
         });
       });
     } catch (error) {
       console.log(error);
-    } finally {
-      // setLoaderSocket(false);
     }
   };
 
@@ -162,6 +170,7 @@ export const useForm = (initialState) => {
     loaderVideo,
     handleSubmit,
     handleChange,
+    loaderSocket,
     getVideo,
     valueInput,
     handleChangeSelect,
