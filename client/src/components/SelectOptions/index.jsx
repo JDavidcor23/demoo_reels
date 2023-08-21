@@ -15,7 +15,7 @@ export const SelectOptions = ({ handleChangeSelect }) => {
       <div className="my-5 flex justify-center items-center flex-wrap w-full">
         {selected.length ? (
           <button
-            className="flex items-center w-full p-2 text-left rounded-lg focus:outline-none focus:shadow-outline"
+            className="flex items-center w-full p-2 text-left rounded-lg focus:outline-none focus:shadow-outline justify-center"
             type="button"
           >
             {selected.map((option) => (

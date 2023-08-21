@@ -9,6 +9,7 @@ import { setOpenModalUpload } from "../../store/slices/openModalUpload";
 import { setInformationToEdit } from "../../store/slices/informationToEdit";
 import { AddRender, InputsRender } from "./AddRender";
 import { AddVideo, InputsVideo } from "./AddVideo";
+import { LiTypes, LiTypesEdit } from "./LiTypes";
 
 const allInputs = [
   {
@@ -20,8 +21,9 @@ const allInputs = [
 
 export const AddProject = () => {
   const informationToEdit = useSelector((state) => state.informationToEdit);
+
   const [uploadProject, setUploadProject] = useState(
-    informationToEdit?.type ?? "render"
+    informationToEdit?.type ? informationToEdit.type : "render"
   );
 
   const {
@@ -60,21 +62,17 @@ export const AddProject = () => {
           >
             <div className="w-90 flex flex-col justify-center items-center m-auto py-3">
               <SelectOptions handleChangeSelect={handleChangeSelect} />
+
               <div className="w-full relative mt-5">
-                <ul className="flex gap-6 border-b-[5px] border-orangeCustom justify-center w-90 m-auto">
-                  <li
-                    className="font-text text-2xl cursor-pointer color-change"
-                    onClick={() => setUploadProject("demo_reel")}
-                  >
-                    Demo reel
-                  </li>
-                  <li
-                    className="font-text color-change text-2xl cursor-pointer"
-                    onClick={() => setUploadProject("render")}
-                  >
-                    Render
-                  </li>
-                </ul>
+                {informationToEdit?.type ? (
+                  <LiTypesEdit type={informationToEdit?.type} />
+                ) : (
+                  <LiTypes
+                    setUploadProject={setUploadProject}
+                    uploadProject={uploadProject}
+                  />
+                )}
+
                 {(uploadProject === "render" ||
                   informationToEdit?.type === "render") && (
                   <AddRender loader={loader} values={values} />
