@@ -34,7 +34,7 @@ export const AddProject = () => {
     loaderVideo,
     handleSubmit,
     handleChange,
-    loaderSocket,
+    loaderButtons,
     getVideo,
     handleChangeSelect,
     valueInput,
@@ -108,7 +108,7 @@ export const AddProject = () => {
               ))}
 
               <div className="w-full">
-                {loaderSocket ? (
+                {loaderButtons ? (
                   <LoaderButton />
                 ) : (
                   <button
