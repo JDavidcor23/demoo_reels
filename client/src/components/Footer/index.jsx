@@ -14,12 +14,16 @@ export const Footer = () => {
         <li className="text-orangeCustom font-text">
           created by Jorge David Diaz
         </li>
-        <button className="bg-orangeCustom p-3 w-40 text-center text-white font-text">
-          <Link to={routes.LOGIN}>LOGIN</Link>
-        </button>
-        <button className=" font-text border-orangeCustom border-2  p-3 w-40 text-center text-white">
-          SIGNUP
-        </button>
+        <Link to={routes.LOGIN}>
+          <button className="bg-orangeCustom p-3 w-40 text-center text-white font-text">
+            LOGIN
+          </button>
+        </Link>
+        <Link to={routes.SIGNUP}>
+          <button className=" font-text border-orangeCustom border-2  p-3 w-40 text-center text-white">
+            SIGNUP
+          </button>
+        </Link>
       </ul>
       <img src={cat} alt="" className="mt-8 mobile:mt-0" />
     </footer>

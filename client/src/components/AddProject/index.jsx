@@ -1,6 +1,6 @@
 import { Inputs } from "../Inputs";
 import { SelectOptions } from "../SelectOptions";
-import { useForm } from "../../hooks";
+import { useFormData } from "../../hooks";
 import { useEffect, useState } from "react";
 import { LoaderForm } from "./LoaderForm";
 import { LoaderButton } from "./LoaderButton";
@@ -38,7 +38,7 @@ export const AddProject = () => {
     getVideo,
     handleChangeSelect,
     valueInput,
-  } = useForm({});
+  } = useFormData({});
 
   useEffect(() => {
     setValues({ ...values, type: uploadProject, user: "jorge" });

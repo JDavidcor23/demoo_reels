@@ -6,13 +6,13 @@ export const Inputs = ({
   placeholder,
   type,
   marginTop = "mt-12",
-  handleChange,
+  onChange,
 }) => {
   return (
     <input
       type={type}
       value={valueInput}
-      onChange={handleChange}
+      onChange={onChange}
       name={name}
       className={`block w-full text-white font-text border-orangeCustom shadow-sm focus:border-orangeCustom focus:ring-orangeCustom sm:text-sm ${marginTop} bg-transparent`}
       placeholder={placeholder}

@@ -1,0 +1,13 @@
+[
+  {
+    "username": "admin",
+    "password": "admin123",
+    "email": "admin@localhost.com",
+    "profile_img": "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200",
+    "description": "I am the admin of this site"
+  },
+  {
+    "email": "admin@localhost.com",
+    "password": "admin123"
+  }
+]
