@@ -1,5 +1,6 @@
 export * from "./useForm";
 export * from "./useChat";
+export * from "./useAuth";
 export * from "./useFormData";
 export * from "./useSocketIo";
 export * from "./useProfileInfo";

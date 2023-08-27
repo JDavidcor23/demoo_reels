@@ -1,19 +1,31 @@
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import { routes } from "../constants";
-import { Chat, Home, Login, Designers, Profile } from "../pages";
-import { Signup } from "../pages/Signup";
+import { Home, Designers } from "../pages";
+import { useEffect } from "react";
+import { useAuth } from "../hooks";
+import { PrivateRoutes } from "./PrivateRoute";
+import { PublicRoute } from "./PublicRoute";
 
 export const AppRouter = () => {
+  const { user, isLoggedIn, setTrue } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      setTrue();
+    }
+  }, [user]);
+
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
         <Route path={routes.HOME} element={<Home />} />
-        <Route path={routes.CHAT} element={<Chat />} />
-        <Route path={routes.LOGIN} element={<Login />} />
-        <Route path={routes.SIGNUP} element={<Signup />} />
-        <Route path={routes.PROFILE} element={<Profile />} />
         <Route path={routes.DESIGNERS} element={<Designers />} />
+        {isLoggedIn ? (
+          <Route path={routes.REDIRECT} element={<PrivateRoutes />} />
+        ) : (
+          <Route path={routes.REDIRECT} element={<PublicRoute />} />
+        )}
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 };

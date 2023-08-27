@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 
+import IsLoggedIn from "./slices/IsLoggedIn";
 import dataVideo from "./slices/dataVideo";
 import editSlice from "./slices/editSlice";
 import dataRender from "./slices/dataRender";
@@ -11,6 +12,7 @@ import informationToEdit from "./slices/informationToEdit";
 
 export default configureStore({
   reducer: {
+    IsLoggedIn,
     dataVideo,
     editSlice,
     dataRender,

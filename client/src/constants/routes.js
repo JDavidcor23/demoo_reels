@@ -1,5 +1,7 @@
 export const routes = {
+  ERROR: "*",
   HOME: "/",
+  REDIRECT: "/*",
   LOGIN: "/Login",
   SIGNUP: "/Signup",
   CHAT: "/Chat",
