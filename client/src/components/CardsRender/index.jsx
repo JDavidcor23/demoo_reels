@@ -15,7 +15,7 @@ export const CardsRender = ({
   id,
   isTheOwnerOfTheAccount,
   title,
-  user,
+  // user,
   typeCards,
   programs,
 }) => {
@@ -102,7 +102,7 @@ export const CardsRender = ({
               </p>
 
               <p className="text-2xl text-amber-900 font-text font-light py-2">
-                User: {user}
+                {/* User: {user} */}
               </p>
             </div>
 

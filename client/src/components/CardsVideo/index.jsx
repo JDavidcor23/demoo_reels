@@ -16,7 +16,7 @@ export const CardsVideo = ({
   isTheOwnerOfTheAccount,
   title,
   typeCards,
-  user,
+  // user,
   img,
   programs,
 }) => {
@@ -111,7 +111,7 @@ export const CardsVideo = ({
             </p>
 
             <p className="text-2xl text-amber-900 font-text font-light py-2">
-              User: {user}
+              {/* User: {user} */}
             </p>
           </div>
 

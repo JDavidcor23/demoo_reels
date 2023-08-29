@@ -8,6 +8,10 @@ const schema = new Schema({
     type: String,
     required: true,
   },
+  id_user: {
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
@@ -15,10 +19,6 @@ const schema = new Schema({
     minlength: 3,
   },
   video: {
-    type: String,
-    required: true,
-  },
-  user: {
     type: String,
     required: true,
   },

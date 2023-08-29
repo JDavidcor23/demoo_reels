@@ -7,7 +7,8 @@ import { PrivateRoutes } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
 
 export const AppRouter = () => {
-  const { user, isLoggedIn, setTrue } = useAuth();
+  let user = JSON.parse(localStorage.getItem("user"));
+  const { isLoggedIn, setTrue } = useAuth();
 
   useEffect(() => {
     if (user) {

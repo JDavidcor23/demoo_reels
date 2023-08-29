@@ -21,7 +21,7 @@ const allInputs = [
 
 export const AddProject = () => {
   const informationToEdit = useSelector((state) => state.informationToEdit);
-
+  const { username, _id } = JSON.parse(localStorage.getItem("user"));
   const [uploadProject, setUploadProject] = useState(
     informationToEdit?.type ? informationToEdit.type : "render"
   );
@@ -36,12 +36,12 @@ export const AddProject = () => {
     handleChange,
     loaderButtons,
     getVideo,
-    handleChangeSelect,
     valueInput,
+    handleChangeSelect,
   } = useFormData({});
 
   useEffect(() => {
-    setValues({ ...values, type: uploadProject, user: "jorge" });
+    setValues({ ...values, type: uploadProject, user: username, id_user: _id });
   }, [uploadProject]);
 
   const dispatch = useDispatch();
@@ -103,7 +103,7 @@ export const AddProject = () => {
                   key={input.name}
                   {...input}
                   marginTop="mt-5"
-                  handleChange={handleChange}
+                  onChange={handleChange}
                 />
               ))}
 

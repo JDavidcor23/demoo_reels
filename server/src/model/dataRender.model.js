@@ -8,15 +8,15 @@ const schema = new Schema({
     type: String,
     required: true,
   },
+  id_user: {
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
     unique: false,
     minlength: 3,
-  },
-  user: {
-    type: String,
-    required: true,
   },
   img: {
     type: String,

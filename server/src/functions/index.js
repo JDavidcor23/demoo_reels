@@ -122,7 +122,7 @@ const signup = async (data) => {
 
     const newUser = new UserModel(data);
 
-    // newUser.save();
+    newUser.save();
 
     return await signToken({
       _id: newUser._id,

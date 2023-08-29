@@ -4,9 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 export const useAuth = () => {
   const dispatch = useDispatch();
-  let user = JSON.parse(localStorage.getItem("user"));
   const isLoggedIn = useSelector((store) => store?.IsLoggedIn?.data);
-  //FUNCTIONS
+
   const setTrue = () => {
     dispatch(setIsLoggedIn(true));
   };
@@ -16,7 +15,6 @@ export const useAuth = () => {
   };
 
   return {
-    user,
     isLoggedIn,
     setTrue,
     setFalse,
