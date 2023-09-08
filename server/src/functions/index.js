@@ -90,7 +90,6 @@ const updateRender = async (id, data) => {
 const login = async (data) => {
   try {
     const user = await UserModel.findOne({ email: data.email });
-
     if (user) {
       const result = await new Promise((resolve, reject) => {
         bcrypt.compare(data.password, user.password, (err, result) => {
@@ -106,6 +105,7 @@ const login = async (data) => {
           username: user.username,
           profile_img: user?.profile_img || "",
           description: user?.description || "",
+          social_media: user?.social_media || [],
         });
       }
     }
@@ -130,7 +130,20 @@ const signup = async (data) => {
       username: newUser.username,
       profile_img: newUser?.profile_img || "",
       description: newUser?.description || "",
+      social_media: newUser?.social_media || [],
     });
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const editProfile = async (data) => {
+  try {
+    const result = await UserModel.findByIdAndUpdate(data._id, data);
+    if (result) {
+      return true;
+    }
+    return null;
   } catch (error) {
     throw new Error(error);
   }
@@ -138,6 +151,7 @@ const signup = async (data) => {
 
 module.exports = {
   addDemoReel,
+  editProfile,
   addRender,
   getDataRender,
   getDataVideo,

@@ -11,6 +11,7 @@ const {
   updateVideo,
   updateRender,
   login,
+  editProfile,
 } = require("./functions/index.js");
 const { verifyToken } = require("./functions/jwt/index.js");
 require("./db.js");
@@ -50,6 +51,15 @@ io.on("connection", async (socket) => {
     try {
       const token = await signup(data);
       socket.emit("token", token);
+    } catch (error) {
+      socket.emit("error", error);
+    }
+  });
+
+  socket.on("editProfile", async (data) => {
+    try {
+      await editProfile(data);
+      return true;
     } catch (error) {
       socket.emit("error", error);
     }

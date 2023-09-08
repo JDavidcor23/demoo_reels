@@ -3,6 +3,7 @@ export * from "./useChat";
 export * from "./useAuth";
 export * from "./useFormData";
 export * from "./useSocketIo";
+export * from "./useUpdateUser";
 export * from "./useProfileInfo";
 export * from "./useDeleteDesign";
 export * from "./useSelectOptions";

@@ -3,11 +3,17 @@ import { PencilIcon, ArrowUpTrayIcon } from "@heroicons/react/24/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { setEditSlice } from "../../store/slices/editSlice";
 import { setOpenModalUpload } from "../../store/slices/openModalUpload";
+import { useUpdateUser } from "../../hooks";
 
 export const Buttons = () => {
   const dispatch = useDispatch();
-
+  const { submitChanges } = useUpdateUser();
   const editSlice = useSelector((state) => state.editSlice.state);
+
+  const submit = () => {
+    submitChanges();
+    dispatch(setEditSlice(false));
+  };
 
   return (
     <>
@@ -15,7 +21,7 @@ export const Buttons = () => {
         <>
           <button
             className="justify-center items-center bg-orangeCustom p-3 w-48 text-center text-white font-text flex"
-            onClick={() => dispatch(setEditSlice(false))}
+            onClick={submit}
           >
             <span className=" w-[100px]">SAVE</span>
           </button>
