@@ -140,8 +140,16 @@ const signup = async (data) => {
 const editProfile = async (data) => {
   try {
     const result = await UserModel.findByIdAndUpdate(data._id, data);
+    const { _doc } = await UserModel.findById(data._id);
     if (result) {
-      return true;
+      return await signToken({
+        _id: _doc._id,
+        email: _doc.email,
+        username: _doc.username,
+        profile_img: _doc?.profile_img || "",
+        description: _doc?.description || "",
+        social_media: _doc?.social_media || [],
+      });
     }
     return null;
   } catch (error) {

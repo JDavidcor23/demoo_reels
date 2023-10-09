@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useCards } from "../../hooks/useCards";
 import { Cards } from "../Cards/Cards";
 import { useGetCardsInformation, useSocketIo } from "../../hooks";
@@ -15,10 +15,14 @@ export const Design = ({ isTheOwnerOfTheAccount }) => {
 
   const { getDemoReel, getRender } = functionsCardsInformation;
 
-  useEffect(() => {
+  const fetchData = useCallback((socket) => {
     getDemoReel(socket);
     getRender(socket);
-  }, [socket]);
+  }, []);
+
+  useEffect(() => {
+    fetchData(socket);
+  }, [fetchData, socket]);
 
   return (
     <div className="container-design-profile">

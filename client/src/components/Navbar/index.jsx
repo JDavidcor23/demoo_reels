@@ -8,6 +8,7 @@ import { DisclosurePanel } from "./DisclosurePanel";
 import { Link, useLocation } from "react-router-dom";
 import { routes, routesNames } from "../../constants/routes";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useSelector } from "react-redux";
 
 export const navigation = [
   { name: routesNames.HOME, href: routes.HOME },
@@ -18,8 +19,10 @@ export const navigation = [
 ];
 
 export const Navbar = () => {
-  const [login, setLogin] = useState(true);
+  const infoUser = useSelector((state) => state.infoUser);
+
   const { pathname } = useLocation();
+
   return (
     <>
       <Disclosure as="nav" className=" ">
@@ -52,7 +55,7 @@ export const Navbar = () => {
                     ))}
                   </div>
                 </div>
-                {login ? <ProfileMenu /> : <ButtonsNav />}
+                {infoUser?._id ? <ProfileMenu /> : <ButtonsNav />}
                 <div className="-mr-2 flex items-center sm:hidden">
                   <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-orangeCustom hover:text-orangeCustom focus:outline-none focus:ring-2 focus:ring-inset focus:ring-orangeCustom">
                     <span className="sr-only">Open main menu</span>

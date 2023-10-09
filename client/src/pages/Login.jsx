@@ -1,8 +1,10 @@
 import React from "react";
 import logo from "../assets/header/logo.png";
 import { ComponentForm } from "../components";
-import { useSocketIo } from "../hooks";
+import { useAuth, useSocketIo } from "../hooks";
 import { saveLocalStorage } from "../helper/saveLocalStorage";
+import { io } from "socket.io-client";
+import { useNavigate } from "react-router-dom";
 
 const allInputs = [
   {
@@ -20,13 +22,19 @@ const allInputs = [
 const title = "Login";
 
 export const Login = () => {
-  const { socket } = useSocketIo(import.meta.env.VITE_BACKEND);
+  const navigate = useNavigate();
+  const socket = io(import.meta.env.VITE_BACKEND);
+  const { setTrue } = useAuth();
 
   const functionLogin = async (values) => {
     if (socket) {
       socket.emit("login", values);
       socket.on("token", (userInfoAndToken) => {
-        saveLocalStorage(userInfoAndToken);
+        if (userInfoAndToken !== null) {
+          navigate("/");
+          saveLocalStorage(userInfoAndToken);
+          setTrue();
+        }
       });
     }
   };

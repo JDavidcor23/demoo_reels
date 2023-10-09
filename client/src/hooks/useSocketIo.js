@@ -13,10 +13,6 @@ export const useSocketIo = (url) => {
   useEffect(() => {
     const newSocket = io(url);
     setSocket(newSocket);
-
-    return () => {
-      newSocket.disconnect();
-    };
   }, [url]);
 
   return { socket, dataVideo, dataRender };

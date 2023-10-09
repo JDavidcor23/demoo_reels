@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Navbar } from "../components/Navbar";
 import { useCards } from "../hooks/useCards";
 import { Cards } from "../components/Cards/Cards";
@@ -16,10 +16,14 @@ export const Designers = () => {
 
   const { getDemoReel, getRender } = functionsCardsInformation;
 
-  useEffect(() => {
+  const fetchData = useCallback((socket) => {
     getDemoReel(socket);
     getRender(socket);
-  }, [socket]);
+  }, []);
+
+  useEffect(() => {
+    fetchData(socket);
+  }, [fetchData, socket]);
 
   return (
     <div className="gradient-bg-welcome">

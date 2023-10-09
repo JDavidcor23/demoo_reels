@@ -2,10 +2,33 @@ import React from "react";
 import { Fragment } from "react";
 import { BellIcon } from "@heroicons/react/24/outline";
 import { Menu, Transition } from "@headlessui/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { routes } from "../../constants/routes";
+import { useDispatch, useSelector } from "react-redux";
+import { setInfoUser } from "../../store/slices/infoUser";
+import { useAuth } from "../../hooks";
 
 export const ProfileMenu = () => {
+  const navigate = useNavigate();
+
+  const { setFalse } = useAuth();
+
+  const infoUser = useSelector((state) => state.infoUser);
+
+  const location = useLocation();
+
+  const dispatch = useDispatch();
+
+  const SignOut = () => {
+    localStorage.removeItem("user");
+
+    if (location.pathname !== "/") {
+      navigate(-1);
+    }
+    dispatch(setInfoUser({}));
+    setFalse();
+  };
+
   return (
     <div className="hidden sm:ml-6 sm:flex sm:items-center">
       <button
@@ -18,11 +41,16 @@ export const ProfileMenu = () => {
 
       <Menu as="div" className="relative ml-3">
         <div>
-          <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none">
+          <Menu.Button className="flex rounded-full  text-sm focus:outline-none">
             <span className="sr-only">Open user menu</span>
             <img
-              className="h-8 w-8 rounded-full"
-              src="https://res.cloudinary.com/dbtk64lp4/image/upload/v1678822603/jorgito23diaz6_siberian_husky_3d_pixar_style_render_3d_hd_b95a39ab-ae8b-4d09-8594-f42e35e81de5_-_Copy_tvfcfn.png"
+              className="h-8 w-8 rounded-full object-cover"
+              src={infoUser.profile_img}
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null || "";
+                currentTarget.src =
+                  "https://res.cloudinary.com/dbtk64lp4/image/upload/v1668383643/2.0/blank-profile-picture-973460__480_jvgcue.png";
+              }}
               alt=""
             />
           </Menu.Button>
@@ -49,6 +77,7 @@ export const ProfileMenu = () => {
               <a
                 href="#"
                 className={"block px-4 py-2 text-sm font-text text-white"}
+                onClick={SignOut}
               >
                 Sign out
               </a>

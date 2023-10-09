@@ -13,7 +13,7 @@ const {
   login,
   editProfile,
 } = require("./functions/index.js");
-const { verifyToken } = require("./functions/jwt/index.js");
+const { verifyToken, signToken } = require("./functions/jwt/index.js");
 require("./db.js");
 
 const app = express();
@@ -58,8 +58,8 @@ io.on("connection", async (socket) => {
 
   socket.on("editProfile", async (data) => {
     try {
-      await editProfile(data);
-      return true;
+      const userUpdated = await editProfile(data);
+      socket.emit("token", userUpdated);
     } catch (error) {
       socket.emit("error", error);
     }

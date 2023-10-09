@@ -1,4 +1,5 @@
 export * from "./CardsRender";
+export * from "./UrlSocialMedia";
 export * from "./Navbar";
 export * from "./Design";
 export * from "./Header";

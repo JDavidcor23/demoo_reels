@@ -1,4 +1,4 @@
-import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { routes } from "../constants";
 import { Home, Designers } from "../pages";
 import { useEffect } from "react";
@@ -7,14 +7,19 @@ import { PrivateRoutes } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
 
 export const AppRouter = () => {
-  let user = JSON.parse(localStorage.getItem("user"));
-  const { isLoggedIn, setTrue } = useAuth();
+  const { isLoggedIn, setTrue, setFalse } = useAuth();
+
+  let accessToken = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null;
 
   useEffect(() => {
-    if (user) {
+    if (accessToken?._id) {
       setTrue();
+    } else {
+      setFalse();
     }
-  }, [user]);
+  }, [accessToken]);
 
   return (
     <BrowserRouter>

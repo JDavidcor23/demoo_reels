@@ -26,7 +26,7 @@ export const ProfileInfoEdit = ({ children }) => {
           <img
             src={infoUser?.profile_img}
             alt=""
-            className=" w-28 rounded-full object-cover"
+            className=" w-28 rounded-full object-cover h-28"
           />
           <div className="image-upload opacity-100 z-50">
             <ArrowUpTrayIcon
@@ -59,7 +59,7 @@ export const ProfileInfoEdit = ({ children }) => {
           name="description"
           onChange={handleChange}
           value={infoUser?.description}
-          className="mt-10 font-text w-full h-[168px] bg-transparent border-orangeCustom focus:border-orangeCustom text-justify"
+          className="mt-10 font-text w-full min-h-[168px] bg-transparent border-orangeCustom focus:border-orangeCustom text-justify"
         ></textarea>
         <div className="flex mt-9 w-full justify-between">
           <div className="relative">

@@ -1,10 +1,9 @@
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useSocketIo } from "./useSocketIo";
 import { setInfoUser } from "../store/slices/infoUser";
+import { io } from "socket.io-client";
 
 export const useUpdateUser = () => {
-  const { socket } = useSocketIo(import.meta.env.VITE_BACKEND);
+  const socket = io(import.meta.env.VITE_BACKEND);
   const dispatch = useDispatch();
 
   const infoUser = useSelector((state) => state.infoUser);
@@ -24,8 +23,10 @@ export const useUpdateUser = () => {
 
   const submitChanges = async () => {
     try {
-      await socket.emit("editProfile", infoUser);
-      localStorage.setItem("user", JSON.stringify(infoUser));
+      socket.emit("editProfile", infoUser);
+      socket.on("token", (token) => {
+        localStorage.setItem("user", JSON.stringify(token));
+      });
     } catch (error) {
       console.log(error);
     }

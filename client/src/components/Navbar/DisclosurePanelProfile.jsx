@@ -2,9 +2,20 @@ import React from "react";
 import { Disclosure } from "@headlessui/react";
 import { BellIcon } from "@heroicons/react/24/outline";
 import { routes } from "../../constants";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export const DisclosurePanelProfile = () => {
+  const navigate = useNavigate();
+
+  const location = useLocation();
+
+  const SignOut = () => {
+    localStorage.removeItem("user");
+
+    if (location.pathname !== "/") {
+      navigate(-1);
+    }
+  };
   return (
     <div className="border-t border-gray-200 pt-4 pb-3">
       <div className="flex items-center px-4">
@@ -48,6 +59,7 @@ export const DisclosurePanelProfile = () => {
           as="a"
           href="#"
           className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
+          onClick={SignOut}
         >
           Sign out
         </Disclosure.Button>
