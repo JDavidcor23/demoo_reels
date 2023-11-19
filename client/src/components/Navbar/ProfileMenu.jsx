@@ -46,11 +46,6 @@ export const ProfileMenu = () => {
             <img
               className="h-8 w-8 rounded-full object-cover"
               src={infoUser.profile_img}
-              onError={({ currentTarget }) => {
-                currentTarget.onerror = null || "";
-                currentTarget.src =
-                  "https://res.cloudinary.com/dbtk64lp4/image/upload/v1668383643/2.0/blank-profile-picture-973460__480_jvgcue.png";
-              }}
               alt=""
             />
           </Menu.Button>

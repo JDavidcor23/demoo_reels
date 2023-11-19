@@ -15,14 +15,9 @@ export const ProfileInfoNormal = ({ children }) => {
 
   return (
     <div className="p-3">
-      <div className=" container-profileInfo p-6 gradient-bg-welcome text-white rounded-sm shadow-2xl max-w-[400px] ">
+      <div className=" container-profileInfo p-6 gradient-bg-welcome text-white rounded-sm shadow-2xl max-w-[400px]">
         <img
           src={infoUser.profile_img}
-          onError={({ currentTarget }) => {
-            currentTarget.onerror = null || "";
-            currentTarget.src =
-              "https://res.cloudinary.com/dbtk64lp4/image/upload/v1668383643/2.0/blank-profile-picture-973460__480_jvgcue.png";
-          }}
           alt=""
           className=" w-28 rounded-full object-cover h-28"
         />
@@ -32,7 +27,7 @@ export const ProfileInfoNormal = ({ children }) => {
         <p className="mt-10 text-justify min-h-[168px]">
           {infoUser?.description}
         </p>
-        <div className="flex mt-9 w-full justify-between">
+        <div className="flex mt-9 w-full justify-center">
           {infoUser?.social_media?.map((social, index) => {
             const socialKey = Object.keys(social)[0];
             return (
@@ -42,7 +37,11 @@ export const ProfileInfoNormal = ({ children }) => {
                 className="relative"
                 target="_blank"
               >
-                <img src={logos[socialKey]} alt={socialKey} />
+                <img
+                  src={logos[socialKey]}
+                  alt={socialKey}
+                  style={{ margin: "0 10px" }}
+                />
               </a>
             );
           })}

@@ -8,15 +8,19 @@ import { useSelector } from "react-redux";
 export const Profile = ({ isTheOwnerOfTheAccount = true }) => {
   const openModalUpload = useSelector((state) => state.openModalUpload.state);
 
+  const openModalSocialMediaSlice = useSelector(
+    (state) => state.openModalSocialMedia.state
+  );
+
   const informationToEdit = useSelector((state) => state.informationToEdit);
 
   useEffect(() => {
-    if (openModalUpload) {
+    if (openModalUpload || openModalSocialMediaSlice) {
       document.body.style.overflowY = "hidden";
       return;
     }
     document.body.style.overflowY = "auto";
-  }, [openModalUpload]);
+  }, [openModalUpload, openModalSocialMediaSlice]);
 
   return (
     <div className="gradient-bg-welcome">

@@ -10,9 +10,11 @@ export const ButtonsNav = () => {
           LOGIN
         </button>
       </Link>
-      <button className=" font-text border-orangeCustom border-2  p-2 w-40 text-center text-white">
-        SIGNUP
-      </button>
+      <Link to={routes.SIGNUP}>
+        <button className=" font-text border-orangeCustom border-2  p-2 w-40 text-center text-white">
+          SIGNUP
+        </button>
+      </Link>
     </div>
   );
 };

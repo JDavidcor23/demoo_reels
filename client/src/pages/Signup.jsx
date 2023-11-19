@@ -1,9 +1,10 @@
 import React from "react";
 import logo from "../assets/header/logo.png";
 import { ComponentForm } from "../components";
-import { useSocketIo } from "../hooks";
+import { useAuth, useSocketIo } from "../hooks";
 import { saveLocalStorage } from "../helper/saveLocalStorage";
 import { useNavigate } from "react-router-dom";
+import { io } from "socket.io-client";
 
 const allInputs = [
   {
@@ -28,6 +29,7 @@ const title = "Signup";
 export const Signup = () => {
   const navigate = useNavigate();
   const socket = io(import.meta.env.VITE_BACKEND);
+  const { setTrue } = useAuth();
 
   const functionSignup = async (values) => {
     if (socket) {
@@ -36,6 +38,7 @@ export const Signup = () => {
         if (userInfoAndToken !== null) {
           navigate("/");
           saveLocalStorage(userInfoAndToken);
+          setTrue();
         }
       });
     }
@@ -49,6 +52,7 @@ export const Signup = () => {
           allInputs={allInputs}
           title={title}
           fn={functionSignup}
+          titleButton="Signup"
         />
       </div>
     </div>

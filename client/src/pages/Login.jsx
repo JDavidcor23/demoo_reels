@@ -43,7 +43,12 @@ export const Login = () => {
     <div className=" flex flex-col justify-center items-center min-h-screen relative gradient-bg-welcome">
       <img src={logo} alt="" className="w-28 m-4" />
       <div className=" flex justify-center w-90 m-auto items-center h-full">
-        <ComponentForm allInputs={allInputs} title={title} fn={functionLogin} />
+        <ComponentForm
+          allInputs={allInputs}
+          title={title}
+          fn={functionLogin}
+          titleButton="Login"
+        />
       </div>
     </div>
   );

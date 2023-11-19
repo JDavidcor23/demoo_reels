@@ -13,9 +13,7 @@ import { useSelector } from "react-redux";
 export const navigation = [
   { name: routesNames.HOME, href: routes.HOME },
   { name: routesNames.CHAT, href: routes.CHAT },
-  { name: "Team", href: "#" },
-  { name: "Projects", href: "#" },
-  { name: "Calendar", href: "#" },
+  { name: routesNames.DESIGNERS, href: routes.DESIGNERS },
 ];
 
 export const Navbar = () => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import behance from "../../assets/Profile/behance.svg";
 import instagram from "../../assets/Profile/instagram.svg";
 import linkedin from "../../assets/Profile/linkedin.svg";
@@ -9,9 +9,13 @@ import {
 } from "@heroicons/react/24/solid";
 import { useUpdateUser } from "../../hooks";
 import { uploadFileCloudinary } from "../../helper/uploadFile";
+import { ModalSocialMedia } from "../ModalSocialMedia";
+import { useSelector } from "react-redux";
 
 export const ProfileInfoEdit = ({ children }) => {
-  const { infoUser, handleChange, handleChangesSocialMedia } = useUpdateUser();
+  const [nameOfSocialMedia, setNameOfSocialMedia] = useState("");
+
+  const { infoUser, handleChange, openModalSocialMedia } = useUpdateUser();
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
@@ -19,8 +23,17 @@ export const ProfileInfoEdit = ({ children }) => {
     handleChange({ target: { name: "profile_img", value: url } });
   };
 
+  const openModalSocialMediaSlice = useSelector(
+    (state) => state.openModalSocialMedia.state
+  );
+
+  const openModalAndSetSocialMedia = (name) => {
+    openModalSocialMedia();
+    setNameOfSocialMedia(name);
+  };
+
   return (
-    <div className="p-3">
+    <div className="">
       <div className=" container-profileInfo p-6 gradient-bg-welcome text-white rounded-sm shadow-2xl max-w-[400px] ">
         <div className="relative w-28 cursor-pointer">
           <img
@@ -62,119 +75,51 @@ export const ProfileInfoEdit = ({ children }) => {
           className="mt-10 font-text w-full min-h-[168px] bg-transparent border-orangeCustom focus:border-orangeCustom text-justify"
         ></textarea>
         <div className="flex mt-9 w-full justify-between">
-          <div className="relative">
-            <div className="absolute w-[60px] left-[-10px]">
-              <div className="flex justify-between cursor-pointer items-center w-full m-auto mt-[-20px]">
-                <div
-                  className="flex justify-center items-center w-[32px] h-[32px] bg-white rounded-full p-1"
-                  onClick={() =>
-                    handleChangesSocialMedia("behance", "https://behance.com")
-                  }
-                >
-                  <PencilIcon
-                    title="edit"
-                    titleId="edits"
-                    color="#e97d05"
-                    className="block h-6 w-6 mr-3"
-                    aria-hidden="true"
-                    style={{ margin: "0" }}
-                  />
-                </div>
+          {[
+            { name: "behance", icon: behance },
+            { name: "instagram", icon: instagram },
+            { name: "linkedin", icon: linkedin },
+          ].map((socialMedia) => (
+            <div className="relative" key={socialMedia.name}>
+              <div className="absolute w-[60px] left-[-10px]">
+                <div className="flex justify-between cursor-pointer items-center w-full m-auto mt-[-20px]">
+                  <div
+                    className="flex justify-center items-center w-[32px] h-[32px] bg-white rounded-full p-1"
+                    onClick={() => openModalAndSetSocialMedia(socialMedia.name)}
+                  >
+                    <PencilIcon
+                      title="edit"
+                      titleId="edits"
+                      color="#e97d05"
+                      className="block h-6 w-6 mr-3"
+                      aria-hidden="true"
+                      style={{ margin: "0" }}
+                    />
+                  </div>
 
-                <div
-                  className="relative w-[40px] h-[40px] left-[3px]"
-                  // onClick={openModalDeleteFunction}
-                >
-                  <MinusCircleIcon
-                    title="minus"
-                    titleId="minusId"
-                    color="red"
-                    width="45px"
-                    style={{ position: "absolute", zIndex: "20" }}
-                  />
-                  <div className=" w-3 h-3 bg-white absolute left-[23px] top-[50%] translate-x-[-50%] translate-y-[-50%] z-10 "></div>
+                  <div
+                    className="relative w-[40px] h-[40px] left-[3px]"
+                    // onClick={openModalDeleteFunction}
+                  >
+                    <MinusCircleIcon
+                      title="minus"
+                      titleId="minusId"
+                      color="red"
+                      width="45px"
+                      style={{ position: "absolute", zIndex: "20" }}
+                    />
+                    <div className=" w-3 h-3 bg-white absolute left-[23px] top-[50%] translate-x-[-50%] translate-y-[-50%] z-10 "></div>
+                  </div>
                 </div>
               </div>
+              <img src={socialMedia.icon} alt={socialMedia.name} />
             </div>
-            <img src={behance} alt="" />
-          </div>
-          <div className="relative">
-            <div className="absolute w-[60px] left-[-10px]">
-              <div className="flex justify-between cursor-pointer items-center w-full m-auto mt-[-20px]">
-                <div
-                  className="flex justify-center items-center w-[32px] h-[32px] bg-white rounded-full p-1"
-                  onClick={() =>
-                    handleChangesSocialMedia(
-                      "instagram",
-                      "https://instagram.com"
-                    )
-                  }
-                >
-                  <PencilIcon
-                    title="edit"
-                    titleId="edits"
-                    color="#e97d05"
-                    className="block h-6 w-6 mr-3"
-                    aria-hidden="true"
-                    style={{ margin: "0" }}
-                  />
-                </div>
-
-                <div
-                  className="relative w-[40px] h-[40px] left-[3px]"
-                  // onClick={openModalDeleteFunction}
-                >
-                  <MinusCircleIcon
-                    title="minus"
-                    titleId="minusId"
-                    color="red"
-                    width="45px"
-                    style={{ position: "absolute", zIndex: "20" }}
-                  />
-                  <div className=" w-3 h-3 bg-white absolute left-[23px] top-[50%] translate-x-[-50%] translate-y-[-50%] z-10 "></div>
-                </div>
-              </div>
-            </div>
-            <img src={instagram} alt="" className="mt-[-3px] h-[112%] " />
-          </div>
-          <div className="relative">
-            <div className="absolute w-[60px] left-[-10px]">
-              <div className="flex justify-between cursor-pointer items-center w-full m-auto mt-[-20px]">
-                <div
-                  className="flex justify-center items-center w-[32px] h-[32px] bg-white rounded-full p-1"
-                  onClick={() =>
-                    handleChangesSocialMedia("linkedin", "https://linkedin.com")
-                  }
-                >
-                  <PencilIcon
-                    title="edit"
-                    titleId="edits"
-                    color="#e97d05"
-                    className="block h-6 w-6 mr-3"
-                    aria-hidden="true"
-                    style={{ margin: "0" }}
-                  />
-                </div>
-
-                <div
-                  className="relative w-[40px] h-[40px] left-[3px]"
-                  // onClick={openModalDeleteFunction}
-                >
-                  <MinusCircleIcon
-                    title="minus"
-                    titleId="minusId"
-                    color="red"
-                    width="45px"
-                    style={{ position: "absolute", zIndex: "20" }}
-                  />
-                  <div className=" w-3 h-3 bg-white absolute left-[23px] top-[50%] translate-x-[-50%] translate-y-[-50%] z-10 "></div>
-                </div>
-              </div>
-            </div>
-            <img src={linkedin} alt="" className="" />
-          </div>
+          ))}
         </div>
       </div>
+      {openModalSocialMediaSlice && (
+        <ModalSocialMedia nameOfSocialMedia={nameOfSocialMedia} />
+      )}
     </div>
   );
 };

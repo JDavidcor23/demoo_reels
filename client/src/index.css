@@ -344,7 +344,12 @@ video.heightVideo {
   top: 0;
   border-radius: 50%;
 }
-
+.center-div-fixed {
+  top: 40% !important;
+  left: 0;
+  right: 0;
+  transform: translate(-50%, -50%);
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

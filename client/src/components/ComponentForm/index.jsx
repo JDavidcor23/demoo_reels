@@ -2,7 +2,7 @@ import React from "react";
 import { Inputs } from "../Inputs";
 import { useForm } from "../../hooks";
 
-export const ComponentForm = ({ allInputs, title, fn }) => {
+export const ComponentForm = ({ allInputs, title, fn, titleButton }) => {
   const { handleChange, handleSubmit } = useForm({});
 
   return (
@@ -23,7 +23,7 @@ export const ComponentForm = ({ allInputs, title, fn }) => {
           type="submit"
           className=" mt-12 flex justify-center  border border-transparent w-full  font-text bg-orangeCustom px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-orangeCustom focus:outline-none focus:ring-2 focus:ring-orangeCustom focus:ring-offset-2"
         >
-          Login
+          {titleButton}
         </button>
       </div>
     </form>

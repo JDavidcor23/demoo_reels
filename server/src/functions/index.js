@@ -120,7 +120,14 @@ const signup = async (data) => {
   try {
     data.password = await bcrypt.hash(data.password, 10);
 
-    const newUser = new UserModel(data);
+    const currentUser = {
+      ...data,
+      profile_img:
+        data?.profile_img ||
+        "https://res.cloudinary.com/dbtk64lp4/image/upload/v1668383643/2.0/blank-profile-picture-973460__480_jvgcue.png",
+    };
+
+    const newUser = new UserModel(currentUser);
 
     newUser.save();
 
