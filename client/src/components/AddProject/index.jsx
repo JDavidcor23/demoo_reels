@@ -37,6 +37,7 @@ export const AddProject = () => {
     loaderButtons,
     getVideo,
     valueInput,
+    errorFormData,
     handleChangeSelect,
   } = useFormData({});
 
@@ -96,6 +97,9 @@ export const AddProject = () => {
                   getVideo={getVideo}
                 />
               )}
+              {errorFormData.length > 0 && (
+                <p className="mt-2 text-red-600 text-center">{errorFormData}</p>
+              )}
 
               {allInputs.map((input) => (
                 <Inputs
@@ -106,7 +110,6 @@ export const AddProject = () => {
                   onChange={handleChange}
                 />
               ))}
-
               <div className="w-full">
                 {loaderButtons ? (
                   <LoaderButton />

@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "../assets/header/logo.png";
 import { ComponentForm } from "../components";
-import { useAuth, useSocketIo } from "../hooks";
+import { useAuth } from "../hooks";
 import { saveLocalStorage } from "../helper/saveLocalStorage";
 import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
@@ -39,6 +39,7 @@ export const Signup = () => {
           navigate("/");
           saveLocalStorage(userInfoAndToken);
           setTrue();
+          return;
         }
       });
     }
@@ -51,6 +52,7 @@ export const Signup = () => {
         <ComponentForm
           allInputs={allInputs}
           title={title}
+          socket={socket}
           fn={functionSignup}
           titleButton="Signup"
         />

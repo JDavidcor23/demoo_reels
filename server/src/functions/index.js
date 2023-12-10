@@ -40,11 +40,14 @@ const getDataVideo = async () => {
 };
 
 const deleteVideo = async (id) => {
-  const data = await DataVideo.findByIdAndDelete(id);
-  if (data) {
-    return data;
+  try {
+    const data = await DataVideo.findByIdAndDelete(id);
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    throw new Error(error);
   }
-  return null;
 };
 
 const deleteRender = async (id) => {
@@ -53,7 +56,6 @@ const deleteRender = async (id) => {
     if (data) {
       return data;
     }
-    return null;
   } catch (error) {
     throw new Error(error);
   }
@@ -66,7 +68,7 @@ const updateVideo = async (id, data) => {
     if (newData) {
       return newData;
     }
-    return null;
+    throw new Error("Something went wrong");
   } catch (error) {
     throw new Error(error);
   }
@@ -79,7 +81,7 @@ const updateRender = async (id, data) => {
     if (newData) {
       return newData;
     }
-    return null;
+    throw new Error("Something went wrong");
   } catch (error) {
     throw new Error(error);
   }
@@ -90,10 +92,17 @@ const updateRender = async (id, data) => {
 const login = async (data) => {
   try {
     const user = await UserModel.findOne({ email: data.email });
-    if (user) {
+
+    if (user !== null) {
       const result = await new Promise((resolve, reject) => {
         bcrypt.compare(data.password, user.password, (err, result) => {
-          if (err) reject(err);
+          if (!result) {
+            reject(
+              new Error(
+                "The password is incorrect. Please check your password."
+              )
+            );
+          }
           resolve(result);
         });
       });
@@ -110,7 +119,7 @@ const login = async (data) => {
       }
     }
 
-    return null;
+    throw new Error("The email does not exist. Please check your email.");
   } catch (error) {
     throw new Error(error);
   }
@@ -128,8 +137,7 @@ const signup = async (data) => {
     };
 
     const newUser = new UserModel(currentUser);
-
-    newUser.save();
+    await newUser.save();
 
     return await signToken({
       _id: newUser._id,
@@ -148,6 +156,7 @@ const editProfile = async (data) => {
   try {
     const result = await UserModel.findByIdAndUpdate(data._id, data);
     const { _doc } = await UserModel.findById(data._id);
+
     if (result) {
       return await signToken({
         _id: _doc._id,
@@ -158,7 +167,8 @@ const editProfile = async (data) => {
         social_media: _doc?.social_media || [],
       });
     }
-    return null;
+
+    throw new Error("The email does not exist. Please check your email.");
   } catch (error) {
     throw new Error(error);
   }

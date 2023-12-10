@@ -1,9 +1,16 @@
 import React from "react";
 import { Inputs } from "../Inputs";
-import { useForm } from "../../hooks";
+import { useErrorSocket, useForm } from "../../hooks";
 
-export const ComponentForm = ({ allInputs, title, fn, titleButton }) => {
+export const ComponentForm = ({
+  allInputs,
+  title,
+  fn,
+  titleButton,
+  socket,
+}) => {
   const { handleChange, handleSubmit } = useForm({});
+  const { error: authenticationError } = useErrorSocket(socket);
 
   return (
     <form
@@ -19,6 +26,12 @@ export const ComponentForm = ({ allInputs, title, fn, titleButton }) => {
             <Inputs key={input.name} {...input} onChange={handleChange} />
           ))}
         </div>
+        {authenticationError.length > 0 &&
+          authenticationError.map((error) => (
+            <p className="text-red-500 text-sm mt-2" key={error.message}>
+              {error.message}
+            </p>
+          ))}
         <button
           type="submit"
           className=" mt-12 flex justify-center  border border-transparent w-full  font-text bg-orangeCustom px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-orangeCustom focus:outline-none focus:ring-2 focus:ring-orangeCustom focus:ring-offset-2"

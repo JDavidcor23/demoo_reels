@@ -46,6 +46,7 @@ export const Login = () => {
         <ComponentForm
           allInputs={allInputs}
           title={title}
+          socket={socket}
           fn={functionLogin}
           titleButton="Login"
         />

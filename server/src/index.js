@@ -13,7 +13,8 @@ const {
   login,
   editProfile,
 } = require("./functions/index.js");
-const { verifyToken, signToken } = require("./functions/jwt/index.js");
+const { verifyToken } = require("./functions/jwt/index.js");
+const { returnError } = require("./helpers/errorCode.js");
 require("./db.js");
 
 const app = express();
@@ -43,7 +44,7 @@ io.on("connection", async (socket) => {
       const userInfoAndToken = await login(data);
       socket.emit("token", userInfoAndToken);
     } catch (error) {
-      socket.emit("error", error);
+      socket.emit("error", returnError(error.message));
     }
   });
 
@@ -52,7 +53,7 @@ io.on("connection", async (socket) => {
       const token = await signup(data);
       socket.emit("token", token);
     } catch (error) {
-      socket.emit("error", error);
+      socket.emit("error", returnError(error.message));
     }
   });
 
@@ -61,7 +62,7 @@ io.on("connection", async (socket) => {
       const userUpdated = await editProfile(data);
       socket.emit("token", userUpdated);
     } catch (error) {
-      socket.emit("error", error);
+      socket.emit("error", error.message);
     }
   });
 
@@ -70,7 +71,7 @@ io.on("connection", async (socket) => {
       const data = await getDataRender();
       socket.emit("getRenders", data);
     } catch (error) {
-      socket.emit("error", error);
+      socket.emit("error", error.message);
     }
   });
 
@@ -80,7 +81,7 @@ io.on("connection", async (socket) => {
       const data = await getDataVideo();
       socket.emit("getDemoReels", data);
     } catch (error) {
-      socket.emit("error", error);
+      socket.emit("error", error.message);
     }
     // });
   });
@@ -90,7 +91,7 @@ io.on("connection", async (socket) => {
       const newData = await addRender(data);
       socket.emit("newRender", newData);
     } catch (error) {
-      socket;
+      socket.emit("error", error.message);
     }
   });
 
@@ -99,7 +100,7 @@ io.on("connection", async (socket) => {
       const newData = await addDemoReel(data);
       socket.emit("newDemoReel", newData);
     } catch (error) {
-      socket;
+      socket.emit("error", error.message);
     }
   });
 
@@ -108,7 +109,7 @@ io.on("connection", async (socket) => {
       try {
         await deleteRender(data.id);
       } catch (error) {
-        socket;
+        socket.emit("error", error.message);
       }
     }
 
@@ -116,7 +117,7 @@ io.on("connection", async (socket) => {
       try {
         await deleteVideo(data.id);
       } catch (error) {
-        socket;
+        socket.emit("error", error.message);
       }
     }
   });
@@ -127,7 +128,7 @@ io.on("connection", async (socket) => {
         const newData = await updateRender(data.id, data);
         socket.emit("updatedData", newData);
       } catch (error) {
-        socket;
+        socket.emit("error", error.message);
       }
     }
 
@@ -136,7 +137,7 @@ io.on("connection", async (socket) => {
         const newData = await updateVideo(data.id, data);
         socket.emit("updatedData", newData);
       } catch (error) {
-        socket;
+        socket.emit("error", error.message);
       }
     }
   });

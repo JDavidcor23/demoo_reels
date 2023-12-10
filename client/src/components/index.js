@@ -7,6 +7,5 @@ export * from "./Programs";
 export * from "./Characters";
 export * from "./AddProject";
 export * from "./ProfileInfo";
-export * from "./SecondFooter";
 export * from "./ComponentForm";
 export * from "./SelectOptions";

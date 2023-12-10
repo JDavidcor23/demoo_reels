@@ -14,8 +14,10 @@ export const useForm = (initialState) => {
   const handleSubmit = async (e, func) => {
     e.preventDefault();
     func(values).then((res) => {
-      e.target.reset();
-      setValues(initialState);
+      if (res) {
+        e.target.reset();
+        setValues(initialState);
+      }
     });
   };
 

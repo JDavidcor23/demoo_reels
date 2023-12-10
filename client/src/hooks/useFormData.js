@@ -7,9 +7,12 @@ import { setDataVideoSlice } from "../store/slices/dataVideo";
 import { useSocketIo } from "./useSocketIo";
 import { setOpenModalUpload } from "../store/slices/openModalUpload";
 import { setLoaderButtons } from "../store/slices/loaderButtons";
+import { sizeImage } from "../helper/validateSize";
 
 export const useFormData = (initialState) => {
   const dispatch = useDispatch();
+
+  const [errorFormData, setErrorFormData] = useState("");
 
   const informationToEdit = useSelector((state) => state.informationToEdit);
 
@@ -90,12 +93,14 @@ export const useFormData = (initialState) => {
 
   const getImage = async (event) => {
     try {
-      setLoader(true);
-      const img = await uploadFileCloudinary(event);
-      console.log(img);
-      setValues({ ...values, img });
+      if (sizeImage(event)) {
+        setLoader(true);
+        const img = await uploadFileCloudinary(event);
+        setValues({ ...values, img });
+        setErrorFormData("");
+      }
     } catch (error) {
-      console.log(error);
+      setErrorFormData(error.message);
     } finally {
       setLoader(false);
     }
@@ -165,6 +170,7 @@ export const useFormData = (initialState) => {
   return {
     values,
     loader,
+    errorFormData,
     getImage,
     setValues,
     loaderVideo,
