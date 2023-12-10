@@ -25,6 +25,10 @@ export const Designers = () => {
     fetchData(socket);
   }, [fetchData, socket]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="gradient-bg-welcome">
       <Navbar />

@@ -39,6 +39,10 @@ export const Login = () => {
     }
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className=" flex flex-col justify-center items-center min-h-screen relative gradient-bg-welcome">
       <img src={logo} alt="" className="w-28 m-4" />

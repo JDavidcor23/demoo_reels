@@ -22,6 +22,10 @@ export const Profile = ({ isTheOwnerOfTheAccount = true }) => {
     document.body.style.overflowY = "auto";
   }, [openModalUpload, openModalSocialMediaSlice]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="gradient-bg-welcome">
       <Navbar />
