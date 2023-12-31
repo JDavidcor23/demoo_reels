@@ -1,7 +1,8 @@
 import React from "react";
 import { MinusCircleIcon, PencilIcon } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
 import { Icons } from "../Icons";
 import { DeleteDesign } from "../DeleteDesign";
 import { routes } from "../../constants/routes";
@@ -13,13 +14,13 @@ import { AddProject } from "../AddProject";
 export const CardsRender = ({
   img,
   id,
-  isTheOwnerOfTheAccount,
   title,
-  // user,
   typeCards,
   programs,
+  id_user,
 }) => {
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
 
   const sendInformation = () => {
     dispatch(
@@ -50,13 +51,12 @@ export const CardsRender = ({
   const openModalUpload = useSelector((state) => state.openModalUpload.state);
 
   const informationToEdit = useSelector((state) => state.informationToEdit);
-
   return (
     <>
       {openModalDelete && informationToEdit.id === id ? <DeleteDesign /> : ""}
       {openModalUpload && informationToEdit.id === id ? <AddProject /> : ""}
       <Link
-        to={routes.PROFILE}
+        to={pathname === "/Designers" ? routes.PROFILE + "/" + id_user : ""}
         className="h-[560px] w-[45%] bg-white max-w-[515px] min-w-[340px] rounded-[10px] relative"
       >
         {editSlice && (

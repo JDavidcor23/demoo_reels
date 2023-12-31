@@ -1,16 +1,21 @@
 import React, { useEffect } from "react";
-import { ChatBubbleLeftIcon } from "@heroicons/react/24/solid";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import { ProfileInfo, Navbar, Design, AddProject } from "../components";
 import { Buttons } from "../components/ProfileInfo/Buttons";
-import { useSelector } from "react-redux";
+import { ProfileOtherUser } from "../components/ProfileInfo/ProfileOtherUser";
+import { useUpdateUser } from "../hooks";
 
-export const Profile = ({ isTheOwnerOfTheAccount = true }) => {
+export const Profile = () => {
   const openModalUpload = useSelector((state) => state.openModalUpload.state);
+
+  const { id: idParam } = useParams();
 
   const openModalSocialMediaSlice = useSelector(
     (state) => state.openModalSocialMedia.state
   );
+  const { infoUser } = useUpdateUser();
 
   const informationToEdit = useSelector((state) => state.informationToEdit);
 
@@ -31,24 +36,22 @@ export const Profile = ({ isTheOwnerOfTheAccount = true }) => {
       <Navbar />
 
       <div className="container-profile">
-        <ProfileInfo>
-          {isTheOwnerOfTheAccount ? (
-            <Buttons />
-          ) : (
-            <button className="justify-center items-center bg-orangeCustom p-3 w-48 text-center text-white font-text flex text-sm">
-              <ChatBubbleLeftIcon
-                title="edit"
-                titleId="edits"
-                className="block h-6 w-6 mr-3"
-                aria-hidden="true"
-              />
-              <span className="w-[100px]">SEND MESSAGE</span>
-            </button>
-          )}
-        </ProfileInfo>
-
-        <Design isTheOwnerOfTheAccount={isTheOwnerOfTheAccount} />
-        {openModalUpload && informationToEdit.id === "" ? <AddProject /> : ""}
+        {idParam !== undefined && idParam !== infoUser._id ? (
+          <>
+            <ProfileOtherUser id={idParam} />
+            <Design userById={true} idUser={idParam} />
+          </>
+        ) : (
+          <>
+            <ProfileInfo />
+            <Design userById={true} idUser={infoUser._id} />
+            {openModalUpload && informationToEdit.id === "" ? (
+              <AddProject />
+            ) : (
+              ""
+            )}
+          </>
+        )}
       </div>
     </div>
   );

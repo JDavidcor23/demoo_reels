@@ -7,7 +7,7 @@ export const PrivateRoutes = () => {
   return (
     <Routes>
       <Route path={routes.CHAT} element={<Chat />} />
-      <Route path={routes.PROFILE} element={<Profile />} />
+      <Route path={`${routes.PROFILE}/:id?`} element={<Profile />} />
       <Route
         path={routes.ERROR}
         element={<Navigate to={routes.HOME} replace />}

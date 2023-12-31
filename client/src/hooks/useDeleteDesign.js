@@ -17,7 +17,7 @@ export const useDeleteDesign = () => {
   const { socket } = useSocketIo(import.meta.env.VITE_BACKEND);
 
   const getRenders = () => {
-    socket.emit("getDBrenders");
+    socket.emit("getDBRenders");
     socket.on("getRenders", async (newData) => {
       return new Promise((resolve) => {
         dispatch(setDataRenderSlice([]));
@@ -33,7 +33,7 @@ export const useDeleteDesign = () => {
   };
 
   const getDemoRenders = () => {
-    socket.emit("getDBdemoReels");
+    socket.emit("getDBDemoReels");
     socket.on("getDemoReels", async (data) => {
       console.log("data", data);
       return new Promise((resolve) => {

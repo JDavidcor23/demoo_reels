@@ -56,7 +56,7 @@ export const Designers = () => {
           </li>
         </ul>
         <div className="flex flex-wrap justify-center gap-8 mt-5">
-          {loaderSocket && <Loader />}
+          {loaderSocket && dataRender?.length === 0 ? <Loader /> : <></>}
 
           {"render" === variablesCards.typeCards
             ? dataRender?.length > 0 &&

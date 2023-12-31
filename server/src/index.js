@@ -12,6 +12,9 @@ const {
   updateRender,
   login,
   editProfile,
+  getDataRenderByUserId,
+  getUser,
+  getDemoReelByUserId,
 } = require("./functions/index.js");
 const { verifyToken } = require("./functions/jwt/index.js");
 const { returnError } = require("./helpers/errorCode.js");
@@ -66,7 +69,7 @@ io.on("connection", async (socket) => {
     }
   });
 
-  socket.on("getDBrenders", async () => {
+  socket.on("getDBRenders", async () => {
     try {
       const data = await getDataRender();
       socket.emit("getRenders", data);
@@ -75,7 +78,7 @@ io.on("connection", async (socket) => {
     }
   });
 
-  socket.on("getDBdemoReels", async () => {
+  socket.on("getDBDemoReels", async () => {
     // authenticateJWT(socket, async () => {
     try {
       const data = await getDataVideo();
@@ -88,7 +91,9 @@ io.on("connection", async (socket) => {
 
   socket.on("addRender", async (data) => {
     try {
+      console.log({ data });
       const newData = await addRender(data);
+      console.log({ newData });
       socket.emit("newRender", newData);
     } catch (error) {
       socket.emit("error", error.message);
@@ -139,6 +144,33 @@ io.on("connection", async (socket) => {
       } catch (error) {
         socket.emit("error", error.message);
       }
+    }
+  });
+
+  socket.on("getUser", async (id) => {
+    try {
+      const userData = await getUser(id);
+      socket.emit("getUser", userData);
+    } catch (error) {
+      socket.emit("error", error.message);
+    }
+  });
+
+  socket.on("getDBRendersByUserId", async (id) => {
+    try {
+      const userData = await getDataRenderByUserId(id);
+      socket.emit("getRendersByUserId", userData);
+    } catch (error) {
+      socket.emit("error", error.message);
+    }
+  });
+
+  socket.on("getDBDemoReelsByUserId", async (id) => {
+    try {
+      const userData = await getDemoReelByUserId(id);
+      socket.emit("getDemoReelsByUserId", userData);
+    } catch (error) {
+      socket.emit("error", error.message);
     }
   });
 });

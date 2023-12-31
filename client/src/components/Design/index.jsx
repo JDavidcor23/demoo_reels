@@ -4,7 +4,7 @@ import { Cards } from "../Cards/Cards";
 import { useGetCardsInformation, useSocketIo } from "../../hooks";
 import { Loader } from "../Loader";
 
-export const Design = ({ isTheOwnerOfTheAccount }) => {
+export const Design = ({ userById = false, idUser = "" }) => {
   const { functionsCards, variablesCards } = useCards();
 
   const { socket, dataVideo, dataRender } = useSocketIo(
@@ -13,16 +13,27 @@ export const Design = ({ isTheOwnerOfTheAccount }) => {
 
   const { functionsCardsInformation, loaderSocket } = useGetCardsInformation();
 
-  const { getDemoReel, getRender } = functionsCardsInformation;
+  const { getDemoReel, getRender, getRenderByUserId, getDemoReelByUserId } =
+    functionsCardsInformation;
 
   const fetchData = useCallback((socket) => {
     getDemoReel(socket);
     getRender(socket);
   }, []);
 
+  const fetchDataByUserId = useCallback((socket) => {
+    console.log("entro");
+    getRenderByUserId(socket, idUser);
+    getDemoReelByUserId(socket, idUser);
+  }, []);
+
   useEffect(() => {
-    fetchData(socket);
-  }, [fetchData, socket]);
+    if (userById) {
+      fetchDataByUserId(socket);
+    } else {
+      fetchData(socket);
+    }
+  }, [socket, userById]);
 
   return (
     <div className="container-design-profile">
@@ -49,7 +60,7 @@ export const Design = ({ isTheOwnerOfTheAccount }) => {
         </li>
       </ul>
       <div className="flex flex-wrap justify-center gap-8 mt-8">
-        {loaderSocket && <Loader />}
+        {loaderSocket && dataRender?.length === 0 ? <Loader /> : <></>}
 
         {"render" === variablesCards.typeCards
           ? dataRender?.length > 0 &&
@@ -60,7 +71,6 @@ export const Design = ({ isTheOwnerOfTheAccount }) => {
                   key={`${data._id}${data.title}`}
                   {...data}
                   id={data._id}
-                  isTheOwnerOfTheAccount={isTheOwnerOfTheAccount}
                 />
               </>
             ))
@@ -71,7 +81,6 @@ export const Design = ({ isTheOwnerOfTheAccount }) => {
                 key={`${data._id}${data.title}`}
                 {...data}
                 id={data._id}
-                isTheOwnerOfTheAccount={isTheOwnerOfTheAccount}
               />
             ))}
       </div>

@@ -11,8 +11,9 @@ import { useUpdateUser } from "../../hooks";
 import { uploadFileCloudinary } from "../../helper/uploadFile";
 import { ModalSocialMedia } from "../ModalSocialMedia";
 import { useSelector } from "react-redux";
+import { Buttons } from "./Buttons";
 
-export const ProfileInfoEdit = ({ children }) => {
+export const ProfileInfoEdit = () => {
   const [nameOfSocialMedia, setNameOfSocialMedia] = useState("");
 
   const { infoUser, handleChange, openModalSocialMedia } = useUpdateUser();
@@ -66,7 +67,7 @@ export const ProfileInfoEdit = ({ children }) => {
           value={infoUser?.username}
           className="font-headings text-3xl my-5 bg-transparent border-orangeCustom focus:border-orangeCustom w-full text-center"
         />
-        {children}
+        <Buttons />
         <h3 className="font-text text-xl mt-10">Profile description</h3>
         <textarea
           name="description"

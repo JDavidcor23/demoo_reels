@@ -87,6 +87,22 @@ const updateRender = async (id, data) => {
   }
 };
 
+const getDataRenderByUserId = async (id) => {
+  try {
+    return await DataRender.collection.find({ id_user: id }).toArray();
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const getDemoReelByUserId = async (id) => {
+  try {
+    return await DataVideo.collection.find({ id_user: id }).toArray();
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 // -------------------------USER_MODEL------------------------------//
 
 const login = async (data) => {
@@ -120,6 +136,14 @@ const login = async (data) => {
     }
 
     throw new Error("The email does not exist. Please check your email.");
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const getUser = async (id) => {
+  try {
+    return await UserModel.findById(id);
   } catch (error) {
     throw new Error(error);
   }
@@ -175,15 +199,18 @@ const editProfile = async (data) => {
 };
 
 module.exports = {
-  addDemoReel,
-  editProfile,
+  login,
+  getUser,
+  signup,
   addRender,
-  getDataRender,
-  getDataVideo,
+  editProfile,
   deleteVideo,
+  addDemoReel,
   deleteRender,
   updateVideo,
   updateRender,
-  signup,
-  login,
+  getDataVideo,
+  getDataRender,
+  getDemoReelByUserId,
+  getDataRenderByUserId,
 };
