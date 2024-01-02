@@ -91,9 +91,7 @@ io.on("connection", async (socket) => {
 
   socket.on("addRender", async (data) => {
     try {
-      console.log({ data });
       const newData = await addRender(data);
-      console.log({ newData });
       socket.emit("newRender", newData);
     } catch (error) {
       socket.emit("error", error.message);

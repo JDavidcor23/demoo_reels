@@ -30,6 +30,10 @@ const schema = new Schema({
     type: Array,
     required: true,
   },
+  Date: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 schema.plugin(uniqueValidator);

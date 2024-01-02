@@ -25,7 +25,7 @@ const addRender = (data) => {
 
 const getDataRender = async () => {
   try {
-    return await DataRender.collection.find({}).toArray();
+    return await DataRender.find().sort({ Date: -1 }).exec();
   } catch (error) {
     throw new Error(error);
   }
@@ -33,7 +33,7 @@ const getDataRender = async () => {
 
 const getDataVideo = async () => {
   try {
-    return await DataVideo.collection.find({}).toArray();
+    return await DataVideo.collection.find({}).sort({ Date: -1 }).exec();
   } catch (error) {
     throw new Error(error);
   }
@@ -89,7 +89,10 @@ const updateRender = async (id, data) => {
 
 const getDataRenderByUserId = async (id) => {
   try {
-    return await DataRender.collection.find({ id_user: id }).toArray();
+    return await DataRender.collection
+      .find({ id_user: id })
+      .sort({ Date: -1 })
+      .toArray();
   } catch (error) {
     throw new Error(error);
   }
@@ -97,7 +100,10 @@ const getDataRenderByUserId = async (id) => {
 
 const getDemoReelByUserId = async (id) => {
   try {
-    return await DataVideo.collection.find({ id_user: id }).toArray();
+    return await DataVideo.collection
+      .find({ id_user: id })
+      .sort({ Date: -1 })
+      .toArray();
   } catch (error) {
     throw new Error(error);
   }

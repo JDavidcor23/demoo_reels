@@ -22,7 +22,6 @@ export const Design = ({ userById = false, idUser = "" }) => {
   }, []);
 
   const fetchDataByUserId = useCallback((socket) => {
-    console.log("entro");
     getRenderByUserId(socket, idUser);
     getDemoReelByUserId(socket, idUser);
   }, []);
