@@ -5,9 +5,12 @@ import { ChatBubbleLeftIcon } from "@heroicons/react/24/solid";
 import behance from "../../assets/Profile/behance.svg";
 import instagram from "../../assets/Profile/instagram.svg";
 import linkedin from "../../assets/Profile/linkedin.svg";
+import { useParams } from "react-router-dom";
 
-export const ProfileOtherUser = ({ id }) => {
+export const ProfileOtherUser = () => {
   const [infoOtherUser, setInfoOtherUser] = useState({});
+
+  const { id: idParam } = useParams();
 
   const logos = {
     behance: behance,
@@ -18,12 +21,12 @@ export const ProfileOtherUser = ({ id }) => {
 
   useEffect(() => {
     if (socket) {
-      socket.emit("getUser", id);
+      socket.emit("getUser", idParam);
       socket.on("getUser", (data) => {
         setInfoOtherUser(data);
       });
     }
-  }, [socket]);
+  }, [socket, idParam]);
 
   return (
     <div className="p-3">

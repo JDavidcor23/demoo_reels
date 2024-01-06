@@ -38,13 +38,13 @@ export const Profile = () => {
       <div className="container-profile">
         {idParam !== undefined && idParam !== infoUser._id ? (
           <>
-            <ProfileOtherUser id={idParam} />
-            <Design userById={true} idUser={idParam} />
+            <ProfileOtherUser />
+            <Design userById={true} />
           </>
         ) : (
           <>
             <ProfileInfo />
-            <Design userById={true} idUser={infoUser._id} />
+            <Design userById={true} />
             {openModalUpload && informationToEdit.id === "" ? (
               <AddProject />
             ) : (
