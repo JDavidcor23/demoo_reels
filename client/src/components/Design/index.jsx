@@ -3,10 +3,13 @@ import { useCards } from "../../hooks/useCards";
 import { Cards } from "../Cards/Cards";
 import { useGetCardsInformation, useSocketIo } from "../../hooks";
 import { Loader } from "../Loader";
+import { useParams } from "react-router-dom";
 
-export const Design = ({ userById = false, idUser = "" }) => {
+export const Design = ({ userById = false }) => {
   const { functionsCards, variablesCards } = useCards();
 
+  const param = useParams();
+  const idUser = param.id;
   const { socket, dataVideo, dataRender } = useSocketIo(
     import.meta.env.VITE_BACKEND
   );
@@ -21,10 +24,10 @@ export const Design = ({ userById = false, idUser = "" }) => {
     getRender(socket);
   }, []);
 
-  const fetchDataByUserId = useCallback((socket) => {
+  const fetchDataByUserId = (socket) => {
     getRenderByUserId(socket, idUser);
     getDemoReelByUserId(socket, idUser);
-  }, []);
+  };
 
   useEffect(() => {
     if (userById) {
@@ -32,7 +35,7 @@ export const Design = ({ userById = false, idUser = "" }) => {
     } else {
       fetchData(socket);
     }
-  }, [socket, userById]);
+  }, [socket, userById, idUser]);
 
   return (
     <div className="container-design-profile">
