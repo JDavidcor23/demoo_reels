@@ -2,13 +2,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { setInfoUser } from "../store/slices/infoUser";
 import { io } from "socket.io-client";
 import { setOpenModalSocialMedia } from "../store/slices/openModalSocialMedia";
+import { useEffect } from "react";
 
 export const useUpdateUser = () => {
-  const socket = io(import.meta.env.VITE_BACKEND);
-
   const dispatch = useDispatch();
 
+  const socket = io(import.meta.env.VITE_BACKEND);
+
   const infoUser = useSelector((state) => state.infoUser);
+
+  const oldUserInfo = localStorage.getItem("user");
 
   const handleChange = (e) => {
     dispatch(setInfoUser({ ...infoUser, [e.target.name]: e.target.value }));
@@ -23,13 +26,12 @@ export const useUpdateUser = () => {
   };
 
   const handleChangesSocialMedia = (name, url) => {
-    const socialMediaIndex = infoUser?.social_media?.findIndex(
-      (social) => Object.keys(social)[0] === name
+    const idIsAlreadyAdded = infoUser.social_media.findIndex(
+      (socialMedia) => socialMedia.name === name
     );
-
-    if (socialMediaIndex !== -1) {
+    if (idIsAlreadyAdded !== -1) {
       const updatedSocialMedia = [...infoUser.social_media];
-      updatedSocialMedia[socialMediaIndex] = { [name]: url };
+      updatedSocialMedia[idIsAlreadyAdded] = { name, url };
 
       dispatch(
         setInfoUser({
@@ -41,10 +43,22 @@ export const useUpdateUser = () => {
       dispatch(
         setInfoUser({
           ...infoUser,
-          social_media: [...infoUser?.social_media, { [name]: url }],
+          social_media: [...infoUser?.social_media, { name, url }],
         })
       );
     }
+  };
+
+  const deleteSocialMediaFunction = (name) => {
+    const updatedSocialMedia = infoUser.social_media.filter(
+      (socialMedia) => socialMedia.name !== name
+    );
+    dispatch(
+      setInfoUser({
+        ...infoUser,
+        social_media: updatedSocialMedia,
+      })
+    );
   };
 
   const submitChanges = async () => {
@@ -58,12 +72,18 @@ export const useUpdateUser = () => {
     }
   };
 
+  const cancelEdit = () => {
+    dispatch(setInfoUser({ ...JSON.parse(oldUserInfo) }));
+  };
+
   return {
     infoUser,
+    cancelEdit,
     handleChange,
     submitChanges,
     openModalSocialMedia,
     closeModalSocialMedia,
     handleChangesSocialMedia,
+    deleteSocialMediaFunction,
   };
 };

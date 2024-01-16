@@ -1,22 +1,27 @@
 import React, { useState } from "react";
-import behance from "../../assets/Profile/behance.svg";
-import instagram from "../../assets/Profile/instagram.svg";
-import linkedin from "../../assets/Profile/linkedin.svg";
 import {
   ArrowUpTrayIcon,
   MinusCircleIcon,
   PencilIcon,
 } from "@heroicons/react/24/solid";
+import { useSelector } from "react-redux";
+import behance from "../../assets/Profile/behance.svg";
+import instagram from "../../assets/Profile/instagram.svg";
+import linkedin from "../../assets/Profile/linkedin.svg";
 import { useUpdateUser } from "../../hooks";
 import { uploadFileCloudinary } from "../../helper/uploadFile";
 import { ModalSocialMedia } from "../ModalSocialMedia";
-import { useSelector } from "react-redux";
 import { Buttons } from "./Buttons";
 
 export const ProfileInfoEdit = () => {
   const [nameOfSocialMedia, setNameOfSocialMedia] = useState("");
 
-  const { infoUser, handleChange, openModalSocialMedia } = useUpdateUser();
+  const {
+    infoUser,
+    handleChange,
+    openModalSocialMedia,
+    deleteSocialMediaFunction,
+  } = useUpdateUser();
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
@@ -80,7 +85,7 @@ export const ProfileInfoEdit = () => {
             { name: "behance", icon: behance },
             { name: "instagram", icon: instagram },
             { name: "linkedin", icon: linkedin },
-          ].map((socialMedia) => (
+          ].map((socialMedia, indexOfSocialMedia) => (
             <div className="relative" key={socialMedia.name}>
               <div className="absolute w-[60px] left-[-10px]">
                 <div className="flex justify-between cursor-pointer items-center w-full m-auto mt-[-20px]">
@@ -97,10 +102,9 @@ export const ProfileInfoEdit = () => {
                       style={{ margin: "0" }}
                     />
                   </div>
-
                   <div
                     className="relative w-[40px] h-[40px] left-[3px]"
-                    // onClick={openModalDeleteFunction}
+                    onClick={() => deleteSocialMediaFunction(socialMedia.name)}
                   >
                     <MinusCircleIcon
                       title="minus"
