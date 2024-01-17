@@ -1,68 +1,77 @@
 import React from "react";
 import { Disclosure } from "@headlessui/react";
 import { BellIcon } from "@heroicons/react/24/outline";
-import { routes } from "../../constants";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { routes, routesNames } from "../../constants";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setInfoUser } from "../../store/slices/infoUser";
 
 export const DisclosurePanelProfile = () => {
   const navigate = useNavigate();
 
   const location = useLocation();
 
+  const infoUser = useSelector((state) => state.infoUser);
+
+  const dispatch = useDispatch();
+
   const SignOut = () => {
     localStorage.removeItem("user");
+    dispatch(setInfoUser({}));
 
     if (location.pathname !== "/") {
       navigate(-1);
     }
   };
   return (
-    <div className="border-t border-gray-200 pt-4 pb-3">
+    <div className="border-t border-gray-200 pt-4">
       <div className="flex items-center px-4">
         <div className="flex-shrink-0">
           <img
-            className="h-10 w-10 rounded-full"
-            src="https://res.cloudinary.com/dbtk64lp4/image/upload/v1678822603/jorgito23diaz6_siberian_husky_3d_pixar_style_render_3d_hd_b95a39ab-ae8b-4d09-8594-f42e35e81de5_-_Copy_tvfcfn.png"
+            className="h-10 w-10 rounded-full object-cover"
+            src={infoUser.profile_img}
             alt=""
           />
         </div>
         <div className="ml-3">
-          <div className="text-base font-medium text-white">Tom Cook</div>
-          <div className="text-sm font-medium text-white">tom@example.com</div>
+          <div className="text-base font-medium text-gray-500">
+            {infoUser.username}
+          </div>
+          <div className="text-sm font-medium text-gray-500">
+            {infoUser.email}
+          </div>
         </div>
         <button
           type="button"
-          className="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          className="ml-auto flex-shrink-0 rounded-full bg-orangeCustom p-1 text-white hover:text-white focus:outline-none  focus:ring-orangeCustom "
         >
           <span className="sr-only">View notifications</span>
           <BellIcon className="h-6 w-6" aria-hidden="true" />
         </button>
       </div>
       <div className="mt-3 space-y-1">
-        <Link to={routes.PROFILE}>
+        <Link to={routes.PROFILE + "/" + infoUser._id}>
           <Disclosure.Button
             as="a"
             href="#"
-            className="block px-4 py-2 text-base font-medium text-white hover:bg-gray-100 hover:text-gray-800"
+            className="text-start block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-[#492a08cd] hover:bg-[#b86204] hover:text-white w-full"
+            onClick={SignOut}
           >
-            Your Profile
+            Sign out
+          </Disclosure.Button>
+          <Disclosure.Button className="flex w-full">
+            <NavLink
+              to={routes.PROFILE + "/" + infoUser._id}
+              className={({ isActive }) =>
+                isActive
+                  ? " text-start block border-l-4 border-orangeCustom bg-orangeCustom py-2 pl-3 pr-4 text-base font-medium text-white w-full"
+                  : "text-start block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-[#492a08cd] hover:bg-[#b86204] hover:text-white w-full"
+              }
+            >
+              Your Profile
+            </NavLink>
           </Disclosure.Button>
         </Link>
-        <Disclosure.Button
-          as="a"
-          href="#"
-          className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
-        >
-          Settings
-        </Disclosure.Button>
-        <Disclosure.Button
-          as="a"
-          href="#"
-          className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
-          onClick={SignOut}
-        >
-          Sign out
-        </Disclosure.Button>
       </div>
     </div>
   );

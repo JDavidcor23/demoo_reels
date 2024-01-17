@@ -8,6 +8,7 @@ export const infoUserSlice = createSlice({
     profile_img: "",
     username: "",
     description: "",
+    email: "",
   },
   reducers: {
     setInfoUser: (state, action) => {
@@ -16,6 +17,7 @@ export const infoUserSlice = createSlice({
       state.profile_img = action.payload.profile_img;
       state.username = action.payload.username;
       state.description = action.payload.description;
+      state.email = action.payload.email;
     },
   },
 });

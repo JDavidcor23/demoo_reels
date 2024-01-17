@@ -7,7 +7,7 @@ import { useUpdateUser } from "../../hooks";
 
 export const Buttons = () => {
   const dispatch = useDispatch();
-  const { submitChanges } = useUpdateUser();
+  const { submitChanges, cancelEdit } = useUpdateUser();
   const editSlice = useSelector((state) => state.editSlice.state);
 
   const submit = () => {
@@ -29,7 +29,9 @@ export const Buttons = () => {
             className="justify-center items-center border-2 border-orangeCustom p-3 mt-3 w-48 text-center text-white font-text flex"
             onClick={() => dispatch(setEditSlice(false))}
           >
-            <span className=" w-[100px]">CANCEL</span>
+            <span className=" w-[100px]" onClick={cancelEdit}>
+              CANCEL
+            </span>
           </button>
         </>
       ) : (
