@@ -13,4 +13,5 @@ export const routesNames = {
   CHAT: "Chat",
   LOGIN: "Login",
   DESIGNERS: "Designers",
+  PROFILE: "Profile",
 };

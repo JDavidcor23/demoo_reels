@@ -16,6 +16,7 @@ export const Home = () => {
         profile_img: user?.profile_img,
         username: user?.username,
         description: user?.description,
+        email: user?.email,
       })
     );
   }, [user]);
