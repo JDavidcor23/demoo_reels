@@ -1,17 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import behance from "../../assets/Profile/behance.svg";
 import instagram from "../../assets/Profile/instagram.svg";
 import linkedin from "../../assets/Profile/linkedin.svg";
-import { useSelector } from "react-redux";
 import { Buttons } from "./Buttons";
 
-export const ProfileInfoNormal = () => {
-  const infoUser = useSelector((state) => state.infoUser);
+const logos = {
+  behance: behance,
+  instagram: instagram,
+  linkedin: linkedin,
+};
 
-  const logos = {
-    behance: behance,
-    instagram: instagram,
-    linkedin: linkedin,
+export const ProfileInfoNormal = () => {
+  let infoUser = useSelector((state) => state.infoUser);
+
+  const clonedSocialMedia = infoUser.social_media.slice();
+
+  clonedSocialMedia.sort((a, b) => a.name.localeCompare(b.name));
+
+  infoUser = {
+    ...infoUser,
+    social_media: clonedSocialMedia,
   };
 
   return (
