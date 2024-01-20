@@ -7,23 +7,30 @@ import instagram from "../../assets/Profile/instagram.svg";
 import linkedin from "../../assets/Profile/linkedin.svg";
 import { useParams } from "react-router-dom";
 
+const logos = {
+  behance: behance,
+  instagram: instagram,
+  linkedin: linkedin,
+};
+
 export const ProfileOtherUser = () => {
   const [infoOtherUser, setInfoOtherUser] = useState({});
 
   const { id: idParam } = useParams();
 
-  const logos = {
-    behance: behance,
-    instagram: instagram,
-    linkedin: linkedin,
-  };
   const { socket } = useSocketIo(import.meta.env.VITE_BACKEND);
 
   useEffect(() => {
     if (socket) {
       socket.emit("getUser", idParam);
       socket.on("getUser", (data) => {
-        setInfoOtherUser(data);
+        let info = {
+          ...data,
+          social_media: data.social_media.sort((a, b) =>
+            a.name.localeCompare(b.name)
+          ),
+        };
+        setInfoOtherUser(info);
       });
     }
   }, [socket, idParam]);
@@ -54,17 +61,16 @@ export const ProfileOtherUser = () => {
         </p>
         <div className="flex mt-9 w-full justify-center">
           {infoOtherUser?.social_media?.map((social, index) => {
-            const socialKey = Object.keys(social)[0];
             return (
               <a
-                key={index}
-                href={Object.values(social)[0]}
+                key={social.url + " " + index}
+                href={social.url}
                 className="relative"
                 target="_blank"
               >
                 <img
-                  src={logos[socialKey]}
-                  alt={socialKey}
+                  src={logos[social.name]}
+                  alt={social.name}
                   style={{ margin: "0 10px" }}
                 />
               </a>
