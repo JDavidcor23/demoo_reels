@@ -33,7 +33,7 @@ export const Designers = () => {
     <div className="gradient-bg-welcome">
       <Navbar />
       <div className="gradient-bg-character mt-2 py-14 min-h-screen">
-        <ul className="flex gap-6 border-b-[5px] border-amber-900 justify-center w-90 m-auto">
+        <ul className="flex gap-6 border-b-[5px] border-amber-900 justify-center w-[95%] m-auto">
           <li
             className={`font-text text-3xl cursor-pointer ${
               variablesCards.typeCards === "render"

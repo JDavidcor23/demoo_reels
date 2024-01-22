@@ -85,6 +85,7 @@ p {
   width: 90%;
   margin: 0 auto;
   margin-top: 0.75rem;
+  padding-bottom: 25px;
 }
 .container-info-cards {
   display: flex;
