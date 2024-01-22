@@ -1,6 +1,5 @@
 import React from "react";
 import { LoaderForm } from "./LoaderForm";
-import { Inputs } from "../Inputs";
 
 export const AddRender = ({ loader, values }) => {
   return (

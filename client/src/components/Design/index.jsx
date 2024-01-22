@@ -39,7 +39,7 @@ export const Design = ({ userById = false }) => {
 
   return (
     <div className="container-design-profile">
-      <ul className="flex gap-6 border-b-[5px] border-orangeCustom justify-center w-90 m-auto">
+      <ul className="flex gap-6 border-b-[5px] border-orangeCustom justify-center w-[95%] m-auto">
         <li
           className={`font-text text-3xl cursor-pointer ${
             variablesCards.typeCards === "render"
@@ -61,7 +61,7 @@ export const Design = ({ userById = false }) => {
           Demo reels
         </li>
       </ul>
-      <div className="flex flex-wrap justify-center gap-8 mt-8">
+      <div className="flex flex-wrap justify-center mt-8 gap-y-8 gap-x-5">
         {loaderSocket && dataRender?.length === 0 ? <Loader /> : <></>}
 
         {"render" === variablesCards.typeCards

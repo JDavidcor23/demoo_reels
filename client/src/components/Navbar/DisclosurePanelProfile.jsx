@@ -1,30 +1,15 @@
 import React from "react";
 import { Disclosure } from "@headlessui/react";
 import { BellIcon } from "@heroicons/react/24/outline";
-import { routes, routesNames } from "../../constants";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setInfoUser } from "../../store/slices/infoUser";
+import { routes } from "../../constants";
+import { Link, NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const DisclosurePanelProfile = () => {
-  const navigate = useNavigate();
-
-  const location = useLocation();
-
   const infoUser = useSelector((state) => state.infoUser);
 
-  const dispatch = useDispatch();
-
-  const SignOut = () => {
-    localStorage.removeItem("user");
-    dispatch(setInfoUser({}));
-
-    if (location.pathname !== "/") {
-      navigate(-1);
-    }
-  };
   return (
-    <div className="border-t border-gray-200 pt-4">
+    <div className="border-t border-orangeCustom pt-4">
       <div className="flex items-center px-4">
         <div className="flex-shrink-0">
           <img
@@ -51,14 +36,6 @@ export const DisclosurePanelProfile = () => {
       </div>
       <div className="mt-3 space-y-1">
         <Link to={routes.PROFILE + "/" + infoUser._id}>
-          <Disclosure.Button
-            as="a"
-            href="#"
-            className="text-start block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-[#492a08cd] hover:bg-[#b86204] hover:text-white w-full"
-            onClick={SignOut}
-          >
-            Sign out
-          </Disclosure.Button>
           <Disclosure.Button className="flex w-full">
             <NavLink
               to={routes.PROFILE + "/" + infoUser._id}
