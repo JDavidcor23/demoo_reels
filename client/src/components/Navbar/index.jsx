@@ -30,16 +30,20 @@ export const Navbar = () => {
               <div className="flex h-16 justify-between">
                 <div className="flex">
                   <div className="flex flex-shrink-0 items-center">
-                    <img
-                      className="block h-8 w-auto lg:hidden"
-                      src={logo}
-                      alt="Your Company"
-                    />
-                    <img
-                      className="hidden h-8 w-auto lg:block"
-                      src={logo}
-                      alt="Your Company"
-                    />
+                    <Link to={routes.HOME}>
+                      <img
+                        className="block h-8 w-auto lg:hidden"
+                        src={logo}
+                        alt="Your Company"
+                      />
+                    </Link>
+                    <Link to={routes.HOME}>
+                      <img
+                        className="hidden h-8 w-auto lg:block"
+                        src={logo}
+                        alt="Your Company"
+                      />
+                    </Link>
                   </div>
                   <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                     {navigation.map((link) => (
