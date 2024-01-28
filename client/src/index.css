@@ -3,17 +3,15 @@
 }
 
 .font-headings {
-  font-family: "Nunito", sans-serif;
-  font-family: "Bakbak One", cursive;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
 }
 .center-absolute-bottom-0 {
   left: 50%;
   transform: translateX(-50%);
 }
 .font-text {
-  font-family: "Nunito", sans-serif;
-  font-family: "Josefin Sans", sans-serif;
-  font-family: "Bakbak One", cursive;
+  font-family: "Fredoka", sans-serif;
 }
 .top-100 {
   top: 100%;
@@ -25,9 +23,7 @@
   max-height: 300px;
 }
 p {
-  font-family: "Nunito", sans-serif;
-  font-family: "Josefin Sans", sans-serif;
-  font-family: "Bakbak One", cursive;
+  font-family: "Fredoka", sans-serif;
 }
 .gradient-bg-welcome {
   background-image: linear-gradient(
