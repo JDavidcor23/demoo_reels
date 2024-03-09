@@ -9,7 +9,7 @@ export const DisclosurePanelProfile = () => {
   const infoUser = useSelector((state) => state.infoUser);
 
   return (
-    <div className="border-t border-orangeCustom pt-4">
+    <div className="pt-4">
       <div className="flex items-center px-4">
         <div className="flex-shrink-0">
           <img

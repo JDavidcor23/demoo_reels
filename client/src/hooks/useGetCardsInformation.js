@@ -24,9 +24,9 @@ export const useGetCardsInformation = () => {
     if (socket) {
       dispatch(setLoaderSocket(true));
       socket.emit("getDBDemoReels");
+      dispatch(setDataVideoSlice([]));
       socket.on("getDemoReels", (data) => {
         dispatch(setLoaderSocket(false));
-        dispatch(setDataVideoSlice([]));
         dispatch(setDataVideoSlice(data));
       });
     }
@@ -36,9 +36,9 @@ export const useGetCardsInformation = () => {
     if (socket) {
       dispatch(setLoaderSocket(true));
       socket.emit("getDBRendersByUserId", id);
+      dispatch(setDataRenderSlice([]));
       socket.on("getRendersByUserId", (data) => {
         dispatch(setLoaderSocket(false));
-        dispatch(setDataRenderSlice([]));
         dispatch(setDataRenderSlice(data));
       });
     }

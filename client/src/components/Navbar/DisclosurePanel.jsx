@@ -36,7 +36,7 @@ export const DisclosurePanel = () => {
 
   return (
     <Disclosure.Panel className="sm:hidden border-b-orangeCustom border-b-[1px]">
-      <div className="space-y-1 pt-2 pb-3  border-t-orangeCustom border-t-[1px]">
+      <div className="space-y-1 pt-2 pb-3">
         {infoUser._id && <DisclosurePanelProfile />}
         {navigation.map((link) => (
           <Disclosure.Button key={link.name} className="flex w-full">
