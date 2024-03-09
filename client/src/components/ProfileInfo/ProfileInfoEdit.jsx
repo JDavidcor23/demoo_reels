@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ArrowUpTrayIcon,
   MinusCircleIcon,
@@ -12,6 +12,7 @@ import { useUpdateUser } from "../../hooks";
 import { uploadFileCloudinary } from "../../helper/uploadFile";
 import { ModalSocialMedia } from "../ModalSocialMedia";
 import { Buttons } from "./Buttons";
+import { DeleteSocialMedia } from "../DeleteSocialMedia";
 
 export const ProfileInfoEdit = () => {
   const [nameOfSocialMedia, setNameOfSocialMedia] = useState("");
@@ -20,7 +21,7 @@ export const ProfileInfoEdit = () => {
     infoUser,
     handleChange,
     openModalSocialMedia,
-    deleteSocialMediaFunction,
+    openDeleteSocialMedia,
   } = useUpdateUser();
 
   const handleFileUpload = async (e) => {
@@ -36,6 +37,21 @@ export const ProfileInfoEdit = () => {
   const openModalAndSetSocialMedia = (name) => {
     openModalSocialMedia();
     setNameOfSocialMedia(name);
+  };
+
+  const openModalDeleteSocialMediaSlice = useSelector(
+    (state) => state.openModalDeleteSocialMedia.state
+  );
+
+  const removeSocialMedia = (name) => {
+    openDeleteSocialMedia();
+    setNameOfSocialMedia(name);
+  };
+
+  const isSocialMediaAlreadyAdded = (name) => {
+    return infoUser.social_media.some(
+      (socialMedia) => socialMedia.name === name
+    );
   };
 
   return (
@@ -74,12 +90,14 @@ export const ProfileInfoEdit = () => {
         />
         <Buttons />
         <h3 className="font-text text-xl mt-10">Profile description</h3>
+
         <textarea
           name="description"
           onChange={handleChange}
           value={infoUser?.description}
           className="mt-10 font-text w-full min-h-[168px] bg-transparent border-orangeCustom focus:border-orangeCustom text-justify"
         ></textarea>
+
         <div className="flex mt-9 w-full justify-between">
           {[
             { name: "behance", icon: behance },
@@ -87,8 +105,8 @@ export const ProfileInfoEdit = () => {
             { name: "linkedin", icon: linkedin },
           ].map((socialMedia, indexOfSocialMedia) => (
             <div className="relative" key={socialMedia.name}>
-              <div className="absolute w-[60px] left-[-10px]">
-                <div className="flex justify-between cursor-pointer items-center w-full m-auto mt-[-20px]">
+              <div className="absolute w-[80px] left-[-10px]">
+                <div className="flex justify-center cursor-pointer items-center w-full m-auto mt-[-20px]">
                   <div
                     className="flex justify-center items-center w-[32px] h-[32px] bg-white rounded-full p-1"
                     onClick={() => openModalAndSetSocialMedia(socialMedia.name)}
@@ -102,28 +120,39 @@ export const ProfileInfoEdit = () => {
                       style={{ margin: "0" }}
                     />
                   </div>
-                  <div
-                    className="relative w-[40px] h-[40px] left-[3px]"
-                    onClick={() => deleteSocialMediaFunction(socialMedia.name)}
-                  >
-                    <MinusCircleIcon
-                      title="minus"
-                      titleId="minusId"
-                      color="red"
-                      width="45px"
-                      style={{ position: "absolute", zIndex: "20" }}
-                    />
-                    <div className=" w-3 h-3 bg-white absolute left-[23px] top-[50%] translate-x-[-50%] translate-y-[-50%] z-10 "></div>
-                  </div>
+                  {isSocialMediaAlreadyAdded(socialMedia.name) && (
+                    <div
+                      className="relative w-[40px] h-[40px] left-[3px]"
+                      onClick={() => removeSocialMedia(socialMedia.name)}
+                    >
+                      <MinusCircleIcon
+                        title="minus"
+                        titleId="minusId"
+                        color="red"
+                        width="45px"
+                        style={{ position: "absolute", zIndex: "20" }}
+                      />
+
+                      <div className=" w-3 h-3 bg-white absolute left-[23px] top-[50%] translate-x-[-50%] translate-y-[-50%] z-10 "></div>
+                    </div>
+                  )}
                 </div>
               </div>
-              <img src={socialMedia.icon} alt={socialMedia.name} />
+
+              <img
+                src={socialMedia.icon}
+                alt={socialMedia.name}
+                className="w-[60px] h-[60px]"
+              />
             </div>
           ))}
         </div>
       </div>
       {openModalSocialMediaSlice && (
         <ModalSocialMedia nameOfSocialMedia={nameOfSocialMedia} />
+      )}
+      {openModalDeleteSocialMediaSlice && (
+        <DeleteSocialMedia nameSocialMedia={nameOfSocialMedia} />
       )}
     </div>
   );

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setInfoUser } from "../store/slices/infoUser";
 import { io } from "socket.io-client";
 import { setOpenModalSocialMedia } from "../store/slices/openModalSocialMedia";
-import { useEffect } from "react";
+import { setOpenModalDeleteSocialMedia } from "../store/slices/openModalDeleteSocialMedia";
 
 export const useUpdateUser = () => {
   const dispatch = useDispatch();
@@ -19,6 +19,9 @@ export const useUpdateUser = () => {
 
   const openModalSocialMedia = () => {
     dispatch(setOpenModalSocialMedia(true));
+  };
+  const openDeleteSocialMedia = () => {
+    dispatch(setOpenModalDeleteSocialMedia(true));
   };
 
   const closeModalSocialMedia = () => {
@@ -82,6 +85,7 @@ export const useUpdateUser = () => {
     handleChange,
     submitChanges,
     openModalSocialMedia,
+    openDeleteSocialMedia,
     closeModalSocialMedia,
     handleChangesSocialMedia,
     deleteSocialMediaFunction,

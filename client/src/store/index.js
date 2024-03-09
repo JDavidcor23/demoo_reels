@@ -11,6 +11,7 @@ import openModalUpload from "./slices/openModalUpload";
 import openModalDelete from "./slices/openModalDelete";
 import informationToEdit from "./slices/informationToEdit";
 import openModalSocialMedia from "./slices/openModalSocialMedia";
+import openModalDeleteSocialMedia from "./slices/openModalDeleteSocialMedia";
 
 export default configureStore({
   reducer: {
@@ -25,5 +26,6 @@ export default configureStore({
     openModalDelete,
     informationToEdit,
     openModalSocialMedia,
+    openModalDeleteSocialMedia,
   },
 });
