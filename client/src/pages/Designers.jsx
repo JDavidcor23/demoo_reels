@@ -1,9 +1,6 @@
 import React, { useCallback, useEffect } from "react";
-import { Navbar } from "../components/Navbar";
-import { useCards } from "../hooks/useCards";
-import { Cards } from "../components/Cards/Cards";
-import { useGetCardsInformation, useSocketIo } from "../hooks";
-import { Loader } from "../components/Loader";
+import { Navbar, Cards, Loader } from "../components";
+import { useGetCardsInformation, useSocketIo, useCards } from "../hooks";
 
 export const Designers = () => {
   const { functionsCards, variablesCards } = useCards();

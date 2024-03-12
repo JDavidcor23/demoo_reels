@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from "react";
-import { useCards } from "../../hooks/useCards";
+import { useCards } from "../../hooks";
 import { Cards } from "../Cards/Cards";
 import { useGetCardsInformation, useSocketIo } from "../../hooks";
 import { Loader } from "../Loader";
