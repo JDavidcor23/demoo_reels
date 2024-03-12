@@ -1,5 +1,4 @@
 export * from "./CardsRender";
-export * from "./UrlSocialMedia";
 export * from "./Navbar";
 export * from "./Design";
 export * from "./Header";
@@ -9,3 +8,8 @@ export * from "./AddProject";
 export * from "./ProfileInfo";
 export * from "./ComponentForm";
 export * from "./SelectOptions";
+export * from "./Cards/Cards";
+export * from "./ChatBody";
+export * from "./Loader";
+export * from "./NavbarChat/NavbarChat";
+export * from "./ProfileInfo/ProfileOtherUser";

@@ -23,7 +23,7 @@ export const ProfileMenu = () => {
     localStorage.removeItem("user");
 
     if (location.pathname !== "/") {
-      navigate(-1);
+      navigate("/Designers");
     }
     dispatch(setInfoUser({}));
     setFalse();

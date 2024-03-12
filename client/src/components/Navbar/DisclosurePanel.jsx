@@ -30,7 +30,7 @@ export const DisclosurePanel = () => {
     setFalse();
 
     if (location.pathname !== "/") {
-      navigate(-1);
+      navigate("/Designers");
     }
   };
 
