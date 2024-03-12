@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/header/logo.png";
 import { ComponentForm } from "../components";
-import { useAuth, useSocketIo } from "../hooks";
+import { useAuth } from "../hooks";
 import { saveLocalStorage } from "../helper/saveLocalStorage";
 import { io } from "socket.io-client";
 import { useNavigate } from "react-router-dom";
@@ -25,17 +25,33 @@ export const Login = () => {
   const navigate = useNavigate();
   const socket = io(import.meta.env.VITE_BACKEND);
   const { setTrue } = useAuth();
+  const [loaderAuthentication, setLoaderAuthentication] = useState(false);
 
   const functionLogin = async (values) => {
     if (socket) {
+      setLoaderAuthentication(true);
+
       socket.emit("login", values);
-      socket.on("token", (userInfoAndToken) => {
-        if (userInfoAndToken !== null) {
-          navigate("/");
-          saveLocalStorage(userInfoAndToken);
-          setTrue();
-        }
-      });
+
+      new Promise((resolve, reject) => {
+        socket.on("token", (userInfoAndToken) => {
+          if (userInfoAndToken !== null) {
+            navigate("/");
+            saveLocalStorage(userInfoAndToken);
+            setTrue();
+            resolve();
+          } else {
+            reject();
+          }
+        });
+      })
+        .then(() => {
+          setLoaderAuthentication(false);
+        })
+        .catch((error) => {
+          console.error(error);
+          setLoaderAuthentication(false);
+        });
     }
   };
 
@@ -52,6 +68,7 @@ export const Login = () => {
           title={title}
           socket={socket}
           fn={functionLogin}
+          loaderAuthentication={loaderAuthentication}
           titleButton="Login"
         />
       </div>
