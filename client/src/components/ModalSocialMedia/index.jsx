@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useUpdateUser } from "../../hooks";
 
 export const ModalSocialMedia = ({ nameOfSocialMedia }) => {
   const { handleChangesSocialMedia, closeModalSocialMedia } = useUpdateUser();
 
   const [socialMediaUrl, setSocialMediaUrl] = useState("");
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const handleChange = (e) => {
     setSocialMediaUrl(e.target.value);
@@ -26,6 +31,7 @@ export const ModalSocialMedia = ({ nameOfSocialMedia }) => {
             onSubmit={handleSubmit}
           >
             <input
+              ref={inputRef}
               required
               type="url"
               onChange={handleChange}

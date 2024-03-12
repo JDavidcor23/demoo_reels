@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "../chat.css";
-import { ChatBody } from "../components/ChatBody";
-import { NavbarChat } from "../components/NavbarChat/NavbarChat";
+import { ChatBody, NavbarChat } from "../components";
+
 export const Chat = () => {
   useEffect(() => {
     window.scrollTo(0, 0);

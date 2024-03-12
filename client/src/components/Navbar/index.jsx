@@ -19,8 +19,6 @@ export const navigation = [
 export const Navbar = () => {
   const infoUser = useSelector((state) => state.infoUser);
 
-  const { pathname } = useLocation();
-
   return (
     <>
       <Disclosure as="nav" className=" ">

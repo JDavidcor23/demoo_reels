@@ -2,9 +2,13 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { ProfileInfo, Navbar, Design, AddProject } from "../components";
-import { Buttons } from "../components/ProfileInfo/Buttons";
-import { ProfileOtherUser } from "../components/ProfileInfo/ProfileOtherUser";
+import {
+  ProfileInfo,
+  Navbar,
+  Design,
+  AddProject,
+  ProfileOtherUser,
+} from "../components";
 import { useUpdateUser } from "../hooks";
 
 export const Profile = () => {
