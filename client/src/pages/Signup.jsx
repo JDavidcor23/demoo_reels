@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/header/logo.png";
 import { ComponentForm } from "../components";
 import { useAuth } from "../hooks";
@@ -30,18 +30,33 @@ export const Signup = () => {
   const navigate = useNavigate();
   const socket = io(import.meta.env.VITE_BACKEND);
   const { setTrue } = useAuth();
+  const [loaderAuthentication, setLoaderAuthentication] = useState(false);
 
   const functionSignup = async (values) => {
     if (socket) {
+      setLoaderAuthentication(true);
+
       socket.emit("signup", values);
-      socket.on("token", (userInfoAndToken) => {
-        if (userInfoAndToken !== null) {
-          navigate("/");
-          saveLocalStorage(userInfoAndToken);
-          setTrue();
-          return;
-        }
-      });
+
+      new Promise((resolve, reject) => {
+        socket.on("token", (userInfoAndToken) => {
+          if (userInfoAndToken !== null) {
+            navigate("/");
+            saveLocalStorage(userInfoAndToken);
+            setTrue();
+            resolve();
+          } else {
+            reject();
+          }
+        });
+      })
+        .then(() => {
+          setLoaderAuthentication(false);
+        })
+        .catch((error) => {
+          console.error(error);
+          setLoaderAuthentication(false);
+        });
     }
   };
 
@@ -58,6 +73,7 @@ export const Signup = () => {
           title={title}
           socket={socket}
           fn={functionSignup}
+          loaderAuthentication={loaderAuthentication}
           titleButton="Signup"
         />
       </div>

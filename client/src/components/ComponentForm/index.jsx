@@ -1,6 +1,7 @@
 import React from "react";
 import { Inputs } from "../Inputs";
 import { useErrorSocket, useForm } from "../../hooks";
+import { LoaderButton } from "../AddProject/LoaderButton";
 
 export const ComponentForm = ({
   allInputs,
@@ -8,6 +9,7 @@ export const ComponentForm = ({
   fn,
   titleButton,
   socket,
+  loaderAuthentication,
 }) => {
   const { handleChange, handleSubmit } = useForm({});
   const { error: authenticationError } = useErrorSocket(socket);
@@ -32,12 +34,16 @@ export const ComponentForm = ({
               {error.message}
             </p>
           ))}
-        <button
-          type="submit"
-          className=" mt-12 flex justify-center  border border-transparent w-full  font-text bg-orangeCustom px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-orangeCustom focus:outline-none focus:ring-2 focus:ring-orangeCustom focus:ring-offset-2"
-        >
-          {titleButton}
-        </button>
+        {loaderAuthentication ? (
+          <LoaderButton />
+        ) : (
+          <button
+            type="submit"
+            className=" mt-12 flex justify-center  border border-transparent w-full  font-text bg-orangeCustom px-6 py-[9px] text-base font-medium text-white shadow-sm hover:bg-orangeCustom focus:outline-none focus:ring-2 focus:ring-orangeCustom focus:ring-offset-2"
+          >
+            {titleButton}
+          </button>
+        )}
       </div>
     </form>
   );
