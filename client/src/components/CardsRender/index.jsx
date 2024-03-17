@@ -92,7 +92,7 @@ export const CardsRender = ({
       {openModalUpload && informationToEdit.id === id ? <AddProject /> : ""}
       {pathname === "/Designers" ? (
         <Link
-          to={routes.PROFILE + "/" + id_user}
+          to={routes.PROFILE + "/" + id_user + "/" + "image"}
           className="h-[460px] w-[30%] bg-white max-w-[515px] min-w-[300px] rounded-[15px] relative shadow-lg"
         >
           <CardContents
