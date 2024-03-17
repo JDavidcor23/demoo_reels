@@ -47,6 +47,7 @@ io.on("connection", async (socket) => {
       const userInfoAndToken = await login(data);
       socket.emit("token", userInfoAndToken);
     } catch (error) {
+      socket.emit("token", null);
       socket.emit("error", returnError(error.message));
     }
   });
@@ -56,6 +57,7 @@ io.on("connection", async (socket) => {
       const token = await signup(data);
       socket.emit("token", token);
     } catch (error) {
+      socket.emit("token", null);
       socket.emit("error", returnError(error.message));
     }
   });
