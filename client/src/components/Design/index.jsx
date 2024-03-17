@@ -10,6 +10,7 @@ export const Design = ({ userById = false }) => {
 
   const param = useParams();
   const idUser = param.id;
+  const typeOfDesign = param.typeOfDesign;
   const { socket, dataVideo, dataRender } = useSocketIo(
     import.meta.env.VITE_BACKEND
   );
@@ -37,6 +38,13 @@ export const Design = ({ userById = false }) => {
     }
   }, [socket, userById, idUser]);
 
+  useEffect(() => {
+    if (typeOfDesign === "video") {
+      functionsCards.changeToDemoReel();
+    } else {
+      functionsCards.changeToRenders();
+    }
+  }, [typeOfDesign]);
   return (
     <div className="container-design-profile">
       <ul className="flex gap-6 border-b-[5px] border-orangeCustom justify-center w-[95%] m-auto">

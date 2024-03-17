@@ -56,7 +56,7 @@ export const InputsVideo = ({
           className="new-split-white h-[250px] w-full object-cover "
           src={
             values?.img ??
-            "https://res.cloudinary.com/dbtk64lp4/image/upload/v1680722646/preview_oe6wyc_wgace6.png"
+            "https://res.cloudinary.com/dbtk64lp4/image/upload/v1710714567/preview_oe6wyc_wgace6_z5yipt.png"
           }
         />
       </div>
