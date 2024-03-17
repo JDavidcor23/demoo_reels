@@ -33,7 +33,7 @@ const getDataRender = async () => {
 
 const getDataVideo = async () => {
   try {
-    return await DataVideo.collection.find({}).sort({ Date: -1 }).exec();
+    return await DataVideo.collection.find().sort({ Date: -1 }).toArray();
   } catch (error) {
     throw new Error(error);
   }
