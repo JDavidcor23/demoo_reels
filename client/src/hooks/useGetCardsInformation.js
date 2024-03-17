@@ -48,9 +48,9 @@ export const useGetCardsInformation = () => {
     if (socket) {
       dispatch(setLoaderSocket(true));
       socket.emit("getDBDemoReelsByUserId", id);
+      dispatch(setDataVideoSlice([]));
       socket.on("getDemoReelsByUserId", (data) => {
         dispatch(setLoaderSocket(false));
-        dispatch(setDataVideoSlice([]));
         dispatch(setDataVideoSlice(data));
       });
     }
