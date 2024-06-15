@@ -9,11 +9,11 @@ export const Designers = () => {
   const { socket, dataVideo, dataRender, totalPages } = useSocketIo(
     import.meta.env.VITE_BACKEND
   );
-   const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
-   const handlePageChange = (newPage) => {
-     setCurrentPage(newPage);
-   };
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
   const { functionsCardsInformation, loaderSocket } = useGetCardsInformation();
 
@@ -83,11 +83,13 @@ export const Designers = () => {
                   />
                 ))}
           </div>
-          <Paginator
-            totalPages={totalPages?.totalPagesImage}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-          />
+          {!loaderSocket && dataRender?.length !== 0 && (
+            <Paginator
+              totalPages={totalPages?.totalPagesImage}
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+            />
+          )}
         </div>
       </div>
     </div>
