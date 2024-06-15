@@ -8,6 +8,8 @@ export const useSocketIo = (url) => {
 
   const dataVideo = useSelector((state) => state.dataVideo.data);
 
+  const totalPages = useSelector((state) => state.totalPages);
+
   const dataRender = useSelector((state) => state.dataRender.data);
 
   useEffect(() => {
@@ -15,5 +17,5 @@ export const useSocketIo = (url) => {
     setSocket(newSocket);
   }, [url]);
 
-  return { socket, dataVideo, dataRender };
+  return { socket, dataVideo, dataRender, totalPages };
 };

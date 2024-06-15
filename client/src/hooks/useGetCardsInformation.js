@@ -2,16 +2,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { setDataVideoSlice } from "../store/slices/dataVideo";
 import { setDataRenderSlice } from "../store/slices/dataRender";
 import { setLoaderSocket } from "../store/slices/loaderSocket";
+import { setTotalPagesSlice } from "../store/slices/totalPages";
 
 export const useGetCardsInformation = () => {
   const dispatch = useDispatch();
 
   const loaderSocket = useSelector((state) => state.loaderSocket.state);
 
-  const getRender = (socket) => {
+  const getRender = (socket, limit, offset) => {
     if (socket) {
+      const data = { limit, offset };
       dispatch(setLoaderSocket(true));
-      socket.emit("getDBRenders");
+      socket.emit("getDBRenders", data);
       socket.on("getRenders", (data) => {
         dispatch(setLoaderSocket(false));
         dispatch(setDataRenderSlice([]));
@@ -20,10 +22,11 @@ export const useGetCardsInformation = () => {
     }
   };
 
-  const getDemoReel = (socket) => {
+  const getDemoReel = (socket, limit, offset) => {
     if (socket) {
+      const data = { limit, offset };
       dispatch(setLoaderSocket(true));
-      socket.emit("getDBDemoReels");
+      socket.emit("getDBDemoReels", data);
       dispatch(setDataVideoSlice([]));
       socket.on("getDemoReels", (data) => {
         dispatch(setLoaderSocket(false));
@@ -56,11 +59,26 @@ export const useGetCardsInformation = () => {
     }
   };
 
+  const getCalculateTotalPagesDataRender = (socket, limit) => {
+    if (socket) {
+      socket.emit("calculateTotalPagesDataRender", limit);
+      socket.on("totalPages", (totalPages) => {
+        dispatch(
+          setTotalPagesSlice({
+            totalPagesImage: totalPages,
+            totalPagesVideo: 0,
+          })
+        );
+      });
+    }
+  };
+
   const functionsCardsInformation = {
     getRender,
     getDemoReel,
     getRenderByUserId,
     getDemoReelByUserId,
+    getCalculateTotalPagesDataRender,
   };
 
   return { functionsCardsInformation, loaderSocket };

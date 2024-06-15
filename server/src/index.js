@@ -1,20 +1,21 @@
 const http = require("http");
 const express = require("express");
 const {
+  login,
   signup,
-  getDataRender,
-  getDataVideo,
-  addDemoReel,
+  getUser,
   addRender,
-  deleteRender,
+  editProfile,
+  addDemoReel,
   deleteVideo,
   updateVideo,
   updateRender,
-  login,
-  editProfile,
-  getDataRenderByUserId,
-  getUser,
+  getDataVideo,
+  deleteRender,
+  getDataRender,
   getDemoReelByUserId,
+  getDataRenderByUserId,
+  calculateTotalPagesDataRender,
 } = require("./functions/index.js");
 const { verifyToken } = require("./functions/jwt/index.js");
 const { returnError } = require("./helpers/errorCode.js");
@@ -70,11 +71,20 @@ io.on("connection", async (socket) => {
       socket.emit("error", error.message);
     }
   });
-
-  socket.on("getDBRenders", async () => {
+  
+  socket.on("calculateTotalPagesDataRender", async (limit) => {
     try {
-      const data = await getDataRender();
-      socket.emit("getRenders", data);
+      const totalPages = await calculateTotalPagesDataRender(limit);
+      socket.emit("totalPages", totalPages);
+    } catch (error) {
+      socket.emit("error", error.message);
+    }
+  });
+
+  socket.on("getDBRenders", async (data) => {
+    try {
+      const renders = await getDataRender(data.limit, data.offset);
+      socket.emit("getRenders", renders);
     } catch (error) {
       socket.emit("error", error.message);
     }

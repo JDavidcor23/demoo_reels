@@ -4,6 +4,7 @@ import infoUser from "./slices/infoUser";
 import dataVideo from "./slices/dataVideo";
 import editSlice from "./slices/editSlice";
 import IsLoggedIn from "./slices/IsLoggedIn";
+import totalPages from "./slices/totalPages";
 import dataRender from "./slices/dataRender";
 import loaderSocket from "./slices/loaderSocket";
 import loaderButtons from "./slices/loaderButtons";
@@ -18,6 +19,7 @@ export default configureStore({
     infoUser,
     dataVideo,
     editSlice,
+    totalPages,
     dataRender,
     IsLoggedIn,
     loaderSocket,

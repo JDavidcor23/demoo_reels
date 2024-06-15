@@ -4,6 +4,7 @@ export * from "./useAuth";
 export * from "./useCards";
 export * from "./useFormData";
 export * from "./useSocketIo";
+export * from "./usePaginator";
 export * from "./useUpdateUser";
 export * from "./useErrorSocket";
 export * from "./useProfileInfo";

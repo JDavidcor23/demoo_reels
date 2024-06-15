@@ -23,9 +23,25 @@ const addRender = (data) => {
   }
 };
 
-const getDataRender = async () => {
+const calculateTotalPagesDataRender = async (limit) => {
   try {
-    return await DataRender.find().sort({ Date: -1 }).exec();
+    const totalDocuments = await DataRender.countDocuments();
+    const totalPages = Math.ceil(totalDocuments / limit);
+    return totalPages;
+  } catch (error) {
+    throw new Error(`Error counting DataRender documents: ${error.message}`);
+  }
+};
+
+const getDataRender = async (limit, page) => {
+  try {
+    const offset = limit * page;
+    const data = await DataRender.find()
+      .sort({ Date: -1 })
+      .skip(offset)
+      .limit(limit)
+      .exec();
+    return data;
   } catch (error) {
     throw new Error(error);
   }
@@ -206,17 +222,18 @@ const editProfile = async (data) => {
 
 module.exports = {
   login,
-  getUser,
   signup,
+  getUser,
   addRender,
-  editProfile,
   deleteVideo,
   addDemoReel,
-  deleteRender,
+  editProfile,
   updateVideo,
   updateRender,
   getDataVideo,
+  deleteRender,
   getDataRender,
   getDemoReelByUserId,
   getDataRenderByUserId,
+  calculateTotalPagesDataRender,
 };
